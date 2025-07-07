@@ -43,6 +43,7 @@ class User(AbstractUser):
     phone = models.CharField(max_length=11, unique=True)
     region = models.CharField(max_length=20, choices=RegionChoices.choices, blank=False, null=False)
     userType = models.CharField(max_length=10, choices=UserType.choices, default=UserType.CUSTOMER)
+    introduction = models.TextField(max_length=200)
     idImage = models.ImageField(upload_to=upload_image_path, blank=True, null=True)
     profileImage = models.ImageField(upload_to=upload_image_path, blank=True, null=True)
     isVerified = models.BooleanField(default=False)

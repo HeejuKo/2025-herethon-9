@@ -4,8 +4,10 @@ from .models import Matching
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
-
 User = get_user_model()
+
+def main(request):
+    return render(request, 'matching/main.html')
 
 @csrf_exempt
 # @login_required

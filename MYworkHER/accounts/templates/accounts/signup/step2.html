@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>성별을 인증해주세요!</h2>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <img src="" alt="camera icon" />
+      <p>
+        글자가 잘 인식되도록 신분증 이미지<br />(주민등록증, 운전면허증)를
+        업로드해 주세요!
+      </p>
+      <input type="file" name="id_image" accept="image/*" /><br />
+      <a href="{% url 'accounts:signup_step1' %}">이전</a>
+      <button type="submit">확인</button>
+    </form>
+  </body>
+</html>

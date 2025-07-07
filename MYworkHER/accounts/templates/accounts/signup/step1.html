@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form method="POST">
+      {% csrf_token %} {{ form.non_field_errors }}
+
+      <div>
+        ID<br />
+        {{ form.username }} {{ form.username.errors }}
+      </div>
+
+      <div>
+        Password<br />
+        {{ form.password1 }} {{ form.password1.errors }} <br />
+        {{ form.password2 }} {{ form.password2.errors }}
+      </div>
+
+      <div>
+        연락처 {{ form.phone }} {{ form.phone.errors }} <br />
+        {{ form.email }} {{ form.email.errors }}
+      </div>
+
+      <button type="submit">확인</button>
+    </form>
+  </body>
+</html>

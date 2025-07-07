@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>어떤 목적으로 가입하셨는지 알려주세요!</h2>
+    <form method="POST">
+      {% csrf_token %}
+      <input type="radio" id="customer" name="user_type" value="CUSTOMER" />
+      <label for="customer">
+        <img src="" alt="고객으로 왔어요" />
+      </label>
+      <input type="radio" id="expert" name="user_type" value="EXPERT" />
+      <label for="expert">
+        <img src="" alt="전문가로 왔어요" />
+      </label>
+      {% if error %}
+      <p style="color: red">error!</p>
+      {% endif %}
+      <br />
+      <a href="{% url 'accounts:signup_step1' %}">이전</a>
+      <button type="submit">완료</button>
+    </form>
+  </body>
+</html>

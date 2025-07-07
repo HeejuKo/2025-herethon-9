@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    {% if request.user.profileImage %}
+    <img
+      width="100px"
+      src="{{ request.user.profileImage.url }}"
+      alt="Profile Image"
+    />
+    {% else %}
+    <img
+      width="100px"
+      src="{% static 'img/basic_profile.svg' %}"
+      alt="Default Profile"
+    />
+    {% endif %}
+
+    <!-- 파일 선택을 안 보이게 하고 업로드 버튼, 삭제 버튼 기능 만들어서 넣어주세요 -->
+    <!-- 삭제의 경우, JS로 input의 value를 읽어서 없애주시면 될 것 같아요 -->
+    <!-- 전체 정보 수정 폼 (프로필 이미지 포함) -->
+    <form
+      method="POST"
+      action="{% url 'accounts:mypage_update' %}"
+      enctype="multipart/form-data"
+      class="info-box"
+    >
+      {% csrf_token %}
+      <input type="hidden" name="action" value="update" />
+
+      <label>프로필 이미지:</label>
+      <input type="file" name="upload_image" accept="image/*" /><br />
+
+      <label>닉네임:</label>
+      <input
+        type="text"
+        name="nickname"
+        value="{{ request.user.nickname }}"
+      /><br />
+
+      <label>Phone:</label>
+      <input type="text" name="phone" value="{{ request.user.phone }}" /><br />
+
+      <label>E-mail:</label>
+      <input type="email" name="email" value="{{ request.user.email }}" /><br />
+
+      <label>자기소개:</label>
+      <textarea name="introduction">{{ request.user.introduction }}</textarea
+      ><br />
+
+      <button type="submit">변경사항 저장</button>
+    </form>
+  </body>
+</html>
