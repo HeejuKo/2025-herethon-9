@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'chats',
     'matching',
     'reviews',
+    'experts',
 ]
 
 MIDDLEWARE = [
