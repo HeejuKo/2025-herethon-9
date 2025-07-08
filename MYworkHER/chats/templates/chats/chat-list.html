@@ -15,8 +15,18 @@
           <li>
             <a href="{% url 'chats:chat_room' item.room.id %}">
               {% if request.user == item.room.expert %}
+                {% if item.room.customer.profileImage %}
+                  <img src="{{ item.room.customer.profileImage.url }}" width="30px" />
+                {% else %}
+                  <img src="{% static 'img/basic_profile.svg' %}" width="30px" />
+                {% endif %}
                 {{ item.room.customer.nickname }}
               {% else %}
+                {% if item.room.expert.profileImage %}
+                  <img src="{{ item.expert.profileImage.url }}" width="30px" />
+                {% else %}
+                  <img src="{% static 'img/basic_profile.svg' %}" width="30px" />
+                {% endif %}
                 {{ item.room.expert.nickname }}
               {% endif %}
 

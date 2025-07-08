@@ -9,11 +9,22 @@
   </head>
   <body>
     <h2>채탕방</h2>
-      <strong>상대: </strong>
     {% if request.user == room.expert %}
+      {% if item.room.customer.profileImage %}
+        <img src="{{ item.customer.profileImage.url }}" width="30px" />
+      {% else %}
+        <img src="{% static 'img/basic_profile.svg' %}" width="30px" />
+      {% endif %}
       {{ room.customer.nickname }}
+      {{ room.customer.intoduction }}
     {% else%}
+      {% if item.room.expert.profileImage %}
+        <img src="{{ item.expert.profileImage.url }}" width="30px" />
+      {% else %}
+        <img src="{% static 'img/basic_profile.svg' %}" width="30px" />
+      {% endif %}
       {{ room.expert.nickname }}
+      {{ room.expert.intoduction }}
     {% endif %}
     <a href="{% url 'chats:chat_list' %}">채팅 목록으로</a>
     <div
