@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>{{ user.username }} ({{ user.nickname }})</h2>
+
+    <p><strong>이메일:</strong> {{ user.email }}</p>
+    <p><strong>연락처:</strong> {{ user.phone }}</p>
+
+    <h3>신분증 이미지</h3>
+    {% if user.idImage %}
+      <img src="{{ user.idImage.url }}" alt="신분증 이미지" width="300px" />
+    {% else %}
+      <p>신분증 이미지 없음</p>
+    {% endif %}
+
+    <form method="POST" style="margin-top: 20px;">
+      {% csrf_token %}
+      <button type="submit" name="action" value="toggle_verified">
+        {% if user.isVerified %}❌ 인증 해제{% else %}✅ 인증 승인{% endif %}
+      </button>
+      <button type="submit" name="action" value="delete_user" onclick="return confirm('정말 삭제하시겠습니까?');">
+        🗑️ 강제 탈퇴
+      </button>
+    </form>
+
+    <p><a href="{% url 'myadmin:user_list' %}">← 목록으로</a></p>
+</body>
+</html>
