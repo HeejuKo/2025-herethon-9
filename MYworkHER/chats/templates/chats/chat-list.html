@@ -9,34 +9,31 @@
   <body>
     <h2>채팅 목록</h2>
 
-    {% if rooms %}
-    <ul>
-      {% for room in rooms %}
-      <li>
-        <a href="{% url 'chats:chat_room' room.id %}">
-          {% if request.user == room.expert %}
-            <strong>{{ room.customer.nickname }}</strong>
-          {% else%}
-            <strong>{{ room.expert.nickname }}</strong>
-          {% endif %}
+    {% if room_data %}
+      <ul>
+        {% for item in room_data %}
+          <li>
+            <a href="{% url 'chats:chat_room' item.room.id %}">
+              {% if request.user == item.room.expert %}
+                {{ item.room.customer.nickname }}
+              {% else %}
+                {{ item.room.expert.nickname }}
+              {% endif %}
 
-          {% with room.messages.last as last_msg %}
-            {% if last_msg %}
-              {{ last_msg.content|truncatechars:30 }}
-            {% else %}
-              <em>메시지가 없습니다.</em>
-            {% endif %}
-        </a>
-        <small>{{ last_msg.created_at|date:"n월 j일 H:i" }}</small>
-        {% endwith %}
-      </li>
-      <hr />
-      {% endfor %}
-    </ul>
+              {% if item.unread_count > 0 %}
+                <span class="badge">{{ item.unread_count }}</span>
+              {% endif %}
+              <br />
+              {{ item.last_msg.content|truncatechars:30 }}
+            </a>
+            <small>{{ item.last_msg.created_at|date:"n월 j일 H:i" }}</small>
+          </li>
+        {% endfor %}
+      </ul>
     {% else %}
-    <p>아직 진행 중인 1:1 상담 내역이 없어요!</p>
-    <a href="#">카테고리 둘러보기 ></a>
-    <a href="{% url 'experts:expert_list' %}">전문가 찾기 ></a>
+      <p>아직 진행 중인 1:1 상담 내역이 없어요!</p>
+      <a href="#">카테고리 둘러보기 ></a>
+      <a href="{% url 'experts:expert_list' %}">전문가 찾기 ></a>
     {% endif %}
   </body>
 </html>
