@@ -10,7 +10,7 @@
     <img src="{{ expert.profile_image.url }}" alt="프로필 사진">
     <h2>{{ expert.username }} 전문가</h2>
 
-    <p>카테고리 ({{ expert.expert_profile.category|default:'미등록' }})</p>
+    <p>카테고리 ({{ category_display }})</p>
 
     <div>
       <a href="{% url 'matching:create-matching' %}?expert_id={{ expert.id }}">예약하러 가기</a>

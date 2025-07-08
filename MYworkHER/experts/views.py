@@ -38,7 +38,11 @@ def expert_detail(request, expert_id):
         date__month=today.month
     ).count()
 
+    # 카테고리를 한글로 출력
+    category_display = expert.expert_profile.get_category_display() if expert.expert_profile.category else "미등록"
+
     return render(request, 'experts/expert_detail.html', {
         'expert' : expert,
+        'category_display' : category_display,
         'reservation_count' : monthly_reservation_count
     })
