@@ -1,0 +1,8 @@
+from django.urls import path
+from .views import *
+
+app_name = 'experts'
+
+urlpatterns = [
+    path('<int:expert_id>/', expert_detail, name='expert_detail'),
+]

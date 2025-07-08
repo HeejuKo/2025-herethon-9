@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>{{ expert.user.nickname }} 전문가 프로필</h2>
+
+    <p>카테고리: {{ expert.get_category_display }}</p>
+    <p>지역: {{ expert.user.region }}</p>
+    <p>경력: {{ expert.experience }}년</p>
+    <p>자기소개: {{ expert.bio }}</p>
+    <p>업무 설명: {{ expert.description }}</p>
+    <p>
+        {% if expert.badge == "VERIFIED" %}
+            인증배지 보유
+        {% else %}
+            미인증
+        {% endif %}
+    </p>
+    <p>이번달 예약: {{ expert.monthly_matching_count }}건</p>
+
+
+  </body>
+</html>
