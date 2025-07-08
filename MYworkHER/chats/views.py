@@ -1,9 +1,34 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import ChatRoom, ChatMessage
+from django.db.models import Q
+from .models import *
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
+
+@login_required
+def chat_list(request):
+    user = request.user
+
+    rooms = ChatRoom.objects.filter(Q(customer=user) | Q(expert=user)).prefetch_related('messages')
+
+    room_data = []
+
+    for room in rooms:
+        last_msg = room.messages.last()
+        unread_count = room.messages.filter(is_read=False).exclude(sender=user).count()
+        last_activity = last_msg.created_at if last_msg else room.created_at
+
+        room_data.append({
+            'room': room,
+            'last_msg': last_msg,
+            'unread_count': unread_count,
+            'last_activity': last_activity,
+        })
+        
+    room_data.sort(key=lambda x: x['last_activity'], reverse=True)
+
+    return render(request, 'chats/chat-list.html', {'room_data': room_data})
 
 @login_required
 def chat_request(request, expert_id):
@@ -25,20 +50,20 @@ def chat_room(request, room_id):
 
     if request.user != room.customer and request.user != room.expert:
         return redirect('chats:chat_list')
-
+    
     if request.method == 'POST':
         content = request.POST.get('content')
         if content:
-            ChatMessage.objects.create(room=room, sender=request.user, content=content)
-            return redirect('chats:chat_room', room_id=room.id)
+            ChatMessage.objects.create(
+                room=room,
+                sender=request.user,
+                content=content
+            )
+        return redirect('chats:chat_room', room_id=room.id)
+
+    # 본인이 아닌 사람이 보낸 읽지 않은 메시지들을 읽음 처리
+    room.messages.filter(is_read=False).exclude(sender=request.user).update(is_read=True)
 
     messages = room.messages.order_by('created_at')
 
     return render(request, 'chats/chat-room.html', {'room': room, 'messages': messages})
-
-@login_required
-def chat_list(request):
-    rooms = ChatRoom.objects.filter(customer=request.user) | ChatRoom.objects.filter(expert=request.user)
-    rooms = rooms.order_by('-created_at')
-
-    return render(request, 'chats/chat-list.html', {'rooms': rooms})
