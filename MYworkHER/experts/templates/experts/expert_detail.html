@@ -14,7 +14,7 @@
 
     <div>
       <a href="{% url 'matching:create-matching' %}?expert_id={{ expert.id }}">예약하러 가기</a>
-      <a href="#">1:1 상담하기 &gt;</a>
+      <a href="{% url 'chats:chat_request' expert.id %}">1:1 상담하기 &gt;</a>
     </div>
 
     <div>

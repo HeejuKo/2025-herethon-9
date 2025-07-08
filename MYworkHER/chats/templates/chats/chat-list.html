@@ -27,7 +27,7 @@
               <em>메시지가 없습니다.</em>
             {% endif %}
         </a>
-        <small>{{ last_msg.created_at|date:"Y-m-d H:i" }}</small>
+        <small>{{ last_msg.created_at|date:"n월 j일 H:i" }}</small>
         {% endwith %}
       </li>
       <hr />

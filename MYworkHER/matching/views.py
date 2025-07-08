@@ -8,8 +8,7 @@ from django.contrib.auth.decorators import login_required
 User = get_user_model()
 
 def main(request):
-    expert = User.objects.get(id=3)
-    return render(request, 'matching/main.html', {'expert': expert})
+    return render(request, 'matching/main.html')
 
 @login_required
 def create_matching(request):

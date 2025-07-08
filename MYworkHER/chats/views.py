@@ -7,14 +7,17 @@ User = get_user_model()
 
 @login_required
 def chat_request(request, expert_id):
-    customer = request.user
-    expert = get_object_or_404(User, id=expert_id)
+    expert = get_object_or_404(User, id=expert_id, userType='EXPERT')
 
-    # 이미 상담방이 존재하면 사용, 없으면 생성
-    room, created = ChatRoom.objects.get_or_create(customer=customer, expert=expert)
+    if request.user == expert: # 자신과의 채팅은 불가
+        return redirect('matching:main')
+
+    # 이미 존재하는 방이 있는지 확인
+    room = ChatRoom.objects.filter(customer=request.user, expert=expert).first()
+    if not room:
+        room = ChatRoom.objects.create(customer=request.user, expert=expert)
 
     return redirect('chats:chat_room', room_id=room.id)
-
 
 @login_required
 def chat_room(request, room_id):

@@ -1,3 +1,4 @@
+{% load time_filters %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -7,16 +8,14 @@
     <title>Document</title>
   </head>
   <body>
-    <h2>상담방</h2>
-    <p>
+    <h2>채탕방</h2>
       <strong>상대: </strong>
-      {% if request.user == room.expert %}
-        {{ room.customer.nickname }}
-      {% else%}
-        {{ room.expert.nickname }}
-      {% endif %}
-    </p>
-
+    {% if request.user == room.expert %}
+      {{ room.customer.nickname }}
+    {% else%}
+      {{ room.expert.nickname }}
+    {% endif %}
+    <a href="{% url 'chats:chat_list' %}">채팅 목록으로</a>
     <div
       style="
         border: 1px solid #ccc;
@@ -30,7 +29,7 @@
       <div style="margin-bottom: 10px">
         <strong>{{ message.sender.nickname }}</strong><br />
         {{ message.content }}<br />
-        <small>{{ message.created_at|date:"Y-m-d H:i" }}</small>
+        <small>{{ message.created_at|format_korean_datetime }}</small>
       </div>
       {% empty %}
       <p>아직 메시지가 없습니다.</p>
@@ -45,11 +44,8 @@
         cols="70"
         placeholder="메시지를 입력하세요"
         required
-      ></textarea
-      ><br />
+      ></textarea>
       <button type="submit">전송</button>
     </form>
-    <br />
-    <a href="{% url 'chats:chat_list' %}">채팅 목록으로</a>
   </body>
 </html>
