@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>프로필 정보를 설정해 주세요!</h2>
+    <form method="POST">
+      {% csrf_token %}
+
+      <label for="id_nickname">닉네임</label>
+      {{ form.nickname }} {{ form.nickname.errors }}
+      <br />
+
+      <label for="id_introduction">자기소개</label>
+      {{ form.introduction }} {{ form.introduction.errors }}
+      <br />
+
+      <button type="submit">완료</button>
+    </form>
+  </body>
+</html>

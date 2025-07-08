@@ -1,15 +1,19 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib.auth import get_user_model
+
+from accounts.models import UserType
 from .models import Matching
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
-
 
 User = get_user_model()
 
-@csrf_exempt
-# @login_required
+def main(request):
+    return render(request, 'matching/main.html')
+
+@login_required
 def create_matching(request):
+    experts = User.objects.filter(userType=UserType.EXPERT)
+
     if request.method == 'POST':
         expert_id = request.POST.get('expert_id')
         date = request.POST.get('date')
@@ -19,7 +23,8 @@ def create_matching(request):
         # 중복 예약 확인
         if Matching.objects.filter(expert_id=expert_id, date=date, time=time).exists():
             return render(request, 'matching/matching.html', {
-                'error': '해당 시간에 이미 예약이 존재합니다.'
+                'error': '해당 시간에 이미 예약이 존재합니다.',
+                'expert' : expert
             })
 
         try:
@@ -28,7 +33,8 @@ def create_matching(request):
             expert = User.objects.get(pk=expert_id)
         except User.DoesNotExist:
             return render(request, 'matching/matching.html', {
-                'error': '존재하지 않는 사용자입니다.'
+                'error': '존재하지 않는 사용자입니다.',
+                'experts': experts
             })
 
         reservation = Matching.objects.create(
@@ -43,7 +49,7 @@ def create_matching(request):
             'reservation': reservation
         })
     
-    return render(request, 'matching/matching.html')
+    return render(request, 'matching/matching.html', {'experts': experts})
 
 
 def matching_success(request):
