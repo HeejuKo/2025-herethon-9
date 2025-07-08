@@ -1,23 +1,38 @@
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+
+from matching.models import Matching
+from accounts.models import User, UserType
 from .models import Expert
 
+
+@login_required
+def expert_list(request):
+    keyword = request.GET.get('keyword', '')
+    experts = User.objects.filter(userType=UserType.EXPERT).select_related('expert_profile')
+
+    if keyword:
+        experts = experts.filter(username__icontains=keyword)
+
+    return render(request, 'experts/expert_list.html', {
+        'experts' : experts,
+        'keyword' : keyword,
+    })
+
+@login_required
 def expert_detail(request, expert_id):
-    expert = get_object_or_404(Expert, pk=expert_id)
+    expert = get_object_or_404(User, id=expert_id, userType=UserType.EXPERT)
 
-    context = {
-        'expert': expert,
-        'nickname' : expert.user.nickname,
-        'category_display' : expert.get_category_display(),
+    # 이번 달 예약 수 (현재 월 기준)
+    from datetime import date
+    today = date.today()
+    monthly_reservation_count = Matching.objects.filter(
+        expert=expert,
+        date__year=today.year,
+        date__month=today.month
+    ).count()
 
-        'bio' : expert.bio,
-        'description' : expert.description,
-
-        'region' : expert.user.region,
-        'experience' : expert.experience,
-        'badge_display' : expert.get_badge_display(),
-        'is_verified' : expert.badge == 'VERIFIED',
-
-        'monthly_reservation' : expert.monthly_matching_count,
-    }
-
-    return render(request, 'experts/expert_detail.html', context)
+    return render(request, 'experts/expert_detail.html', {
+        'expert' : expert,
+        'reservation_count' : monthly_reservation_count
+    })
