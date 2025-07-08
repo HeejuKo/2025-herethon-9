@@ -7,7 +7,8 @@ from django.views.decorators.csrf import csrf_exempt
 User = get_user_model()
 
 def main(request):
-    return render(request, 'matching/main.html')
+    expert = User.objects.get(id=3)
+    return render(request, 'matching/main.html', {'expert': expert})
 
 @csrf_exempt
 # @login_required

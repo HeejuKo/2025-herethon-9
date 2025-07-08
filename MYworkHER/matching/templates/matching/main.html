@@ -14,5 +14,10 @@
     <a href="{% url 'accounts:login' %}">로그인</a>
     <a href="{% url 'accounts:signup_step1' %}">회원가입</a>
     {% endif %}
+    <hr />
+    <form action="{% url 'chats:chat_request' expert.id %}" method="POST">
+      {% csrf_token %}
+      <button type="submit">1:1 상담 요청하기</button>
+    </form>
   </body>
 </html>

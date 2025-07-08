@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>상담방</h2>
+    <p>
+      <strong>상대: </strong>
+      {% if request.user == room.expert %}
+        {{ room.customer.nickname }}
+      {% else%}
+        {{ room.expert.nickname }}
+      {% endif %}
+    </p>
+
+    <div
+      style="
+        border: 1px solid #ccc;
+        padding: 10px;
+        height: 300px;
+        overflow-y: auto;
+        margin-bottom: 15px;
+      "
+    >
+      {% for message in messages %}
+      <div style="margin-bottom: 10px">
+        <strong>{{ message.sender.nickname }}</strong><br />
+        {{ message.content }}<br />
+        <small>{{ message.created_at|date:"Y-m-d H:i" }}</small>
+      </div>
+      {% empty %}
+      <p>아직 메시지가 없습니다.</p>
+      {% endfor %}
+    </div>
+
+    <form method="POST">
+      {% csrf_token %}
+      <textarea
+        name="content"
+        rows="3"
+        cols="70"
+        placeholder="메시지를 입력하세요"
+        required
+      ></textarea
+      ><br />
+      <button type="submit">전송</button>
+    </form>
+    <br />
+    <a href="{% url 'chats:chat_list' %}">채팅 목록으로</a>
+  </body>
+</html>

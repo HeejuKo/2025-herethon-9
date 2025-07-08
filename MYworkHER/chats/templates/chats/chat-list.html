@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>채팅 목록</h2>
+
+    {% if rooms %}
+    <ul>
+      {% for room in rooms %}
+      <li>
+        <a href="{% url 'chats:chat_room' room.id %}">
+          {% if request.user == room.expert %}
+            <strong>{{ room.customer.nickname }}</strong>
+          {% else%}
+            <strong>{{ room.expert.nickname }}</strong>
+          {% endif %}
+
+          {% with room.messages.last as last_msg %}
+            {% if last_msg %}
+              {{ last_msg.content|truncatechars:30 }}
+            {% else %}
+              <em>메시지가 없습니다.</em>
+            {% endif %}
+        </a>
+        <small>{{ last_msg.created_at|date:"Y-m-d H:i" }}</small>
+        {% endwith %}
+      </li>
+      <hr />
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>아직 진행 중인 1:1 상담 내역이 없어요!</p>
+    {% endif %}
+  </body>
+</html>

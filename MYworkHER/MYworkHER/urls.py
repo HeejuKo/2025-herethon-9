@@ -22,6 +22,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('matching/', include('matching.urls')),
-    path('', include('matching.urls')),
     path('accounts/', include('accounts.urls')),
+    path('chats/', include('chats.urls')),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT) # 이미지 업로드를 위한 설정 추가

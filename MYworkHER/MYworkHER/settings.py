@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'accounts',
     'chats',
     'matching',
-    'reviews',
 ]
 
 MIDDLEWARE = [
