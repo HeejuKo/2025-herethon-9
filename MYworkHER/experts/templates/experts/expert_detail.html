@@ -6,22 +6,31 @@
     <title>Document</title>
   </head>
   <body>
-    <h2>{{ expert.user.nickname }} 전문가 프로필</h2>
+    <div style="text-align: center;">
+    <img src="{{ expert.profile_image.url }}" alt="프로필 사진">
+    <h2>{{ expert.username }} 전문가</h2>
 
-    <p>카테고리: {{ expert.get_category_display }}</p>
-    <p>지역: {{ expert.user.region }}</p>
-    <p>경력: {{ expert.experience }}년</p>
-    <p>자기소개: {{ expert.bio }}</p>
-    <p>업무 설명: {{ expert.description }}</p>
-    <p>
-        {% if expert.badge == "VERIFIED" %}
-            인증배지 보유
-        {% else %}
-            미인증
-        {% endif %}
-    </p>
-    <p>이번달 예약: {{ expert.monthly_matching_count }}건</p>
+    <p>카테고리 ({{ expert.expert_profile.category|default:'미등록' }})</p>
 
+    <div>
+      <a href="{% url 'matching:create-matching' %}?expert_id={{ expert.id }}">예약하러 가기</a>
+      <a href="#">1:1 상담하기 &gt;</a>
+    </div>
+
+    <div>
+      <p>{{ expert.expert_profile.intro|default:"한줄소개 미등록" }}</p>
+      <p>{{ expert.expert_profile.description|default:"업무설명 미등록" }}</p>
+    </div>
+
+    <div>
+      <div>📍 위치: {{ expert.expert_profile.location|default:"미등록" }}</div>
+      <div>🧰 경력: {{ expert.expert_profile.career|default:"미등록" }}</div>
+      <div>인증배지: {% if expert.expert_profile.verified %}인증됨{% else %}미인증{% endif %}</div>
+    </div>
+
+    <div>
+      <strong>이번달 예약 <span>{{ reservation_count }}건</span></strong>
+    </div>
 
   </body>
 </html>
