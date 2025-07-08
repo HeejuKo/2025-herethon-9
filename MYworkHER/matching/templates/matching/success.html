@@ -5,5 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body>예약 성공</body>
+  <body>
+    <h1>예약이 완료되었습니다!</h1>
+    <p>예약자: {{ reservation.customer.username }}</p>
+    <p>전문가: {{ reservation.expert.username }}</p>
+    <p>날짜: {{ reservation.date }}</p>
+    <p>시간: {{ reservation.time }}</p>
+    <p>메모: {{ reservation.notes }}</p>
+
+    <a href="{% url 'matching:main' %}">메인으로 돌아가기</a>
+  </body>
 </html>
