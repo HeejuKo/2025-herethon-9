@@ -25,4 +25,5 @@ urlpatterns = [
     path('experts/', include('experts.urls')),
     path('accounts/', include('accounts.urls')),
     path('chats/', include('chats.urls')),
+    path('secret-admin/', include('myadmin.urls')),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT) # 이미지 업로드를 위한 설정 추가

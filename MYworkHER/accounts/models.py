@@ -6,6 +6,7 @@ from uuid import uuid4
 class UserType(models.TextChoices):
     CUSTOMER = 'CUSTOMER', '고객'
     EXPERT = 'EXPERT', '전문가'
+    ADMIN = 'ADMIN', '관리자'
 
 class RegionChoices(models.TextChoices):
     GANGNAM = 'Gangnam-gu', '강남구'
