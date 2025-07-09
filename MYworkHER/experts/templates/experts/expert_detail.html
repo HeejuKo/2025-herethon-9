@@ -10,7 +10,7 @@
     <img src="{{ expert.profile_image.url }}" alt="프로필 사진">
     <h2>{{ expert.username }} 전문가</h2>
 
-    <p>카테고리 ({{ expert.expert_profile.category|default:'미등록' }})</p>
+    <p>카테고리 ({{ category_display }})</p>
 
     <div>
       <a href="{% url 'matching:create-matching' %}?expert_id={{ expert.id }}">예약하러 가기</a>
@@ -18,16 +18,16 @@
     </div>
 
     <div>
-      <p>{{ expert.expert_profile.intro|default:"한줄소개 미등록" }}</p>
+      <p>{{ expert.expert_profile.bio|default:"한줄소개 미등록" }}</p>
       <p>{{ expert.expert_profile.description|default:"업무설명 미등록" }}</p>
     </div>
 
     <div>
-      <div>📍 위치: {{ expert.expert_profile.location|default:"미등록" }}</div>
-      <div>🧰 경력: {{ expert.expert_profile.career|default:"미등록" }}</div>
+      <div>📍 위치: {{ region_display |default:"미등록" }}</div>
+      <div>🧰 경력: {{ expert.expert_profile.experience|default:"미등록" }} 년</div>
       <div>인증배지: {% if expert.expert_profile.verified %}인증됨{% else %}미인증{% endif %}</div>
     </div>
-
+    
     <div>
       <strong>이번달 예약 <span>{{ reservation_count }}건</span></strong>
     </div>
