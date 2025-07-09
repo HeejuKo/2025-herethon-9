@@ -17,19 +17,46 @@
     <hr>
 
     <div class="matching-info">
-        <h3>01 예약 일자</h3>
-        <p>{{ matching.date}}</p>
+      <h3>01 가능한 예약 일자</h3>
+      <ul>
+        {% for m in date_matchings %}
+          {% if matching_id == 0 %}
+            <li>{{ m }}</li>  {# 문자열 출력 #}
+          {% else %}
+            <li>{{ m.date|date:"Y년 m월 d일" }}</li>  {# 모델 필드 출력 #}
+          {% endif %}
+        {% empty %}
+          <li>선택된 날짜가 없습니다.</li>
+        {% endfor %}
+      </ul>
 
-        <h3>02 예약 시간</h3>
-        <p>{{ matching.time}}</p>
+      <h3>02 예약 시간</h3>
+      <ul>
+        {% for m in time_matchings %}
+          {% if matching_id == 0 %}
+            <li>{{ m }}</li>
+          {% else %}
+            <li>{{ m.time|time:"H:i" }}</li>
+          {% endif %}
+        {% empty %}
+          <li>선택된 시간이 없습니다.</li>
+        {% endfor %}
+      </ul>
+
 
         <h3>03 요청 사항</h3>
-        <p>{{ matching.notes|linebreaksbr }}</p>
+        <p>{{ notes|linebreaksbr }}</p>
     </div>
 
     <div class="actions">
-        <a href="{% url 'matching:edit-matching' matching.id %}" class="btn btn-secondary">수정하기</a>
-        <a href="{% url 'matching:matching-success' matching.id %}" class="btn btn-primary">예약확정</a>
+      {% if matching_id == 0 %}
+        <a href="{% url 'matching:edit-matching' 0 %}" class="btn btn-secondary">수정하기</a>
+        <a href="{% url 'matching:matching-success' 0 %}" class="btn btn-primary">예약신청</a>
+      {% else %}
+        <!-- 기존 예약 확인 -->
+      {% endif %}
+    </div>
+
     </div>
   </body>
 </html>
