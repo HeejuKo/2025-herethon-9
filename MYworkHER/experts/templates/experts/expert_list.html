@@ -28,6 +28,14 @@
             <label><input type="checkbox" name="experience" value="3" {% if '3' in selected_experience %}checked{% endif %}> 3년 이상~5년 미만</label>
             <label><input type="checkbox" name="experience" value="5" {% if '5' in selected_experience %}checked{% endif %}> 5년 이상</label>
         </div>
+
+        <div>
+            <label>
+                <input type="checkbox" name="badge" value="true" {% if badge %}checked{% endif %}>
+                인증배지 보유
+            </label>
+        </div>
+        
     </form>
 
     <script>
