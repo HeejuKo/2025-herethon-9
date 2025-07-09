@@ -12,6 +12,11 @@
       {% for user in users %}
         <li>
           <a href="{% url 'myadmin:user_detail' user.id %}">
+            {% if user.isVerified %}
+              인증 완료 | 
+            {% else %}
+              인증 대기 | 
+            {% endif %}
             {{ user.username }} ({{ user.nickname }})
           </a>
         </li>

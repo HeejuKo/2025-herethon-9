@@ -21,13 +21,23 @@
     <form method="POST" style="margin-top: 20px;">
       {% csrf_token %}
       <button type="submit" name="action" value="toggle_verified">
-        {% if user.isVerified %}❌ 인증 해제{% else %}✅ 인증 승인{% endif %}
+        {% if user.isVerified %}
+          인증 해제
+        {% else %}
+          인증 승인
+        {% endif %}
       </button>
       <button type="submit" name="action" value="delete_user" onclick="return confirm('정말 삭제하시겠습니까?');">
-        🗑️ 강제 탈퇴
+        강제 탈퇴
       </button>
     </form>
 
-    <p><a href="{% url 'myadmin:user_list' %}">← 목록으로</a></p>
+    {% if prev_user %}
+      <a href="{% url 'myadmin:user_detail' prev_user.id %}">이전</a>
+    {% endif %}
+    <a href="{% url 'myadmin:user_list' %}">목록으로</a>
+    {% if next_user %}
+      <a href="{% url 'myadmin:user_detail' next_user.id %}">다음</a>
+    {% endif %}
 </body>
 </html>

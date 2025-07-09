@@ -18,6 +18,14 @@ def user_list(request):
 def user_detail(request, user_id):
     user = get_object_or_404(User, id=user_id)
 
+    users = list(User.objects.exclude(
+        Q(userType='ADMIN') | Q(username='admin')
+    ))
+
+    idx = next((i for i, u in enumerate(users) if u.id == user.id), None)
+    prev_user = users[idx - 1] if idx is not None and idx > 0 else None
+    next_user = users[idx + 1] if idx is not None and idx < len(users) - 1 else None
+
     if request.method == 'POST':
         action = request.POST.get('action')
         if action == 'toggle_verified':
@@ -29,4 +37,4 @@ def user_detail(request, user_id):
             messages.success(request, '유저를 삭제했습니다.')
             return redirect('myadmin:user_list')
 
-    return render(request, 'myadmin/user_detail.html', {'user': user})
+    return render(request, 'myadmin/user_detail.html', {'user': user, 'prev_user': prev_user, 'next_user': next_user})
