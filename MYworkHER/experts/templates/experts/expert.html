@@ -10,7 +10,8 @@
   <form id="expert-filter-form" method="get">
     <input type="text" name="keyword" value="{{ keyword }}" placeholder="전문가명, 한줄소개, 키워드 검색">
     <button type="submit">검색</button>
-    <button type="button" onclick="location.href='/experts/category/'">카테고리로 찾기</button>
+    <a href="{% url 'experts:category_list' %}">카테고리로 찾기</a>
+
 
     <div>
       <strong>지역</strong><br>
