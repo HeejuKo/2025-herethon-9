@@ -18,8 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from matching.views import main
 
 urlpatterns = [
+    path('', main, name='name'),
     path('admin/', admin.site.urls),
     path('matching/', include('matching.urls')),
     path('experts/', include('experts.urls')),
