@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>전문가 리스트</title>
+</head>
+<body>
+
+  <div>
+    <span>{{ category_label }} > {{ subcategory_label }}</span> 에 해당하는 
+    <strong>{{ total_count }}</strong> 명의 전문가가 있습니다.
+  </div>
+
+  <form id="expert-filter-form" method="get">
+    <input type="hidden" name="category" value="{{ request.GET.category }}">
+    <input type="hidden" name="subcategory" value="{{ request.GET.subcategory }}">
+
+    <div>
+      <strong>지역</strong><br>
+      {% for region in region_list %}
+        <label>
+          <input type="checkbox" name="region" value="{{ region }}" {% if region in selected_region %}checked{% endif %}>
+          {{ region }}
+        </label>
+      {% endfor %}
+    </div>
+
+    <div>
+      <strong>경력</strong><br>
+      <label><input type="checkbox" name="experience" value="0" {% if '0' in selected_experience %}checked{% endif %}> 1년 미만</label>
+      <label><input type="checkbox" name="experience" value="1" {% if '1' in selected_experience %}checked{% endif %}> 1년~3년</label>
+      <label><input type="checkbox" name="experience" value="3" {% if '3' in selected_experience %}checked{% endif %}> 3년~5년</label>
+      <label><input type="checkbox" name="experience" value="5" {% if '5' in selected_experience %}checked{% endif %}> 5년 이상</label>
+    </div>
+
+    <div>
+      <label>
+        <input type="checkbox" name="badge" value="true" {% if badge %}checked{% endif %}>
+        인증배지 보유
+      </label>
+    </div>
+  </form>
+
+  <script>
+    document.querySelectorAll('#expert-filter-form input[type="checkbox"]').forEach(function(checkbox) {
+      checkbox.addEventListener('change', function() {
+        document.getElementById('expert-filter-form').submit();
+      });
+    });
+  </script>
+
+  <!-- 전문가 카드 리스트 -->
+  {% for expert in experts %}
+    <div>
+      <div>
+        <strong>{{ expert.user.nickname }}</strong>
+        {% if expert.badge == 'VERIFIED' %}
+          <span>✔️</span>
+        {% endif %}
+      </div>
+      <div>
+        {{ expert.bio }}
+      </div>
+      <div>
+        {{ expert.description|truncatechars:100 }}
+      </div>
+    </div>
+    <hr>
+  {% empty %}
+    <p>해당 카테고리에 등록된 전문가가 없습니다.</p>
+  {% endfor %}
+
+  <!-- 전체보기 버튼 (예시용) -->
+  <div>
+    {{ total_count }} 개의 결과 전체보기
+  </div>
+
+</body>
+</html>

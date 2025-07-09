@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>전문가 카테고리</title>
+</head>
+<body>
+  {% for key, cat in categories.items %}
+    <div class="category-box" onclick="toggleSub('{{ key }}')">
+      {{ cat.label }}
+    </div>
+    <div id="sub-{{ key }}" class="subcategory-list">
+      {% for sub in cat.subcategories %}
+        <div class="subcategory-item">
+          <a href="{% url 'experts:expert_category' %}?category={{ key }}&subcategory={{ sub.name }}">
+            {{ sub.name }} <span>전문가 {{ sub.count }}명</span>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+
+  <script>
+    function toggleSub(key) {
+      const el = document.getElementById('sub-' + key);
+      el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+    }
+  </script>
+</body>
+</html>
