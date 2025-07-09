@@ -25,6 +25,7 @@ def expert_list(request):
     keyword = request.GET.get('keyword', '')
     region_filters = request.GET.getlist('region')
     experience_filters = request.GET.getlist('experience')
+    badge_filter = request.GET.get('badge')
     experts = User.objects.filter(userType=UserType.EXPERT).select_related('expert_profile')
 
     # 키워드 검색
@@ -61,12 +62,17 @@ def expert_list(request):
             elif e == '5':      # 5년 이상
                 queries |= Q(expert_profile__experience__gte=5)
         experts = experts.filter(queries)
+    
+    # 인증배지 필터링
+    if badge_filter == 'true':
+        experts = experts.filter(expert_profile__badge='VERIFIED')
 
     return render(request, 'experts/expert_list.html', {
         'experts' : experts,
         'keyword' : keyword,
         'selected_region' : region_filters,
         'selected_experience': experience_filters,
+        'badge': badge_filter == 'true',
         'region_list' : [r[1] for r in RegionChoices.choices]  # 지역 필터를 한글 기준으로 전달
     })
 

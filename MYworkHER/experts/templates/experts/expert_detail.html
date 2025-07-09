@@ -25,7 +25,9 @@
     <div>
       <div>📍 위치: {{ region_display |default:"미등록" }}</div>
       <div>🧰 경력: {{ expert.expert_profile.experience|default:"미등록" }} 년</div>
-      <div>인증배지: {% if expert.expert_profile.verified %}인증됨{% else %}미인증{% endif %}</div>
+      {% if expert.expert_profile.badge == 'VERIFIED' %}
+        <span>인증됨</span>
+      {% endif %}
     </div>
     
     <div>
