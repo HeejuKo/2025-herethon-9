@@ -1,56 +1,183 @@
-from django.shortcuts import render
+from datetime import datetime, timedelta
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
 
 from accounts.models import UserType
 from .models import Matching
+from chats.models import ChatRoom
 from django.contrib.auth.decorators import login_required
 
 User = get_user_model()
 
+# 전문가 id를 받아와 예약 진행
+def get_selected_expert(expert_id):
+    try:
+        return User.objects.get(id=expert_id, userType=UserType.EXPERT)
+    except User.DoesNotExist:
+        return None
+    
+def get_available_dates():
+    today = datetime.today()
+    return [(today + timedelta(days=i)).strftime('%Y-%m-%d') for i in range(7)]
+
+def get_available_times():
+    return [f"{hour:02d}:00" for hour in range(9, 21)]  # 09:00 ~ 20:00
+    
 def main(request):
     return render(request, 'matching/main.html')
 
+# 예약 생성
 @login_required
 def create_matching(request):
     experts = User.objects.filter(userType=UserType.EXPERT)
+    selected_expert = None
 
     if request.method == 'POST':
         expert_id = request.POST.get('expert_id')
-        date = request.POST.get('date')
-        time = request.POST.get('time')
+        date_list = request.POST.getlist('dates[]')
+        time_list = request.POST.getlist('times[]')
         notes = request.POST.get('notes', '')
 
-        # 중복 예약 확인
-        if Matching.objects.filter(expert_id=expert_id, date=date, time=time).exists():
-            return render(request, 'matching/matching.html', {
-                'error': '해당 시간에 이미 예약이 존재합니다.',
-                'expert' : expert
-            })
+        selected_expert = get_selected_expert(expert_id)
 
-        try:
-            customer = User.objects.get(pk=10)  # 테스트용 customer 지정
-            # customer = request.user
-            expert = User.objects.get(pk=expert_id)
-        except User.DoesNotExist:
-            return render(request, 'matching/matching.html', {
-                'error': '존재하지 않는 사용자입니다.',
-                'experts': experts
-            })
+        if selected_expert:
+            request.session['temp_matching'] = {
+                'expert_id' : expert_id,
+                'dates' : date_list,
+                'times' : time_list,
+                'notes' : notes
+            }
 
-        reservation = Matching.objects.create(
-            customer=customer,
-            expert=expert,
-            date=date,
-            time=time,
-            notes=notes
-        )
+            return redirect('matching:matching-detail', matching_id=0)
 
-        return render(request, 'matching/success.html', {
-            'reservation': reservation
+    return render(request, 'matching/matching.html', {
+        'experts': experts,
+        'selected_expert': selected_expert,
+        'available_dates': get_available_dates(),
+        'available_times': get_available_times(),
+    })
+
+# 예약 정보 조회
+@login_required
+def matching_detail(request, matching_id):
+    if matching_id == 0:
+        temp = request.session.get('temp_matching')
+        if not temp:
+            return redirect('matching:create-matching')
+
+        expert = get_selected_expert(temp['expert_id'])
+
+        return render(request, 'matching/matching-detail.html', {
+            'expert': expert,
+            'date_matchings': temp['dates'],
+            'time_matchings': temp['times'],
+            'notes': temp['notes'],
+            'matching_id' : 0,
         })
     
-    return render(request, 'matching/matching.html', {'experts': experts})
+    else:
+        matching = get_object_or_404(Matching, id=matching_id)
+        expert = matching.expert
+
+        matching_ids = request.session.pop('matching_ids', [matching.id])
+        all_matchings = Matching.objects.filter(id__in=matching_ids).order_by('date', 'time')
+
+        date_matchings = all_matchings.filter(date__isnull=False, time__isnull=True)
+        time_matchings = all_matchings.filter(time__isnull=False, date__isnull=True)
+        notes = all_matchings.first().notes if all_matchings else ""
+
+        return render(request, 'matching/matching-detail.html', {
+            'expert': expert,
+            'date_matchings': date_matchings,
+            'time_matchings': time_matchings,
+            'notes': notes,
+            'matching_id': matching.id,
+        })
+
+# 예약 수정
+@login_required
+def edit_matching(request, matching_id):
+    experts = User.objects.filter(userType=UserType.EXPERT)
+
+    if request.method == 'POST':
+        # 수정된 값들을 받아 다시 저장
+        expert_id = request.POST.get('expert_id')
+        date_list = request.POST.getlist('dates[]')
+        time_list = request.POST.getlist('times[]')
+        notes = request.POST.get('notes', '')
+
+        selected_expert = get_selected_expert(expert_id)
+
+        if selected_expert:
+            request.session['temp_matching'] = {
+                'expert_id': expert_id,
+                'dates': date_list,
+                'times': time_list,
+                'notes': notes
+            }
+            return redirect('matching:matching-detail', matching_id=0)
+        else:
+            return render(request, 'matching/matching.html', {
+                'experts': experts,
+                'selected_expert': None,
+                'available_dates': get_available_dates(),
+                'available_times': get_available_times(),
+                'selected_dates': date_list,
+                'selected_times': time_list,
+                'notes': notes,
+                'error': '선택한 전문가가 존재하지 않습니다.'
+            })
 
 
-def matching_success(request):
-    return render(request, 'matching/success.html')
+    temp = request.session.get('temp_matching')
+    if not temp:
+        return redirect('matching:create-matching')
+
+    selected_expert = get_selected_expert(temp['expert_id'])
+
+    return render(request, 'matching/matching.html', {
+        'experts': experts,
+        'selected_expert': selected_expert,
+        'available_dates': get_available_dates(),
+        'available_times': get_available_times(),
+        'selected_dates': temp['dates'],
+        'selected_times': temp['times'],
+        'notes': temp['notes'],
+    })
+
+# 예약 확정 및 저장
+@login_required
+def matching_success(request, matching_id):
+    temp = request.session.pop('temp_matching', None)
+    if not temp:
+        return redirect('matching:create-matching')
+    
+    customer = request.user
+    expert = get_selected_expert(temp['expert_id'])
+    date_list = temp['dates']
+    time_list = temp['times']
+    notes = temp['notes']
+
+    new_matchings = []
+    for date_str in date_list:
+        try:
+            date = datetime.strptime(date_str, '%Y-%m-%d').date()
+            new_matchings.append(Matching(customer=customer, expert=expert, date=date, time=None, notes=notes))
+        except ValueError:
+            continue
+
+    for time_str in time_list:
+        try:
+            time = datetime.strptime(time_str, '%H:%M').time()
+            new_matchings.append(Matching(customer=customer, expert=expert, date=None, time=time, notes=notes))
+        except ValueError:
+            continue
+
+    Matching.objects.bulk_create(new_matchings)
+    chat_room, _ = ChatRoom.objects.get_or_create(customer=customer, expert=expert)
+
+    return render(request, 'matching/success.html', {
+        'expert': expert,
+        'chatroom_id': chat_room.id if chat_room else None,
+        'matchings': new_matchings[0]
+    })
