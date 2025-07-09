@@ -6,13 +6,13 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>예약이 완료되었습니다!</h1>
-    <p>예약자: {{ reservation.customer.username }}</p>
-    <p>전문가: {{ reservation.expert.username }}</p>
-    <p>날짜: {{ reservation.date }}</p>
-    <p>시간: {{ reservation.time }}</p>
-    <p>메모: {{ reservation.notes }}</p>
+    <h1>예약이 접수됐어요!</h1>
+    <div>
+      <p>전문가 닉네임: {{ expert.expert_profile.user.nickname }}</p>
+      <p>카테고리: {{ expert.expert_profile.get_category_display }}</p>
+    </div>
 
-    <a href="{% url 'matching:main' %}">메인으로 돌아가기</a>
+    <a href="{% url 'chats:chat_room' chatroom_id%}">1:1 상담하기 ></a>
+    <a href="{% url 'matching:main' %}">홈으로 돌아가기 ></a>
   </body>
 </html>
