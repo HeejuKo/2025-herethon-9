@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from itertools import product
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
 
@@ -149,29 +150,24 @@ def edit_matching(request, matching_id):
 @login_required
 def matching_success(request, matching_id):
     temp = request.session.pop('temp_matching', None)
+
     if not temp:
         return redirect('matching:create-matching')
     
     customer = request.user
     expert = get_selected_expert(temp['expert_id'])
-    date_list = temp['dates']
+    date_list = temp.get('dates')
     time_list = temp['times']
     notes = temp['notes']
 
     new_matchings = []
-    for date_str in date_list:
-        try:
+    try:
+        for date_str, time_str in product(date_list, time_list):
             date = datetime.strptime(date_str, '%Y-%m-%d').date()
-            new_matchings.append(Matching(customer=customer, expert=expert, date=date, time=None, notes=notes))
-        except ValueError:
-            continue
-
-    for time_str in time_list:
-        try:
             time = datetime.strptime(time_str, '%H:%M').time()
-            new_matchings.append(Matching(customer=customer, expert=expert, date=None, time=time, notes=notes))
-        except ValueError:
-            continue
+            new_matchings.append(Matching(customer=customer, expert=expert, date=date, time=time, notes=notes))
+    except ValueError:
+        pass
 
     Matching.objects.bulk_create(new_matchings)
     chat_room, _ = ChatRoom.objects.get_or_create(customer=customer, expert=expert)

@@ -3,6 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <title>전문가 예약하기</title>
+  <script>
+    window.onload = function () {
+      const hiddenInput = document.getElementById('preselectedDates');
+      const selected = hiddenInput ? hiddenInput.value.split(',') : [];
+
+      for (const date of selected) {
+        if (date) addDateToList(date);
+      }
+    };
+
+    function addDate() {
+      const dateInput = document.getElementById('datePicker');
+      const date = dateInput.value;
+      if (date) {
+        addDateToList(date);
+        dateInput.value = '';
+      }
+    }
+
+    function addDateToList(date) {
+      const container = document.getElementById('selectedDates');
+      if (document.getElementById('date-' + date)) return;
+
+      const div = document.createElement('div');
+      div.id = 'date-' + date;
+      div.innerHTML = `
+        <input type="hidden" name="dates[]" value="${date}">
+        ${date} <button type="button" onclick="removeDate('${date}')">삭제</button>
+      `;
+      container.appendChild(div);
+    }
+
+    function removeDate(date) {
+      const div = document.getElementById('date-' + date);
+      if (div) div.remove();
+    }
+  </script>
 </head>
 <body>
   <h1>전문가 예약하기</h1>
