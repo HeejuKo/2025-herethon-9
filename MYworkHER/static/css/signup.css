@@ -119,7 +119,8 @@ button.enabled {
 
 .label-row .error {
   color: #e74c3c;
-  font-size: 13px;
-  margin: 0;
+  font-size: 11px;
+  margin: 0 0 8px 6px;
+  font-weight: 500;
   min-height: 0;
 }

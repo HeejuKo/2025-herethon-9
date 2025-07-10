@@ -90,6 +90,10 @@ h1 {
   border: 2px solid #CBCBCB;  
   color: #CBCBCB;
   cursor: pointer;
+  
+}
+.button-group a {
+  text-decoration: none;
 }
 
 #confirmButton {

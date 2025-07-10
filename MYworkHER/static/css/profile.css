@@ -99,6 +99,8 @@ textarea {
   border: 2px solid #CBCBCB;  
   color: #CBCBCB;
   cursor: pointer;
+  text-decoration: none ;
+
 }
 
 #doneButton {
