@@ -60,7 +60,7 @@
             </div>
             <div class="ChoiceDay">
                 {% for date in date_matchings %}
-                    <div class="SelectedDate">{{ date|date:"Y년 n월 j일" }}</div>
+                    <div class="SelectedDate">{{ date }}</div>
                 {% endfor %}
             </div>
             <div class="ResLine"></div>
@@ -85,13 +85,10 @@
             <div class="TwoBtn">
                 <form method="get" action="{% url 'matching:create-matching' %}">
                     <input type="hidden" name="expert_id" value="{{ expert.id }}">
-                    <button type="submit" class="Revise">수정하기</button>
+                    <button type="submit" class="Revise" data-expert-id="{{ expert.id }}">수정하기</button>
                 </form>
-                <form method="post" action="{% url 'matching:matching-success'  matching_id=0 %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="expert_id" value="{{ expert.id }}">
+
                     <button type="submit" class="Submit">예약신청</button>
-                </form>
             </div>
         </div>
 
@@ -112,8 +109,8 @@
                         alt="profile";
                         width="98px"                    
                     />
-                    <div class="C_Nickname">전문가 닉네임</div>
-                    <div class="C_Category">카테고리 가전/수리</div>
+                    <div class="C_Nickname">{{ expert.nickname }}</div>
+                    <div class="C_Category">{{ expert.expert_profile.get_category_display }}</div>
                     <div class="C_TwoBtn">
                         <button class="C_1">1:1 상담하기></button>
                         <button class="C_Home">홈으로 돌아가기></button>

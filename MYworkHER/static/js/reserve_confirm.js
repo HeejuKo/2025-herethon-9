@@ -24,7 +24,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const reviseBtn = document.querySelector(".Revise");
     if(reviseBtn){
         reviseBtn.addEventListener("click",()=>{
-            window.location.href="../pages/reserve.html";
+            const expertId = reviseBtn.dataset.expertId;
+            // 세션에 저장된 값이 이미 있으므로 expert_id만 넘김
+            window.location.href = `/matching/${expertId}/edit/`;  // edit_matching 뷰를 호출
         });
     }
 

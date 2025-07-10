@@ -65,25 +65,34 @@ document.addEventListener("DOMContentLoaded", ()=>{
     });
 
     const allTime = [];
-
-    for(let hour=9;hour<=20;hour++){
-        const formmatedHour = hour.toString().padStart(2,'0');
-        allTime.push(`${formmatedHour}:00`);
+    for (let hour = 9; hour <= 20; hour++) {
+        const formattedHour = hour.toString().padStart(2, '0');
+        allTime.push(`${formattedHour}:00`);
     }
 
-    const timeContainer = document.querySelector(".TimeBtnBox");
-    allTime.forEach(time=>{
-        const btn = document.createElement("button");
-        btn.textContent=time;
-        btn.className="TimeBtn";
-        btn.type = "button"; // 새로고침 방지
+    const selectedTimes = window.preSelectedTimes || [];
 
-        btn.addEventListener("click",()=>{
-           btn.classList.toggle("selected");
-        })
+    const timeContainer = document.querySelector(".TimeBtnBox");
+    timeContainer.innerHTML = ""; // 기존 버튼 제거 (중복 방지)
+
+    allTime.forEach(time => {
+        const btn = document.createElement("button");
+        btn.textContent = time;
+        btn.className = "TimeBtn";
+        btn.type = "button";
+
+        // 예약을 수정할 경우 이전에 선택했던 시간들이 반영됨
+        if (selectedTimes.includes(time)) {
+            btn.classList.add("selected");
+        }
+
+        btn.addEventListener("click", () => {
+            btn.classList.toggle("selected");
+        });
 
         timeContainer.append(btn);
     });
+
 
     
     const reserveBtn = document.querySelector(".ReserveBtn");

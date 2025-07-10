@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.db.models import Count, Q
 from datetime import datetime, timedelta
 from itertools import product
@@ -73,6 +74,19 @@ def create_matching(request):
         expert_id = request.GET.get('expert_id')
         if expert_id:
             selected_expert = get_selected_expert(expert_id)
+        
+        # 예약 수정 시 이전에 선택한 예약 사항들을 반영
+        temp = request.session.get('temp_matching')
+        if temp and str(temp.get('expert_id')) == expert_id:
+            return render(request, 'matching/reserve.html', {
+                'experts': experts,
+                'selected_expert': selected_expert,
+                'available_dates': get_available_dates(),
+                'available_times': get_available_times(),
+                'selected_dates': temp['dates'],
+                'selected_times': temp['times'],
+                'notes': temp['notes'],
+            })
 
     return render(request, 'matching/reserve.html', {
         'experts': experts,
@@ -175,8 +189,9 @@ def matching_success(request, matching_id):
     Matching.objects.bulk_create(new_matchings)
     chat_room, _ = ChatRoom.objects.get_or_create(customer=customer, expert=expert)
 
-    return render(request, 'matching/success.html', {
-        'expert': expert,
-        'chatroom_id': chat_room.id if chat_room else None,
-        'matchings': new_matchings[0]
+    return JsonResponse ({
+        "success": True,
+        "chatroom_id": chat_room.id,
+        "expert_nickname": expert.nickname,
+        "category": expert.expert_profile.get_category_display(),
     })

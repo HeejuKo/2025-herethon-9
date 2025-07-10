@@ -8,5 +8,4 @@ urlpatterns = [
     path('', main, name='main'),
     path('<int:matching_id>/', matching_detail, name='reserve-confirm'),        # 예약 확인
     path('<int:matching_id>/edit/', edit_matching, name='edit-matching'),        # 예약 수정 (matching.html 사용)
-    path('<int:matching_id>/success/', matching_success, name='matching-success'),
 ]

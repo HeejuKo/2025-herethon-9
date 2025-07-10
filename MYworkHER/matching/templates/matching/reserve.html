@@ -62,30 +62,39 @@
                 <span class="QText"> 가능 예약 일자를 선택해 주세요.</span>
             </div>
             <div class="ChoiceDay">
-                <input type="date" id="datePicker" style="display: none;"/>
+                {% if selected_dates %}
+                    {% for date in selected_dates %}
+                        <div class="SelectedDate active" data-value="{{ date }}">{{ date }}</div>
+                    {% endfor %}
+                {% endif %}
+                <input type="date" id="datePicker" style="display: none;" />
                 <img
                     src="{% static "img/add_day.svg" %}"
                     width="44px"
                     class="ChoiceBtn"
                 />
             </div>
+
             <div class="ResLine"></div>
             <div class="Q2">
                 <span class="QNum">02</span>
                 <span class="QText">가능 예약 시간대를 선택해 주세요.</span>
             </div>
             <div class="TimeBtnBox">
-
+                {% for time in available_times %}
+                    <button type="button" class="TimeBtn {% if selected_times and time in selected_times %}selected{% endif %}">
+                        {{ time }}
+                    </button>
+                {% endfor %}
             </div>
             <div class="ResLine"></div>
             <div class="Q3">
                 <span class="QNum">03</span>
                 <span class="QText">요청사항을 입력해 주세요.</span>
             </div>
-            <textarea class="Request" name="notes" placeholder="요청사항 입력 최대(200자)" maxlength="200"></textarea>
+            <textarea class="Request" name="notes" placeholder="요청사항 입력 최대(200자)" maxlength="200">{{ notes }}</textarea>
             <button class="ReserveBtn">저장하기</button>
         </form>
-  
         
     <footer class="Footer">
         <div class="Workher">
@@ -104,6 +113,11 @@
             <div class="S_Text">BE 고원정 - 성신여자대학교 멋쟁이사자처럼 백엔드</div>
         </div>
     </footer>
+    <script>
+    // safe 필수!
+        window.preSelectedTimes = JSON.parse('{{ selected_times|default:"[]"|safe }}');
+    </script>
+
     <script src={% static "js/reserve.js"%}></script>
 </body>
 </html>
