@@ -3,8 +3,10 @@ const photoModal = document.getElementById('photoModal');
 const uploadBtn = document.getElementById('uploadBtn');
 const deleteBtn = document.getElementById('deleteBtn');
 const cancelBtn = document.getElementById('cancelBtn');
-const hiddenFileInput = document.getElementById('hiddenFileInput');
+let hiddenFileInput = document.getElementById('hiddenFileInput');
 const profilePhoto = document.getElementById('profilePhoto');
+const deleteProfileFlag = document.getElementById('deleteProfileFlag');
+
 
 const form = document.getElementById('profileForm');
 const confirmModal = document.getElementById('confirmModal');
@@ -16,7 +18,10 @@ const phoneInput = document.getElementById('phone');
 const emailInput = document.getElementById('email');
 const bioTextarea = document.getElementById('bio');
 
+const openModalBtn = document.querySelector('.save-button');
+
 let isDirty = false;
+
 
 // 값 변경 체크
 [nicknameInput, phoneInput, emailInput, bioTextarea, hiddenFileInput].forEach(input => {
@@ -24,6 +29,20 @@ let isDirty = false;
     isDirty = true;
   });
 });
+
+document.querySelectorAll('.label-edit-icon').forEach((icon) => {
+  icon.addEventListener('click', () => {
+    const container = icon.closest('.info-block, .bio-block');
+    const input = container.querySelector('input, textarea');
+    if (input) {
+      input.removeAttribute('readonly');  
+      input.focus();
+      const length = input.value.length;
+      input.setSelectionRange(length, length); 
+    }
+  });
+});
+
 
 // 프로필 사진 수정 아이콘 클릭
 photoEditBtn.addEventListener('click', () => {
@@ -41,54 +60,47 @@ uploadBtn.addEventListener('click', () => {
 });
 
 // 파일 선택 시 미리보기
-hiddenFileInput.addEventListener('change', () => {
-  const file = hiddenFileInput.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = e => {
-      profilePhoto.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
-  photoModal.style.display = 'none';
-  isDirty = true;
-});
+function attachChangeListenerToInput(input) {
+  input.addEventListener('change', () => {
+    const file = input.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        profilePhoto.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+      deleteProfileFlag.value = "false"; 
+    }
+    photoModal.style.display = 'none';
+    isDirty = true;
+  });
+}
+
+// 초기 연결
+attachChangeListenerToInput(hiddenFileInput);
 
 // 삭제 버튼
 deleteBtn.addEventListener('click', () => {
-  hiddenFileInput.value = '';
-  profilePhoto.src = '../assets/img/profile.svg';
+  const newInput = hiddenFileInput.cloneNode(true);
+  hiddenFileInput.parentNode.replaceChild(newInput, hiddenFileInput);
+  hiddenFileInput = newInput;
+  attachChangeListenerToInput(hiddenFileInput);
+
+  profilePhoto.src = "/static/img/basic_profile.svg";
+  deleteProfileFlag.value = "true";
   photoModal.style.display = 'none';
   isDirty = true;
 });
 
-// 링크 이동 가로채기 (네비가 늦게 로드되는 문제 해결)
-setTimeout(() => {
-  document.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', e => {
-      console.log("✅ 클릭됨", link.getAttribute('href'));
-      if (isDirty) {
-        console.log("✅ isDirty = true, 모달 열기");
-        e.preventDefault();
-        const href = link.getAttribute('href');
-        confirmModal.style.display = 'flex';
 
-        confirmYes.onclick = () => {
-          console.log("✅ 네 클릭: 저장");
-          isDirty = false;
-          confirmModal.style.display = 'none';
-          form.submit();
-        };
+openModalBtn.addEventListener('click', () => {
+  confirmModal.style.display = 'flex';
+});
 
-        confirmNo.onclick = () => {
-          console.log("✅ 아니오 클릭: 이동");
-          isDirty = false;
-          confirmModal.style.display = 'none';
-          if (href) {
-            window.location.href = href;
-          }
-        };
-      }
-    });
-  });
-}, 1000);
+confirmYes.addEventListener('click', () => {
+  confirmModal.style.display = 'none';
+});
+
+confirmNo.addEventListener('click', () => {
+  confirmModal.style.display = 'none'; 
+});
