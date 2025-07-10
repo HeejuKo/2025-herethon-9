@@ -1,26 +1,29 @@
 .navbar {
+
   width: 100%;
-  background: #fff;
-  border-bottom: 1px solid #ddd;
-  display: flex;
-  justify-content: center;
-  font-family: "Noto Sans KR", sans-serif;
+background: #fff;
+border-bottom: 1px solid #ddd;
+font-family: "Noto Sans KR", sans-serif;
 }
 
 .navbar-container {
-  width: 100%;
-  max-width: 1200px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 40px;
-  height: 80px;
+padding: 0 40px;
+height: 80px;
+display: flex;
+justify-content: space-between;
+align-items: center;
 }
 
 .navbar-left {
-  display: flex;
-  align-items: center;
-  gap: 40px;
+display: flex;
+gap: 57px;
+align-items: center;
+}
+
+.navWrapper {
+display: flex;
+align-items: center;
+gap: 57px;
 }
 
 .navbar-logo img {
@@ -55,8 +58,13 @@
   font-size: 16px;
   cursor: pointer;
   color: #333;
+  width: 80px;
 }
 
 a {
   color : black;
+}
+
+.logA {
+  text-decoration: none;
 }
