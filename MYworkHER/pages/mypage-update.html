@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>프로필 수정 - 마이워커</title>
+  <link rel="stylesheet" href="../css/mypage-update.css" />
+  <link rel="stylesheet" href="../components/footer.css" />
+  <link rel="stylesheet" href="../components/navbar.css" />
+</head>
+<body>
+  <div id="navbar"></div>
+  <div class="mypage-container">
+    <!-- 프로필 사진 -->
+    <div class="profile-photo-wrapper">
+      <img src="../assets/img/profile.svg" alt="프로필 사진" class="profile-photo" id="profilePhoto" />
+      
+    </div><button class="photo-edit-btn" id="photoEditBtn">
+        <img src="../assets/img/profile-edit-icon.svg" alt="수정 아이콘">
+      </button>
+
+    <!-- 프로필 정보 form -->
+    <form
+      id="profileForm"
+      method="POST"
+      action="{% url 'accounts:mypage_update' %}"
+      enctype="multipart/form-data"
+      class="profile-info"
+    >
+      <input type="file" id="hiddenFileInput" name="upload_image" accept="image/*" style="display:none;">
+
+      <hr class="top-divider" />
+      <div class="info-row">
+        <div class="info-column">
+          <div class="info-block">
+            <span class="label">
+                닉네임
+                <img src="../assets/img/edit-icon.svg" class="label-edit-icon">
+            </span>
+
+            <div>
+              <input type="text" name="nickname" class="edit-input" id="nickname" value="nickname22">
+            </div>
+          </div>
+          <div class="info-block">
+            <span class="label">ID</span>
+            <div>
+            <span class="value" id="userid">idididid93</span>
+            </div>
+          </div>
+        </div>
+        <div class="vertical-divider"></div>
+        <div class="info-column">
+          <div class="info-block">
+            <span class="label">phone
+                <img src="../assets/img/edit-icon.svg" class="label-edit-icon">
+            </span>
+            <div>
+              <input type="text" name="phone" class="edit-input" id="phone" value="010-1234-1234">
+            </div>
+          </div>
+          <div class="info-block">
+            <span class="label">E-mail
+                <img src="../assets/img/edit-icon.svg" class="label-edit-icon">
+            </span>
+            <div>
+              <input type="email" name="email" class="edit-input" id="email" value="dfefefe343343@gmail.com">
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="bio-block">
+        <span class="label">자기소개
+            <img src="../assets/img/edit-icon.svg" class="label-edit-icon">
+        </span>
+        <div>
+          <textarea name="introduction" class="edit-textarea" id="bio">자기소개 자기소개 자기소개 자기소개</textarea>
+        </div>
+      </div>
+      <hr class="bottom-divider" />
+
+      <button type="submit" class="save-button">변경사항 저장</button>
+    </form>
+  </div>
+
+  <!-- 프로필 사진 모달 -->
+  <div class="modal" id="photoModal">
+    <div class="modal-content">
+      <button type="button" id="uploadBtn">프로필 사진 업로드</button>
+      <button type="button" id="deleteBtn">프로필 사진 삭제</button>
+      <button type="button" id="cancelBtn" class="cancel">취소</button>
+    </div>
+  </div>
+
+  <!-- 저장 확인 모달 -->
+  <div class="modal" id="confirmModal">
+    <div class="modal-content">
+      <p>변경사항을 저장하시겠습니까?</p>
+      <div class="modal-buttons">
+        <button id="confirmYes">네</button>
+        <button id="confirmNo">아니오</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer-container"></div>
+  <script src="../js/mypage-update.js"></script>
+  <script src="../components/footer.js"></script>
+  <script src="../components/navbar.js"></script>
+  <script src="../js/load-components.js"></script>
+</body>
+</html>
