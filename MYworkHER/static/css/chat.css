@@ -8,19 +8,23 @@ html, body {
   font-family: "Noto Sans KR", sans-serif;
 }
 
+.Wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* 목록 있을 때 회색박스 */
 .chat-list-container {
   width: 811px;
   background: #f2f4f7;
-  border-radius: 20px;
-  margin: 40px auto;
   padding: 40px 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
-      min-height: 650px;
-    gap: 15px;
+  min-height: 800px;
+  gap: 15px;
 
 }
 
