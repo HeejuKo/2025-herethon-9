@@ -1,59 +1,132 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    {% if request.user.profileImage %}
-    <img
-      width="100px"
-      src="{{ request.user.profileImage.url }}"
-      alt="Profile Image"
-    />
-    {% else %}
-    <img
-      width="100px"
-      src="{% static 'img/basic_profile.svg' %}"
-      alt="Default Profile"
-    />
-    {% endif %}
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>프로필 수정 - 마이워커</title>
+  <link rel="stylesheet" href="{% static 'css/mypage.css' %}" />
+  <link rel="stylesheet" href="{% static 'components/footer.css' %}" />
+  <link rel="stylesheet" href="{% static 'components/navbar.css' %}" />
+</head>
+<body>
+  <div id="navbar"></div>
+  {% include 'components/navbar.html' %}
+  <div class="mypage-container">
+    <!-- 프로필 사진 -->
+    <div class="profile-photo-wrapper">
+      {% if request.user.profileImage %}
+      <img
+        src="{{ request.user.profileImage.url }}"
+        alt="Profile Image"
+        id="profilePhoto"
+      />
+      {% else %}
+      <img
+        src="{% static 'img/basic_profile.svg' %}"
+        alt="Default Profile"
+        id="profilePhoto"
 
-    <!-- 파일 선택을 안 보이게 하고 업로드 버튼, 삭제 버튼 기능 만들어서 넣어주세요 -->
-    <!-- 삭제의 경우, JS로 input의 value를 읽어서 없애주시면 될 것 같아요 -->
-    <!-- 전체 정보 수정 폼 (프로필 이미지 포함) -->
+      />
+      {% endif %}
+    </div>
+    <button class="photo-edit-btn" id="photoEditBtn">
+      <img src="{% static 'img/profile-edit-icon.svg' %}" alt="수정 아이콘">
+    </button>
+
+    <!-- 프로필 정보 form -->
     <form
+      id="profileForm"
       method="POST"
       action="{% url 'accounts:mypage_update' %}"
       enctype="multipart/form-data"
-      class="info-box"
+      class="profile-info"
     >
       {% csrf_token %}
-      <input type="hidden" name="action" value="update" />
+      <input type="file" id="hiddenFileInput" name="upload_image" accept="image/*" style="display:none;">
+      <input type="hidden" name="delete_profile" id="deleteProfileFlag" value="false">
 
-      <label>프로필 이미지:</label>
-      <input type="file" name="upload_image" accept="image/*" /><br />
+      <hr class="top-divider" />
+      <div class="info-row">
+        <div class="info-column">
+          <div class="info-block">
+            <span class="label">
+                닉네임
+                <img src="{% static 'img/edit-icon.svg' %}" class="label-edit-icon">
+            </span>
 
-      <label>닉네임:</label>
-      <input
-        type="text"
-        name="nickname"
-        value="{{ request.user.nickname }}"
-      /><br />
+            <div>
+              <input type="text" name="nickname" class="edit-input" id="nickname" value="{{ request.user.nickname }}" readonly>
+            </div>
+          </div>
+          <div class="info-block">
+            <span class="label">ID</span>
+            <div>
+            <span class="value" id="userid">{{ request.user.username }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="vertical-divider"></div>
+        <div class="info-column">
+          <div class="info-block">
+            <span class="label">Phone
+                <img src="{% static 'img/edit-icon.svg' %}" class="label-edit-icon">
+            </span>
+            <div>
+              <input type="text" name="phone" class="edit-input" id="phone" value="{{ request.user.phone }}" readonly>
+            </div>
+          </div>
+          <div class="info-block">
+            <span class="label">E-mail
+                <img src="{% static 'img/edit-icon.svg' %}" class="label-edit-icon">
+            </span>
+            <div>
+              <input type="email" name="email" class="edit-input" id="email" value="{{ request.user.email }}" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="bio-block">
+        <span class="label">자기소개
+            <img src="{% static 'img/edit-icon.svg' %}" class="label-edit-icon">
+        </span>
+        <div>
+          <textarea name="introduction" class="edit-textarea" id="bio" readonly>{{ request.user.introduction }}</textarea>
+        </div>
+      </div>
+      <hr class="bottom-divider" />
 
-      <label>Phone:</label>
-      <input type="text" name="phone" value="{{ request.user.phone }}" /><br />
+      <button type="button" class="save-button">변경사항 저장</button>
 
-      <label>E-mail:</label>
-      <input type="email" name="email" value="{{ request.user.email }}" /><br />
 
-      <label>자기소개:</label>
-      <textarea name="introduction">{{ request.user.introduction }}</textarea
-      ><br />
-
-      <button type="submit">변경사항 저장</button>
+      <!-- 저장 확인 모달 -->
+  <div class="modal" id="confirmModal">
+    <div class="modal-content">
+      <p>변경사항을 저장하시겠습니까?</p>
+      <div class="modal-buttons">
+        <button type="submit" id="confirmYes" >네</button>
+        <button type="button" id="confirmNo">아니오</button>
+      </div>
+    </div>
+  </div>
     </form>
-  </body>
+  </div>
+
+  <!-- 프로필 사진 모달 -->
+  <div class="modal" id="photoModal">
+    <div class="modal-content">
+      <button type="button" id="uploadBtn">프로필 사진 업로드</button>
+      <button type="button" id="deleteBtn">프로필 사진 삭제</button>
+      <button type="button" id="cancelBtn" class="cancel">취소</button>
+    </div>
+  </div>
+
+ 
+
+  <div id="footer-container"></div>
+  {% include 'components/footer.html' %}
+
+  <script src="{% static 'js/mypage-update.js' %}"></script>
+</body>
 </html>
