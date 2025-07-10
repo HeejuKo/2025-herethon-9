@@ -5,11 +5,22 @@
       <a href="{% url 'matching:main' %}" class="navbar-logo">
         <img src="{% static 'img/logo.svg' %}" alt="로고" />
       </a>
-      <a href="{% url 'experts:category_list' %}" class="navbar-item">카테고리</a>
+      <!-- <a href="{% url 'experts:category_list' %}" class="navbar-item">카테고리</a>
       <a href="{% url 'experts:expert_list' %}" class="navbar-item">전문가 찾기</a>
-      <a href="{% url 'chats:chat_list' %}" class="navbar-item">1:1상담<span class="alarm-dot"></span></a>
-      <a href="{% url 'accounts:mypage' %}" class="navbar-item active">마이페이지</a>
-    </div>
+      <a href="{% url 'chats:chat_list' %}" class="navbar-item">1&#58;1상담<span class="alarm-dot"></span></a>
+      <a href="{% url 'accounts:mypage' %}" class="navbar-item active">마이페이지</a> -->
+      
+
+<a href="{% url 'experts:category_list' %}" class="navbar-item {% if request.path == '/experts/' %}active{% endif %}">카테고리</a>
+<a href="{% url 'experts:expert_list' %}" class="navbar-item {% if request.path == '/experts/search' %}active{% endif %}">전문가 찾기</a>
+    
+<a href="{% url 'chats:chat_list' %}" class="navbar-item {% if '/chats' in request.path %}active{% endif %}">
+  1&#58;1상담<span class="alarm-dot"></span>
+</a>
+<a href="{% url 'accounts:mypage' %}" class="navbar-item {% if '/accounts' in request.path %}active{% endif %}">
+  마이페이지
+</a>
+</div>
     <div class="navbar-right">
       <button class="logout-btn">
         <a href="{% url 'accounts:logout' %}">로그아웃</a>

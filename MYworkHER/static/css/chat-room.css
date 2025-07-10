@@ -4,6 +4,8 @@ body {
   font-family: "Noto Sans KR", sans-serif;
 }
 
+
+
 /* 전체 컨테이너 */
 .chat-room-container {
   width: 811px;
@@ -57,10 +59,10 @@ body {
 /* 2. 채팅 메시지 박스 */
 .chat-box {
   background: #f2f4f7;
-  /* padding: 20px; */
+  padding: 0 20px 36px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 25px;
   height: 483px;
 
   overflow: scroll;
@@ -78,6 +80,7 @@ scrollbar-width: none; /* Firefox */
   justify-content: center;
   position: sticky;
   top: 0px;
+  margin-bottom: 0;
 }
 
 .notice-bubble {
@@ -97,6 +100,7 @@ scrollbar-width: none; /* Firefox */
 .notice-icon {
   width: 20px;
   height: 20px;
+  margin-left: 14px;
 }
 
 /* 메시지 행 */
@@ -104,17 +108,32 @@ scrollbar-width: none; /* Firefox */
   background-color: #f2f4f7;
   position: sticky;
   top: 0px;
+  padding: 20px 0px;
 }
 
 .message-row {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: 20px;
+display: flex;
+/* flex-direction: column; */
+/* align-items: flex-start; */
+/* margin: 20px; */
+align-items: flex-end;
+gap: 9px;
+/* margin-left: 5px; */
+margin-left: 20px;
 }
 
 .message-row.me {
+
   align-items: flex-end;
+margin: 0px 30px;
+display: flex;
+flex-direction: row;
+gap: 10px;
+}
+
+.messageWrapperRow {
+  display: flex;
+  justify-content: end;
 }
 
 /* 말풍선 */
@@ -123,7 +142,7 @@ scrollbar-width: none; /* Firefox */
   padding: 12px 16px;
   border-radius: 30px;
   font-size: 14px;
-  max-width: 70%;
+  max-width: 360px;
   word-break: break-word;
   box-shadow: 0 0 2px rgba(0,0,0,0.1);
 }
@@ -136,7 +155,7 @@ scrollbar-width: none; /* Firefox */
 .message-time {
   font-size: 12px;
   color: #888;
-  margin-top: 4px;
+  padding-bottom: 8px;
 }
 
 /* 3. 입력창 */
@@ -183,4 +202,17 @@ scrollbar-width: none; /* Firefox */
 
 .pWrapper {
   padding-left: 25px;
+}
+
+.empty {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 13px;
+margin-top: 27px;
+font-size: 20px;
+}
+
+.empty_img {
+  font-size: 100px;
 }
