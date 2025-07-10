@@ -121,21 +121,26 @@ def mypage_update(request):
     if request.method == "POST":
         user = request.user
 
-        if request.method == "POST":
-            # 닉네임, 연락처, 이메일, 자기소개 수정
-            user.nickname = request.POST.get('nickname', user.nickname)
-            user.phone = request.POST.get('phone', user.phone)
-            user.email = request.POST.get('email', user.email)
-            user.introduction = request.POST.get('introduction', user.introduction)
+        # 기본 정보 업데이트
+        user.nickname = request.POST.get('nickname', user.nickname)
+        user.phone = request.POST.get('phone', user.phone)
+        user.email = request.POST.get('email', user.email)
+        user.introduction = request.POST.get('introduction', user.introduction)
 
-            # 프로필 이미지 업로드 처리
+        # 프로필 이미지 삭제 요청 처리
+        if request.POST.get('delete_profile') == "true":
+            if user.profileImage:
+                user.profileImage.delete()
+                user.profileImage = None
+        else:
+            # 새로운 이미지 업로드 처리
             profile_image = request.FILES.get('upload_image')
             if profile_image:
                 if user.profileImage:
                     user.profileImage.delete()
                 user.profileImage = profile_image
 
-            user.save()
-            return redirect('accounts:mypage')
+        user.save()
+        return redirect('accounts:mypage')
 
     return render(request, 'accounts/mypage-update.html')

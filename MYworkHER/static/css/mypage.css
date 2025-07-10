@@ -66,6 +66,40 @@ body {
   cursor: pointer;
   text-decoration: none;
   color: #333;
+  font-size: 16px;
+
+}
+/* update 부분 css */
+.save-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 11px 22px;
+  border-radius: 34.45px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #333;
+  font-size: 16.5px;
+}
+
+#confirmYes, #confirmNo {
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 11px 22px;
+  border-radius: 34.45px;
+  cursor: pointer;
+  color: #333;
+  font-size: 16.5px;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.15);
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  justify-content: center;
 }
 
 .profile-info {

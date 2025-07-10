@@ -1,16 +1,19 @@
+{% load static %}
 <nav class="navbar">
   <div class="navbar-container">
     <div class="navbar-left">
-      <a href="../index.html" class="navbar-logo">
-        <img src="../assets/img/logo.svg" alt="로고" />
+      <a href="{% url 'matching:main' %}" class="navbar-logo">
+        <img src="{% static 'img/logo.svg' %}" alt="로고" />
       </a>
-      <a href="../pages/category.html" class="navbar-item">카테고리</a>
-      <a href="../pages/expert.html" class="navbar-item">전문가찾기</a>
-      <a href="../pages/chat-list.html" class="navbar-item">1:1상담<span class="alarm-dot"></span></a>
-      <a href="../pages/mypage.html" class="navbar-item active">마이페이지</a>
+      <a href="{% url 'experts:category_list' %}" class="navbar-item">카테고리</a>
+      <a href="{% url 'experts:expert_list' %}" class="navbar-item">전문가 찾기</a>
+      <a href="{% url 'chats:chat_list' %}" class="navbar-item">1:1상담<span class="alarm-dot"></span></a>
+      <a href="{% url 'accounts:mypage' %}" class="navbar-item active">마이페이지</a>
     </div>
     <div class="navbar-right">
-      <button class="logout-btn">로그아웃</button>
+      <button class="logout-btn">
+        <a href="{% url 'accounts:logout' %}">로그아웃</a>
+      </button>
     </div>
   </div>
 </nav>
