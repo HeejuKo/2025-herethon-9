@@ -47,10 +47,29 @@
                     <div class="DetailText">연락처</div>
                     <div class="B_Text" id="phoneNum">{{ user.phone }}</div>
 
-                    <div class="TwoBtn">
-                        <button class="Submit">인증 승인</button>
-                        <button class="Withdraw">강제 탈퇴</button>
-                    </div>
+                    <form method="POST">
+                    {% csrf_token %}
+                        <div class="TwoBtn">
+                            <button class="Submit {% if user.isVerified %}deactive{% endif %}" 
+                                type="submit" 
+                                name="action" 
+                                value="toggle_verified">
+                        {% if user.isVerified %}
+                            인증 해제
+                        {% else %}
+                            인증 승인
+                        {% endif %}
+                        </button>
+
+                        <button class="Withdraw {% if user.isVerified %}hidden{% endif %}" 
+                                type="submit" 
+                                name="action" 
+                                value="delete_user" 
+                                onclick="return confirm('정말 삭제하시겠습니까?');">
+                        강제 탈퇴
+                        </button>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="Bottom">
@@ -87,6 +106,5 @@
             <div class="S_Text">BE 고원정 - 성신여자대학교 멋쟁이사자처럼 백엔드</div>
         </div>
     </footer>
-    <script src="{% static 'js/user_detail.js' %}"></script>
 </body>
 </html>
