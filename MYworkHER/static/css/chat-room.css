@@ -57,16 +57,27 @@ body {
 /* 2. 채팅 메시지 박스 */
 .chat-box {
   background: #f2f4f7;
-  padding: 20px;
+  /* padding: 20px; */
   display: flex;
   flex-direction: column;
   gap: 16px;
+  height: 483px;
+
+  overflow: scroll;
+scrollbar-width: none; /* Firefox */
+-ms-overflow-style: none;  /* IE, Edge */
+
+::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
 }
 
 /* 공지사항 */
 .message-row.notice {
   display: flex;
   justify-content: center;
+  position: sticky;
+  top: 0px;
 }
 
 .notice-bubble {
@@ -89,10 +100,17 @@ body {
 }
 
 /* 메시지 행 */
+.messageWrapper {
+  background-color: #f2f4f7;
+  position: sticky;
+  top: 0px;
+}
+
 .message-row {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin: 20px;
 }
 
 .message-row.me {
@@ -138,16 +156,31 @@ body {
   font-size: 14px;
   height: 50px;
   font-family: "Noto Sans KR", sans-serif;
-
+  outline: none;
 }
 
 .send-btn {
   background: none;
   border: none;
   cursor: pointer;
+  margin-right: 30px;
 }
 
 .send-btn img {
-  width: 24px;
-  height: 24px;
+  width: 35px;
+  height: 35px;
+}
+
+.pWrapper p {
+  margin : 0;
+  font-size: 15px;
+}
+
+.pWrapper p:last-child {
+  margin-top: 10px;
+  color: #bcbec3;
+}
+
+.pWrapper {
+  padding-left: 25px;
 }
