@@ -132,16 +132,16 @@ passwordConfirmInput.addEventListener('blur', () => markTouched('passwordConfirm
 phoneInput.addEventListener('blur', () => markTouched('phone'));
 emailInput.addEventListener('blur', () => markTouched('email'));
 
-// 제출 이벤트
-form.addEventListener('submit', function(e) {
-  e.preventDefault();
-  validate(); // 마지막 검증
+// // 제출 이벤트
+// form.addEventListener('submit', function(e) {
+//   e.preventDefault();
+//   validate(); // 마지막 검증
 
-  if (submitButton.disabled === false) {
-    // 페이지 이동
-    window.location.href = "verify.html";
-  } else {
-    alert('입력값을 다시 확인해주세요.');
-  }
-});
+//   if (submitButton.disabled === false) {
+//     // 페이지 이동
+//     window.location.href = "verify.html";
+//   } else {
+//     alert('입력값을 다시 확인해주세요.');
+//   }
+// });
 
