@@ -1,0 +1,16 @@
+{% load static %}
+<nav class="navbar">
+  <div class="navbar-container">
+    <div class="navbar-left">
+      <a href="{% url 'matching:main' %}" class="navbar-logo">
+        <img src="{% static 'img/logo.svg' %}" alt="로고" />
+      </a>
+      <span class="navbar-item active">관리자 페이지</span>
+    </div>
+    <div class="navbar-right">
+      <button class="logout-btn">
+        <a href="{% url 'accounts:logout' %}">로그아웃</a>
+      </button>
+    </div>
+  </div>
+</nav>
