@@ -1,86 +1,79 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>1:1 상담</title>
-  <link rel="stylesheet" href="../css/chat.css" />
-  <link rel="stylesheet" href="../components/footer.css" />
-  <link rel="stylesheet" href="../components/navbar.css" />
+  <link rel="stylesheet" href="{% static 'css/chat.css' %}" />
+  <link rel="stylesheet" href="{% static 'components/footer.css' %}" />
+  <link rel="stylesheet" href="{% static 'components/navbar.css' %}" />
 </head>
 <body>
-  <div id="navbar"></div>
 
-  {% include 'components/navbar.html' %}
-
-  <!-- 
-  {% if rooms %} 
-  -->
-
+  {% include "components/navbar.html" %}
+  
+  {% if room_data %}
   <div class="chat-list-container">
     <ul class="chat-list">
-      <!-- {% for room in rooms %} -->
+      {% for item in room_data %}
       <li class="chat-card">
-        <a href="chat-room.html">
+        <a href="{% url 'chats:chat_room' item.room.id %}">
           <div class="chat-card-left">
-            <img src="../assets/img/basic_profile.svg" alt="프로필" class="chat-avatar" />
-            <div class="chat-info">
-              <div class="chat-name">
-                채팅상대 닉네임
-                <span class="chat-badge">2</span>
+            {% if request.user == item.room.expert %}
+              {% if item.room.customer.profileImage %}
+                <img src="{{ item.room.customer.profileImage.url }}" alt="프로필" class="chat-avatar" />
+              {% else %}
+                <img src="{% static 'img/basic_profile.svg' %}" alt="프로필" class="chat-avatar" />
+              {% endif %}
+              <div class="chat-info">
+                <div class="chat-name">
+                  {{ item.room.customer.nickname }}
+                  {% if item.unread_count > 0 %}
+                    <span class="chat-badge">{{ item.unread_count }}</span>
+                  {% endif %}
+                </div>
+            {% else %}
+              {% if item.room.expert.profileImage %}
+                <img src="{{ item.room.expert.profileImage.url }}" alt="프로필" class="chat-avatar" />
+              {% else %}
+                <img src="{% static 'img/basic_profile.svg' %}" alt="프로필" class="chat-avatar" />
+              {% endif %}
+              <div class="chat-info">
+                <div class="chat-name">
+                  {{ item.room.expert.nickname }}
+                  {% if item.unread_count > 0 %}
+                    <span class="chat-badge">{{ item.unread_count }}</span>
+                  {% endif %}
+                </div>
+            {% endif %}
+                <div class="chat-preview">
+                  {{ item.last_msg.content|truncatechars:30 }}
+                </div>
               </div>
-              <div class="chat-preview">
-                채팅 내용 미리보기 채팅 내용 미리보기 채팅 내용 미리보기
-              </div>
-            </div>
           </div>
           <div class="chat-time">
-            7월 2일
+            {{ item.last_msg.created_at|date:"n월 j일 H:i" }}
           </div>
         </a>
       </li>
-      <li class="chat-card">
-        <a href="chat-room.html">
-          <div class="chat-card-left">
-            <img src="../assets/img/basic_profile.svg" alt="프로필" class="chat-avatar" />
-            <div class="chat-info">
-              <div class="chat-name">
-                채팅상대 닉네임
-              </div>
-              <div class="chat-preview">
-                채팅 내용 미리보기 채팅 내용 미리보기 채팅 내용 미리보기
-              </div>
-            </div>
-          </div>
-          <div class="chat-time">
-            오전 10:10
-          </div>
-        </a>
-      </li>
-      <!-- {% endfor %} -->
+      {% endfor %}
     </ul>
   </div>
-
-  <!-- 
-  {% else %} 
-  -->
-
+  {% else %}
   <div class="chat-empty">
-    <img src="../assets/img/empty-chat.svg" alt="채팅 없음" class="chat-empty-img" />
+    <img src="{% static 'img/empty-chat.svg' %}" alt="채팅 없음" class="chat-empty-img" />
     <p class="chat-empty-text">아직 진행 중인 1:1 상담 내역이 없어요!</p>
     <div class="chat-empty-buttons">
-      <a href="category.html">카테고리 둘러보기 ></a>
-      <a href="expert.html">전문가 찾기 ></a>
+      <a href="{% url 'experts:category_list' %}">카테고리 둘러보기 ></a>
+      <a href="{% url 'experts:expert' %}">전문가 찾기 ></a>
     </div>
   </div>
+  {% endif %}
 
-  <!-- 
-  {% endif %} 
-  -->
-
-  <div id="footer-container"></div>
-  <script src="../components/footer.js"></script>
-  <script src="../components/navbar.js"></script>
-  <script src="../js/load-components.js"></script>
+  {% include "components/footer.html" %}
+  <script src="{% static 'components/footer.js' %}"></script>
+  <script src="{% static 'components/navbar.js' %}"></script>
+  <script src="{% static 'js/load-components.js' %}"></script>
 </body>
 </html>

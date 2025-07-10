@@ -27,16 +27,6 @@ const uploadBox = document.querySelector('.upload-box');
   });
 
 
-// 확인 버튼 클릭
-// confirmButton.addEventListener('click', () => {
-//   if (!fileInput.files || fileInput.files.length === 0) {
-//     alert('신분증 이미지를 업로드해 주세요.');
-//     return;
-//   }
-//   // 인증 성공 후 페이지 이동
-//   window.location.href = "purpose.html";
-// });
-
 // 뒤로가기 버튼 클릭
 const backButton = document.querySelector('.back-button');
 backButton.addEventListener('click', () => {
