@@ -1,49 +1,79 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h2>채팅 목록</h2>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1:1 상담</title>
+  <link rel="stylesheet" href="{% static 'css/chat.css' %}" />
+  <link rel="stylesheet" href="{% static 'components/footer.css' %}" />
+  <link rel="stylesheet" href="{% static 'components/navbar.css' %}" />
+</head>
+<body>
 
-    {% if room_data %}
-      <ul>
-        {% for item in room_data %}
-          <li>
-            <a href="{% url 'chats:chat_room' item.room.id %}">
-              {% if request.user == item.room.expert %}
-                {% if item.room.customer.profileImage %}
-                  <img src="{{ item.room.customer.profileImage.url }}" width="30px" />
-                {% else %}
-                  <img src="{% static 'img/basic_profile.svg' %}" width="30px" />
-                {% endif %}
-                {{ item.room.customer.nickname }}
+  {% include "components/navbar.html" %}
+  
+  {% if room_data %}
+  <div class="chat-list-container">
+    <ul class="chat-list">
+      {% for item in room_data %}
+      <li class="chat-card">
+        <a href="{% url 'chats:chat_room' item.room.id %}">
+          <div class="chat-card-left">
+            {% if request.user == item.room.expert %}
+              {% if item.room.customer.profileImage %}
+                <img src="{{ item.room.customer.profileImage.url }}" alt="프로필" class="chat-avatar" />
               {% else %}
-                {% if item.room.expert.profileImage %}
-                  <img src="{{ item.expert.profileImage.url }}" width="30px" />
-                {% else %}
-                  <img src="{% static 'img/basic_profile.svg' %}" width="30px" />
-                {% endif %}
-                {{ item.room.expert.nickname }}
+                <img src="{% static 'img/basic_profile.svg' %}" alt="프로필" class="chat-avatar" />
               {% endif %}
+              <div class="chat-info">
+                <div class="chat-name">
+                  {{ item.room.customer.nickname }}
+                  {% if item.unread_count > 0 %}
+                    <span class="chat-badge">{{ item.unread_count }}</span>
+                  {% endif %}
+                </div>
+            {% else %}
+              {% if item.room.expert.profileImage %}
+                <img src="{{ item.room.expert.profileImage.url }}" alt="프로필" class="chat-avatar" />
+              {% else %}
+                <img src="{% static 'img/basic_profile.svg' %}" alt="프로필" class="chat-avatar" />
+              {% endif %}
+              <div class="chat-info">
+                <div class="chat-name">
+                  {{ item.room.expert.nickname }}
+                  {% if item.unread_count > 0 %}
+                    <span class="chat-badge">{{ item.unread_count }}</span>
+                  {% endif %}
+                </div>
+            {% endif %}
+                <div class="chat-preview">
+                  {{ item.last_msg.content|truncatechars:30 }}
+                </div>
+              </div>
+          </div>
+          <div class="chat-time">
+            {{ item.last_msg.created_at|date:"n월 j일 H:i" }}
+          </div>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% else %}
+  <div class="chat-empty">
+    <img src="{% static 'img/empty-chat.svg' %}" alt="채팅 없음" class="chat-empty-img" />
+    <p class="chat-empty-text">아직 진행 중인 1:1 상담 내역이 없어요!</p>
+    <div class="chat-empty-buttons">
+      <a href="{% url 'experts:category_list' %}">카테고리 둘러보기 ></a>
+      <a href="{% url 'experts:expert' %}">전문가 찾기 ></a>
+    </div>
+  </div>
+  {% endif %}
 
-              {% if item.unread_count > 0 %}
-                <span class="badge">{{ item.unread_count }}</span>
-              {% endif %}
-              <br />
-              {{ item.last_msg.content|truncatechars:30 }}
-            </a>
-            <small>{{ item.last_msg.created_at|date:"n월 j일 H:i" }}</small>
-          </li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>아직 진행 중인 1:1 상담 내역이 없어요!</p>
-      <a href="#">카테고리 둘러보기 ></a>
-      <a href="{% url 'experts:expert_list' %}">전문가 찾기 ></a>
-    {% endif %}
-  </body>
+  {% include "components/footer.html" %}
+  <script src="{% static 'components/footer.js' %}"></script>
+  <script src="{% static 'components/navbar.js' %}"></script>
+  <script src="{% static 'js/load-components.js' %}"></script>
+</body>
 </html>

@@ -1,0 +1,109 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  width: 882px;
+  height: 634px;
+  display: flex;
+  border-radius: 35px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+/* 왼쪽 영역 */
+.login-section {
+  width: 50%;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-section h2 {
+  font-size: 26px;
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+.login-section form {
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-section input {
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  border: none;
+  background: #f0f2f5;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+/* 왼쪽 버튼 */
+.login-section button {
+
+  display: block;
+  padding: 12px 34px;            
+  background-color: #0D5BDA;
+  border: 2px solid #0D5BDA;
+
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  text-align: center;
+margin: 0 auto;
+margin-top: 25px;
+}
+
+/* 오른쪽 영역 */
+.info-section {
+  width: 50%;
+  background-color: #0D5BDA;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-content {
+  text-align: center;
+}
+
+.logo-full {
+  width: 250px;
+  margin-bottom: 38px;
+}
+
+.signup-text {
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+
+.signup-btn {
+  display: inline-block;
+  padding: 12px 34px;
+  border: 2px solid #fff;
+  border-radius: 30px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+.signup-btn:hover {
+  background-color: rgba(255,255,255,0.2);
+}

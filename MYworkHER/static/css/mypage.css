@@ -1,0 +1,194 @@
+body {
+  margin: 0;
+  background: #f2f4f7;
+  font-family: "Noto Sans KR", sans-serif;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mypage-container {
+  max-width: 700px;
+  margin: 120px auto;
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px;
+  position: relative;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.profile-photo-wrapper {
+  position: absolute;
+  top: -75px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.profile-photo-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-edit-btn {
+  position: absolute; /* static 대신 absolute */
+  top: -60px;
+  right: 300px;
+  border: none;
+  border-radius: 50%;
+    background: transparent; 
+  padding: 0;               
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-edit-btn img {
+  width: 40px;
+  height: 40px;
+  z-index: 1;
+}
+
+.edit-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 8px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+
+}
+/* update 부분 css */
+.save-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 11px 22px;
+  border-radius: 34.45px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #333;
+  font-size: 16.5px;
+}
+
+#confirmYes, #confirmNo {
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 11px 22px;
+  border-radius: 34.45px;
+  cursor: pointer;
+  color: #333;
+  font-size: 16.5px;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.15);
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-info {
+  margin-top: 100px;
+}
+
+.info-row {
+  display: flex;
+  gap: 30px;
+}
+.info-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.vertical-divider {
+  width: 1px;
+  background-color: #ccc;
+  align-self: stretch;
+}
+.info-block .label {
+  font-size: 14px;
+  color: #888;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.value {
+  font-size: 18px;
+  color: #333;
+}
+.bio-block .label {
+  font-size: 14px;
+  color: #888;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.bio {
+  font-size: 16px;
+  color: #333;
+}
+
+.label-edit-icon {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.edit-input, .edit-textarea {
+  font-size: 16px;
+  color: #2563eb;
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  font-family: "Noto Sans KR", sans-serif;
+
+}
+.edit-textarea {
+  height: 80px;
+  resize: none;
+}
+.modal {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background:#fff;
+  border-radius:30px;
+  padding: 24px 50px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  text-align:center;
+}
+.modal-content button {
+  border:none;
+  background:#ffffff;
+  padding:10px;
+  cursor:pointer;
+}
+.modal-content .cancel {
+  background:#fff;
+  color:red;
+}

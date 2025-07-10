@@ -1,0 +1,153 @@
+body {
+  margin: 0;
+  background: #ffffff;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+/* 전체 컨테이너 */
+.chat-room-container {
+  width: 811px;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 1. 상단 프로필 */
+.chat-room-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.chat-profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.profile-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.nickname {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.subtext {
+  font-size: 14px;
+  color: #888;
+}
+
+.exit-icon img {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+/* 2. 채팅 메시지 박스 */
+.chat-box {
+  background: #f2f4f7;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 공지사항 */
+.message-row.notice {
+  display: flex;
+  justify-content: center;
+}
+
+.notice-bubble {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #0d5bda;
+  box-shadow: 0 0 2px rgba(0,0,0,0.1);
+  max-width: 95%; /* 폭 넓게 */
+  width: 95%;     /* 폭 넓게 */
+}
+
+.notice-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* 메시지 행 */
+.message-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.message-row.me {
+  align-items: flex-end;
+}
+
+/* 말풍선 */
+.message-bubble {
+  background: #ffffff;
+  padding: 12px 16px;
+  border-radius: 30px;
+  font-size: 14px;
+  max-width: 70%;
+  word-break: break-word;
+  box-shadow: 0 0 2px rgba(0,0,0,0.1);
+}
+
+.message-row.me .message-bubble {
+  background: #e3f2fd;
+}
+
+/* 시간 */
+.message-time {
+  font-size: 12px;
+  color: #888;
+  margin-top: 4px;
+}
+
+/* 3. 입력창 */
+.chat-input-form {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.chat-input-form textarea {
+  flex: 1;
+  resize: none;
+  padding: 12px;
+  border: none; /* 선 없애기 */
+  border-radius: 0; /* 둥근 모서리 없애기 */
+  font-size: 14px;
+  height: 50px;
+  font-family: "Noto Sans KR", sans-serif;
+
+}
+
+.send-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.send-btn img {
+  width: 24px;
+  height: 24px;
+}
