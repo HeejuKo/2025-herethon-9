@@ -1,5 +1,5 @@
 const form = document.getElementById('signup-form');
-const idInput = document.getElementById('id');
+const idInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
 const passwordConfirmInput = document.getElementById('passwordConfirm');
 const phoneInput = document.getElementById('phone');
@@ -10,6 +10,7 @@ const idError = document.getElementById('id-error');
 const passwordError = document.getElementById('password-error');
 const contactError = document.getElementById('contact-error');
 
+
 // 터치 상태
 let touched = {
   id: false,
@@ -18,6 +19,7 @@ let touched = {
   phone: false,
   email: false,
 };
+
 
 function validate() {
   let idValid = true;

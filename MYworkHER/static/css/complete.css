@@ -36,14 +36,21 @@ h1 {
   text-align: center;
 }
 
-#goLogin {
-  width: 248px;
-  height: 70px;
-  font-size: 18px;
-  font-weight: 600;
-  background: #0D5BDA;
+
+.buttonWrapper {
+  padding: 12px 24px;
+  background-color: #0D5BDA;
+  border-radius: 436.36px;
+  
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.login-button{
   color: #fff;
-  border: none;
-  border-radius: 35px;
-  cursor: pointer;
+  text-decoration: none;
+}
+
+.buttonWrapper:hover {
+  background-color: #0B4DB8;
 }
