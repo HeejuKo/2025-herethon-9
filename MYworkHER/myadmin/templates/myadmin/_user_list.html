@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>회원 목록</h1>
+    <ul>
+      {% for user in users %}
+        <li>
+          <a href="{% url 'myadmin:user_detail' user.id %}">
+            {% if user.isVerified %}
+              인증 완료 | 
+            {% else %}
+              인증 대기 | 
+            {% endif %}
+            {{ user.username }} ({{ user.nickname }})
+          </a>
+        </li>
+      {% empty %}
+        <li>가입된 회원이 없습니다.</li>
+      {% endfor %}
+    </ul>
+</body>
+</html>

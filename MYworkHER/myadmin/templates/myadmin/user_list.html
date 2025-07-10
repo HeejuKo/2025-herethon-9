@@ -1,28 +1,40 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>관리자 페이지 - 회원 목록</title>
+  <link rel="stylesheet" href="{% static 'css/user_list.css' %}"/>
+  <link rel="stylesheet" href="{% static 'components/admin-navbar.css' %}"/>
+  <link rel="stylesheet" href="{% static 'components/footer.css' %}"/>
 </head>
 <body>
-    <h1>회원 목록</h1>
-    <ul>
+  <div id="navbar">
+    {% include 'components/admin-navbar.html' %}
+  </div>
+
+  <main class="container">
+    <h1 class="page-title">회원 목록</h1>
+    <ul class="user-list" id="userList">
       {% for user in users %}
-        <li>
+        <li class="user-card">
           <a href="{% url 'myadmin:user_detail' user.id %}">
-            {% if user.isVerified %}
-              인증 완료 | 
-            {% else %}
-              인증 대기 | 
-            {% endif %}
-            {{ user.username }} ({{ user.nickname }})
+            <span class="status {% if user.isVerified %}status-verified{% else %}status-pending{% endif %}">
+              {% if user.isVerified %}인증 완료{% else %}인증 대기{% endif %}
+            </span>
+            <span class="user-info">{{ user.username }} ({{ user.nickname }})</span>
+            <img src="{% static 'img/search-icon.svg' %}" alt="검색" class="search-icon" />
           </a>
         </li>
       {% empty %}
-        <li>가입된 회원이 없습니다.</li>
+        <li class="no-user">가입된 회원이 없습니다.</li>
       {% endfor %}
     </ul>
+  </main>
+
+  <div id="footer-container">
+    {% include 'components/footer.html' %}
+  </div>
 </body>
 </html>
