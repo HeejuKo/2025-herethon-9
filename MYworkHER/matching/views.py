@@ -1,3 +1,4 @@
+from django.db.models import Count, Q
 from datetime import datetime, timedelta
 from itertools import product
 from django.shortcuts import render, redirect, get_object_or_404
@@ -9,6 +10,24 @@ from chats.models import ChatRoom
 from django.contrib.auth.decorators import login_required
 
 User = get_user_model()
+
+def main(request):
+
+    current_month = datetime.now().month
+    top_experts = (
+        User.objects.filter(userType=UserType.EXPERT)
+        .annotate(
+            monthly_count = Count(
+                'expert_matching',
+                filter=Q(expert_matching__date__month=current_month)
+            )
+        )
+        .order_by('-monthly_count')[:3]
+    )
+
+    return render(request, 'matching/main.html', {
+        'top_experts': top_experts,
+    })
 
 # 전문가 id를 받아와 예약 진행
 def get_selected_expert(expert_id):
@@ -23,9 +42,6 @@ def get_available_dates():
 
 def get_available_times():
     return [f"{hour:02d}:00" for hour in range(9, 21)]  # 09:00 ~ 20:00
-    
-def main(request):
-    return render(request, 'matching/main.html')
 
 # 예약 생성
 @login_required
