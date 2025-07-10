@@ -76,6 +76,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         const btn = document.createElement("button");
         btn.textContent=time;
         btn.className="TimeBtn";
+        btn.type = "button"; // 새로고침 방지
 
         btn.addEventListener("click",()=>{
            btn.classList.toggle("selected");
@@ -90,6 +91,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     reserveBtn.addEventListener("click",()=>{
         const requestText = document.querySelector(".Request").value;
         const selectedTimes=Array.from(document.querySelectorAll(".TimeBtn.selected")).map(btn=>btn.textContent);
+        const expertId = document.querySelector("input[name='expert_id']")?.value;
 
         if(selectedDates.size===0){
             alert("예약할 날짜를 최소 한 개 이상 선택해주세요.");
@@ -100,15 +102,18 @@ document.addEventListener("DOMContentLoaded", ()=>{
             alert("예약할 시간을 최소 한 개 이상 선택해 주세요.");
             return;
         }
-        
-        const payload = {
-            dates: Array.from(selectedDates),
-            times: Array.from(document.querySelectorAll(".TimeBtn.selected")).map(btn=>btn.textContent),
-            request: requestText,
-        };
-        console.log("보낼 데이터:",payload);
-        localStorage.setItem("reservationData",JSON.stringify(payload));
-        window.location.href="../pages/reserve_confirm.html";
+
+        if (!expertId) {
+            alert("전문가 정보가 누락되었습니다.");
+            return;
+        }
+
+        // hidden input에 값 채워 넣기
+        document.getElementById("datesInput").value = Array.from(selectedDates).join(",");
+        document.getElementById("timesInput").value = selectedTimes.join(",");
+
+        // form 제출
+        document.getElementById("matchingForm").submit();
     })
   
 });

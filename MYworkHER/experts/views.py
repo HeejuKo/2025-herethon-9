@@ -34,8 +34,6 @@ def subcategory_list(request, category):
         'subcategories': subcategories
     })
 
-from django.db.models import Count
-
 def category_list(request):
     category_enum_map = {
         'appliance': ('가전/수리', CategoryChoices.APPLIANCE, ['세탁기', '에어컨']),

@@ -1,10 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>reserve_confirm</title>
-    <link rel="stylesheet" href="../css/reserve_confirm.css">
+    <link rel="stylesheet" href="{% static 'css/reserve_confirm.css' %}">
+
 </head>
 <body>
     <div class="Container">
@@ -13,20 +15,27 @@
                 <div class="Logo">
                     <a href="../index.html">
                         <img 
-                            src="../assets/img/logo.svg"
+                            src="{% static 'img/logo.svg' %}"
                             alt="logo"
                             width="136px"
                         />
                     </a>
                 </div>
-                <div class="T_Category"><a href="../pages/category.html" class="T_Category">카테고리</a></div>
-                <div class="T_Search"><a href="../pages/expert.html" class="T_Search">전문가찾기</a></div>
-                <div class="T_Chat">1:1상담
+                <div class="T_Category"><a href="{% url 'experts:category_list' %}" class="T_Category">카테고리</a></div>
+                <div class="T_Search"><a href={% url 'experts:expert_list'%} class="T_Search">전문가찾기</a></div>
+                {% if request.user.is_authenticated%}
+                    <div class="T_Chat"><a href="{% url 'chats:chat_list'%}">1:1상담</a>
+                        {% if unread_chat_total > 0 %}
                         <div class="Alarm"></div>
+                {%endif%}
                 </div>
-                <div class="T_Mypage">마이페이지</div>
+                <div class="Logout">
+                    <a href="{% url 'accounts:logout' %}">로그아웃</a>
+                </div>
+                {%else%}
+                <button class="Btn" id="loginSection" style="display:none;"><a href="{% url 'accounts:login'%}">로그인/회원가입</a></button>
+                {% endif %}
             </div>
-           <button class="Btn" id="loginSection" style="display:none;">로그인/회원가입</button>
         </div>
 
         <div class="ReserveConfirm">
@@ -34,14 +43,14 @@
 
             <div class="ReserveInfo">
                 <img
-                    src="../assets/img/profile.svg"
+                    src="{% static "img/profile.svg" %}"
                     alt="profile"
                     width="114px"
                     class="InfoImg"
                 />
                 <div class="InfoText">
-                    <div class="Nickname">전문가 닉네임</div>
-                    <div class="Category">카테고리(가전/수리)</div>
+                    <div class="Nickname">{{ expert.nickname }}</div>
+                    <div class="Category">{{ expert.expert_profile.get_category_display }}</div>
                 </div>
             </div>
             <div class="ResLine"></div>
@@ -50,34 +59,46 @@
                 <span class="QText"> 가능 예약 일자</span>
             </div>
             <div class="ChoiceDay">
-
+                {% for date in date_matchings %}
+                    <div class="SelectedDate">{{ date|date:"Y년 n월 j일" }}</div>
+                {% endfor %}
             </div>
             <div class="ResLine"></div>
+
             <div class="Q2">
                 <span class="QNum">02</span>
                 <span class="QText">가능 예약 시간대</span>
             </div>
             <div class="TimeBtnBox">
-
-            </div>
+                {% for time in time_matchings %}
+                    <div class="TimeBtn">{{ time }}</div>
+                {% endfor %}
+            </div>  
             <div class="ResLine"></div>
             <div class="Q3">
                 <span class="QNum">03</span>
                 <span class="QText">요청사항</span>
             </div>
             <div class="RequestText">
-
+                {{ notes|linebreaksbr }}
             </div>
             <div class="TwoBtn">
-                <button class="Revise">수정하기</button>
-                <button class="Submit">예약신청</button>
+                <form method="get" action="{% url 'matching:create-matching' %}">
+                    <input type="hidden" name="expert_id" value="{{ expert.id }}">
+                    <button type="submit" class="Revise">수정하기</button>
+                </form>
+                <form method="post" action="{% url 'matching:matching-success'  matching_id=0 %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="expert_id" value="{{ expert.id }}">
+                    <button type="submit" class="Submit">예약신청</button>
+                </form>
             </div>
         </div>
 
         <div class="Complete">
             <div class="Left">
                 <img
-                    src="../assets/img/bigcheck.svg"
+                    src={% static "img/bigcheck.svg"%}
                     alt="bigcheck"
                     width="200px"
                     class="BigCheckImg"
@@ -87,7 +108,7 @@
             <div class="Right">
                 <div class="RightBox">
                     <img
-                        src="../assets/img/profile.svg"
+                        src={% static "img/profile.svg" %}
                         alt="profile";
                         width="98px"                    
                     />
@@ -118,6 +139,6 @@
             <div class="S_Text">BE 고원정 - 성신여자대학교 멋쟁이사자처럼 백엔드</div>
         </div>
     </footer>
-    <script src="../js/reserve_confirm.js"></script>
+    <script src="{% static 'js/reserve_confirm.js' %}"></script>
 </body>
 </html>
