@@ -43,7 +43,7 @@
         {% csrf_token %}
         <input type="hidden" name="expert_id" value="{{ selected_expert.id }}">
         <input type="hidden" name="dates" id="datesInput">
-        <input type="hidden" name="times" id="timesInput">
+        <input type="hidden" name="times" id="timesInput" value="{{ selected_times|join:"," }}">
             <div class="ReserveInfo">
                 <img
                     src="{% static "img/profile.svg" %}"
@@ -114,8 +114,22 @@
         </div>
     </footer>
     <script>
-    // safe 필수!
-        window.preSelectedTimes = JSON.parse('{{ selected_times|default:"[]"|safe }}');
+        const selectedDates = {{ selected_dates|safe }};  // Django에서 넘어온 선택된 날짜 배열
+        const datesInput = document.getElementById("datesInput");
+
+        if (selectedDates && datesInput) {
+            // 콤마로 연결된 문자열로 변환 후 hidden input에 주입
+            datesInput.value = selectedDates.join(",");
+        }
+    </script>
+
+    <script>
+        const selectedTimes = {{ selected_times|safe }};
+        const timesInput = document.getElementById("timesInput");
+
+        if (selectedTimes && timesInput) {
+            timesInput.value = selectedTimes.join(",");
+        }
     </script>
 
     <script src={% static "js/reserve.js"%}></script>

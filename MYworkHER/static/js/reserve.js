@@ -63,16 +63,20 @@ document.addEventListener("DOMContentLoaded", ()=>{
         
         choiceDayBox.insertBefore(dateDiv,choiceBtn);
     });
-
+        
     const allTime = [];
     for (let hour = 9; hour <= 20; hour++) {
         const formattedHour = hour.toString().padStart(2, '0');
         allTime.push(`${formattedHour}:00`);
     }
 
-    const selectedTimes = window.preSelectedTimes || [];
+    const selectedTimes = JSON.parse(document.getElementById("timesInput")?.value
+        ? `["${document.getElementById("timesInput").value.split(',').join('","')}"]`
+        : "[]");
 
     const timeContainer = document.querySelector(".TimeBtnBox");
+    const timesInput = document.getElementById("timesInput");
+
     timeContainer.innerHTML = ""; // 기존 버튼 제거 (중복 방지)
 
     allTime.forEach(time => {
@@ -86,12 +90,26 @@ document.addEventListener("DOMContentLoaded", ()=>{
             btn.classList.add("selected");
         }
 
+        // 클릭 시 toggle 및 hidden input 갱신
         btn.addEventListener("click", () => {
             btn.classList.toggle("selected");
+
+            const selected = Array.from(document.querySelectorAll('.TimeBtn.selected'))
+                .map(b => b.textContent);
+
+            if (timesInput) {
+                timesInput.value = selected.join(",");
+            }
         });
 
-        timeContainer.append(btn);
+        timeContainer.appendChild(btn);
     });
+
+    // 최초 로드 시 input 값 업데이트
+    if (timesInput) {
+        timesInput.value = selectedTimes.join(",");
+    }
+
 
 
     
