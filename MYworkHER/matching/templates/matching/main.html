@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYworkHER main</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+    <link rel="stylesheet" href="{% static 'components/navbar.css' %}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="Container">
+                <nav class="navbar">
+            <div class="navbar-container">
+                <div class="navbar-left">
+                    <div class="navWrapper">
+                    <a href="{% url 'matching:main' %}" class="navbar-logo">
+                        <img src="{% static 'img/logo.svg' %}" alt="로고" />
+                    </a>
+                    <a href="{% url 'experts:category_list' %}" class="navbar-item">카테고리</a>
+                    <a href="{% url 'experts:expert_search' %}" class="navbar-item">전문가 찾기</a>
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url 'chats:chat_list' %}" class="navbar-item">1&#58;1상담
+                            {% if unread_chat_total > 0 %}
+                                <span class="alarm-dot"></span>
+                            {% endif %}
+                        </a>
+                        <a href="{% url 'accounts:mypage' %}" class="navbar-item">마이페이지</a>
+                        </div>
+                        </div>
+                        
+                        <div class="navbar-right">
+                        <button class="logout-btn">
+                            <a href="{% url 'accounts:logout' %}">로그아웃</a>
+                        </button>
+                    {% else %}
+                        </div>
+                   
+                </div>
+                 <a class="logA" href="{% url 'accounts:login' %}">
+                        <button class="Btn" id="loginSection" >로그인/회원가입</button>
+                    </a>
+                    {% endif %}
+            </div>
+        </nav>
+        </div>
+        <div class="Banner">
+                <img
+                    src="{% static 'img/banner.svg' %}"
+                    alt="banner"
+                    width="714.74px"
+                />
+        </div>
+        <div class="Category">
+            <div class="C1">
+                <a href="{% url 'experts:expert_category' %}?category=appliance">
+                <img
+                    src="{% static 'img/main_C1.svg' %}"
+                    alt="repair"
+                    width="222.516px"
+                />
+                </a>
+            </div>
+            <div class="C2">
+                <a href="{% url 'experts:expert_category' %}?category=health">
+                <img
+                    src="{% static 'img/main_C2.svg' %}"
+                    alt="sports"
+                    width="222.516px"
+                />
+                </a>
+            </div>
+            <div class="C3">
+                <a href="{% url 'experts:expert_category' %}?category=business"">
+                <img
+                    src="{% static 'img/main_C3.svg' %}"
+                    alt="consulting"
+                    width="222.516px"
+                />
+                </a>
+            </div>
+            <div class="C4">
+                <a href="{% url 'experts:expert_category' %}?category=lifestyle">
+                <img
+                    src="{% static 'img/main_C4.svg' %}"
+                    alt="life"
+                    width="222.516px"
+                />
+                </a>
+            </div>
+        </div>
+        <div class="TEWrapper">
+        <div class="Text">이달의 전문가 <span class="Top">TOP3</span></div>
+        <div class="ExpertsBox">
+            {% for expert in top_experts %}
+            <a href="{% url 'experts:expert_detail' expert.id %}"></a>
+            <div class="Profile1">
+                {% if expert.profileImage %}
+                <img
+                    src="{{ expert.profileImage.url }}"
+                    alt="profile"
+                    width="91px"
+                    class="expertImg"
+                />
+                {% else %}
+                <img
+                    src="{% static 'img/basic_profile.svg' %}"
+                    alt="profile"
+                    width="91px"
+                    class="expertImg"
+                />
+                {% endif %}
+                <div class="ProfileText1">
+                    <div class="Nickname">{{ expert.nickname }}</div>
+                    <div class="Details">{{ expert.expert_profile.get_category_display }} / 경력 {{ expert.expert_profile.experience }}년</div>
+                    <div class="Reserve">예약 건수 <span class="Number">{{ expert.monthly_count }}건</span></div>
+                </div>
+                {% if not forloop.last %}
+                    <div class="Line"></div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% include 'components/footer.html' %}
+</body>
+</html>

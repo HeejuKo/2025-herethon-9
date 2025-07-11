@@ -1,0 +1,106 @@
+{% load static %}
+{% load time_filters %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>채팅방</title>
+  <link rel="stylesheet" href="{% static 'css/chat-room.css' %}" />
+  <link rel="stylesheet" href="{% static 'components/footer.css' %}" />
+  <link rel="stylesheet" href="{% static 'components/navbar.css' %}" />
+</head>
+<body>
+  {% include "components/navbar.html" %}
+
+  <div class="chat-room-container">
+    <!-- 1. 상단 프로필 영역 -->
+    <div class="chat-room-header">
+      <div class="chat-profile">
+        {% if request.user == room.expert %}
+          {% if room.customer.profileImage %}
+            <img src="{{ room.customer.profileImage.url }}" alt="프로필" class="profile-img"/>
+          {% else %}
+            <img src="{% static 'img/basic_profile.svg' %}" alt="프로필" class="profile-img"/>
+          {% endif %}
+          <div class="profile-info">
+            <div class="nickname">{{ room.customer.nickname }}</div>
+            <div class="subtext">{{ room.customer.introduction }}</div>
+          </div>
+        {% else %}
+          {% if room.expert.profileImage %}
+            <img src="{{ room.expert.profileImage.url }}" alt="프로필" class="profile-img"/>
+          {% else %}
+            <img src="{% static 'img/basic_profile.svg' %}" alt="프로필" class="profile-img"/>
+          {% endif %}
+          <div class="profile-info">
+            <div class="nickname">{{ room.expert.nickname }}</div>
+            <div class="subtext">{{ room.expert.introduction }}</div>
+          </div>
+        {% endif %}
+      </div>
+      <a href="{% url 'chats:chat_list' %}" class="exit-icon">
+        <img src="{% static 'img/exit-icon.svg' %}" alt="나가기"/>
+      </a>
+    </div>
+
+    <!-- 2. 채팅 메시지 박스 -->
+    <div class="chat-box">
+      <div class="messageWrapper">
+      <div class="notice">
+          <div class="notice-bubble">
+            <img src="{% static 'img/speaker-icon.svg' %}" alt="공지" class="notice-icon"/>
+              <div class="pWrapper">
+              <p>안녕하세요 :)</p>
+              <p>원하시는 서비스나 궁금하신 내용을 자유롭게 말씀해주세요!</p>
+              <p>예: “가격이 궁금해요!” 또는 “출장 가능 지역이 어디인가요?”</p>
+                </div>
+            </div>
+        </div>
+        </div>
+      {% for message in messages %}
+        {% if message.sender == request.user %}
+          <!-- 내가 보낸 메시지 -->
+           <div class="messageWrapperRow">
+          <div class="message-row me">
+            <div class="message-time">{{ message.created_at|format_korean_datetime }}</div>
+            <div class="message-bubble">
+              {{ message.content }}
+            </div>
+          </div>
+          </div>
+        {% else %}
+          <!-- 상대방 메시지 -->
+          <div class="message-row">
+            <div class="message-bubble">
+              {{ message.content }}
+            </div>
+            <div class="message-time">{{ message.created_at|format_korean_datetime }}</div>
+          </div>
+        {% endif %}
+      {% empty %}
+      <div class="empty">
+        <span class="empty_img">💬</span>
+        채팅을 시작해 보세요!
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- 3. 입력창 -->
+    <form id="chatForm" method="POST" class="chat-input-form">
+      {% csrf_token %}
+      <textarea id="chatInput" name="content" placeholder="채팅을 입력하세요." required></textarea>
+      <button type="submit" class="send-btn">
+        <img src="{% static 'img/send-icon.svg' %}" alt="전송"/>
+      </button>
+    </form>
+  </div>
+
+  {% include "components/footer.html" %}
+  <script src="{% static 'components/footer.js' %}"></script>
+  <script src="{% static 'components/navbar.js' %}"></script>
+  <script src="{% static 'js/chat-room.js' %}"></script>
+
+
+</body>
+</html>

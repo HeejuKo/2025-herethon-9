@@ -1,0 +1,50 @@
+.Footer{
+width: 100%;
+background: #ECF0F5;
+margin-top: 0;
+display: flex;
+justify-content: center;
+gap: 70px;
+padding: 20px 0px;
+}
+
+.B_Text{
+color: #565656;
+font-family: "Noto Sans KR";
+font-size: 20px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+margin-bottom: 10px;
+}
+.S_Text{
+color: #565656;
+font-family: "Noto Sans KR";
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+
+}
+.Workher{
+display: flex;
+flex-direction: column;
+margin-left: 0;
+min-width: 684px;
+overflow: hidden;
+padding-left: 50px;
+}
+.About{
+display: flex;
+flex-direction: column;
+min-width: 357px;
+overflow: hidden;
+margin-right: 0;
+padding-right: 60px;
+}
+
+.L_Line{
+min-width: 2px;
+height: 135px;
+background: #CBCBCB;
+}

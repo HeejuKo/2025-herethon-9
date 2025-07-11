@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>전문가 예약하기</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+  <script>
+    window.onload = function () {
+      const hiddenInput = document.getElementById('preselectedDates');
+      const selected = hiddenInput ? hiddenInput.value.split(',') : [];
+
+      for (const date of selected) {
+        if (date) addDateToList(date);
+      }
+    };
+
+    function addDate() {
+      const dateInput = document.getElementById('datePicker');
+      const date = dateInput.value;
+      if (date) {
+        addDateToList(date);
+        dateInput.value = '';
+      }
+    }
+
+    function addDateToList(date) {
+      const container = document.getElementById('selectedDates');
+      if (document.getElementById('date-' + date)) return;
+
+      const div = document.createElement('div');
+      div.id = 'date-' + date;
+      div.innerHTML = `
+        <input type="hidden" name="dates[]" value="${date}">
+        ${date} <button type="button" onclick="removeDate('${date}')">삭제</button>
+      `;
+      container.appendChild(div);
+    }
+
+    function removeDate(date) {
+      const div = document.getElementById('date-' + date);
+      if (div) div.remove();
+    }
+  </script>
+</head>
+<body>
+  <h1>전문가 예약하기</h1>
+
+  {% if error %}
+    <p style="color:red">{{ error }}</p>
+  {% endif %}
+
+  <form method="POST">
+    {% csrf_token %}
+
+    <label for="expert_id">전문가 선택:</label>
+    <select name="expert_id" id="expert_id">
+      <option value="">-- 전문가를 선택하세요 --</option>
+      {% for expert in experts %}
+        <option value="{{ expert.id }}"
+          {% if selected_expert and expert.id == selected_expert.id %}selected{% endif %}>
+          {{ expert.username }}
+        </option>
+      {% endfor %}
+    </select>
+
+    <br><br>
+    <label>01 가능 예약 일자를 선택해 주세요.</label><br>
+    <input type="hidden" id="preselectedDates" value="{{ selected_dates|join:',' }}">
+    <input type="date" id="datePicker">
+    <button type="button" onclick="addDate()">+</button>
+
+    <div id="selectedDates"></div>
+
+    <br><br>
+    <label>02 가능한 시간대를 선택해 주세요:</label><br>
+    {% for time_option in available_times %}
+      <label>
+        <input type="checkbox" name="times[]" value="{{ time_option }}"
+          {% if time_option in selected_times %}checked{% endif %}>
+        {{ time_option }}
+      </label><br>
+    {% endfor %}
+
+    <br><br>
+    <label>03 메모:</label><br>
+    <textarea name="notes" rows="4" cols="50">{{ notes|default_if_none:'' }}</textarea>
+
+    <br><br>
+    <button type="submit">예약하기</button>
+  </form>
+
+  <br>
+  <a href="{% url 'matching:main' %}">메인으로 돌아가기</a>
+</body>
+</html>

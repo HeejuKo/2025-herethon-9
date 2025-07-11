@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>성별 인증 - 마이워커</title>
+  <link rel="stylesheet" href="{% static 'css/verify.css' %}" />
+</head>
+<body>
+  <div class="container">
+    <h1>성별을 인증해주세요!</h1>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="upload-box">
+        <img src="" alt="신분증 미리보기" id="previewImage" class="preview-image" style="display:none" />
+        <img src="{% static 'img/mdi_camera.svg' %}" alt="카메라 아이콘" class="camera-icon" />
+        <p>
+          글자가 잘 인식되도록 신분증 이미지<br/>
+          (주민등록증, 운전면허증)를 업로드해 주세요!
+        </p>
+        <label class="upload-button">
+          +
+          <input type="file" id="fileInput"  name="id_image" accept="image/*" hidden />
+        </label>
+      </div>
+      <div class="button-group">
+        <a href="{% url 'accounts:signup_step1' %}" class="back-button">이전</a>
+        <button type="submit" id="confirmButton">확인</button>
+      </div>
+    </form>
+  </div>
+  <script src="{% static 'js/verify.js' %}"></script>
+</body>
+</html>

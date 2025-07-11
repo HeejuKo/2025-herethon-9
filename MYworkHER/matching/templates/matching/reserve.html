@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reserve</title>
+    <link rel="stylesheet" href="{% static 'css/reserve.css' %}">
+    <link rel="stylesheet" href="{% static 'components/navbar.css' %}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="Container">
+        {% include 'components/navbar.html' %}
+
+        <form method="POST" action="{% url 'matching:create-matching' %}" id="matchingForm">
+        {% csrf_token %}
+        <input type="hidden" name="expert_id" value="{{ selected_expert.id }}">
+        <input type="hidden" name="dates" id="datesInput" value="{{selected_dates | join:","}}">
+        <input type="hidden" name="times" id="timesInput" value="{{ selected_times|join:"," }}">
+            <div class="ReserveInfo">
+                <img
+                    src="{% static "img/profile.svg" %}"
+                    alt="profile"
+                    width="114px"
+                    class="InfoImg"
+                />
+                <div class="InfoText">
+                    <div class="Nickname">{{selected_expert.nickname}}</div>
+                    <div class="Category">{{selected_expert.expert_profile.get_category_display}}</div>
+                </div>
+            </div>
+            <div class="ResLine"></div>
+
+<div class="QWrapper">
+            <div class="Q1">
+                <span class="QNum">01</span>
+                <span class="QText"> 가능 예약 일자를 선택해 주세요.</span>
+            </div>
+            <div class="ChoiceDay">
+                
+                {% if selected_dates %}
+                    {% for date in selected_dates %}
+                        <div class="SelectedDate active" data-date="{{ date }}">{{ date }}</div>
+                    {% endfor %}
+
+                {% endif %}
+                <input type="date" id="datePicker" style="display: none;" />
+                <img
+                    src="{% static 'img/add_day.svg' %}"
+                    width="44px"
+                    class="ChoiceBtn"
+                />
+            </div>
+</div>
+
+            <div class="ResLine"></div>
+            <div class="Q2">
+                <span class="QNum">02</span>
+                <span class="QText">가능 예약 시간대를 선택해 주세요.</span>
+            </div>
+            <div class="TimeBtnBox">
+                {% for time in available_times %}
+                    <button type="button" class="TimeBtn {% if selected_times and time in selected_times %}selected{% endif %}">
+                        {{ time }}
+                    </button>
+                {% endfor %}
+            </div>
+            <div class="ResLine"></div>
+            <div class="Q3">
+                <span class="QNum">03</span>
+                <span class="QText">요청사항을 입력해 주세요.</span>
+            </div>
+            <textarea class="Request" name="notes" placeholder="요청사항 입력 (최대 200자)" maxlength="200">{{ notes }}</textarea>
+            <button class="ReserveBtn">저장하기</button>
+        </form>
+        
+    {% include 'components/footer.html' %}
+
+   <script>
+        const selectedDates = JSON.parse(document.getElementById("selected-dates").textContent);
+        const datesInput = document.getElementById("datesInput");
+
+        if (Array.isArray(selectedDates) && datesInput) {
+            datesInput.value = selectedDates.join(",");
+        }
+    </script>
+
+
+    <script>
+        const selectedTimes = {{ selected_times | safe }};
+        const timesInput = document.getElementById("timesInput");
+
+        if (selectedTimes && timesInput) {
+            timesInput.value = selectedTimes.join(",");
+        }
+    </script>
+
+    <script src="{% static 'js/reserve.js'%}"></script>
+</body>
+</html>

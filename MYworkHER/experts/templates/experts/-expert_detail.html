@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div style="text-align: center;">
+    <img src="{{ expert.profile_image.url }}" alt="프로필 사진">
+    <h2>{{ expert.username }} 전문가</h2>
+
+    <p>카테고리 ({{ category_display }})</p>
+
+    <div>
+      <a href="{% url 'matching:create-matching' %}?expert_id={{ expert.id }}">예약하러 가기</a>
+      <a href="{% url 'chats:chat_request' expert.id %}">1:1 상담하기 &gt;</a>
+    </div>
+
+    <div>
+      <p>{{ expert.expert_profile.bio|default:"한줄소개 미등록" }}</p>
+      <p>{{ expert.expert_profile.description|default:"업무설명 미등록" }}</p>
+    </div>
+
+    <div>
+      <div>📍 위치: {{ region_display |default:"미등록" }}</div>
+      <div>🧰 경력: {{ expert.expert_profile.experience|default:"미등록" }} 년</div>
+      {% if expert.expert_profile.badge == 'VERIFIED' %}
+        <span>인증됨</span>
+      {% endif %}
+    </div>
+    
+    <div>
+      <strong>이번달 예약 <span>{{ reservation_count }}건</span></strong>
+    </div>
+
+  </body>
+</html>

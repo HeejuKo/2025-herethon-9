@@ -1,0 +1,66 @@
+body {
+  margin: 0;
+  font-family: "Noto Sans KR", sans-serif;
+  height: 100%;
+  object-fit: cover;
+}
+      .wrapper {
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+#categoryContainer {
+display: flex;
+gap: 15px;
+margin-top: 70px;
+}
+
+.subcategory-row {
+display: flex;
+gap: 16px;
+margin-bottom: 37.5px;
+}
+
+.subcategory-item {
+  width: 455px;
+}
+
+.subcategory-list {
+margin-left: 53px;
+margin-bottom: 100px;
+min-height: 330px;
+
+}
+
+.line {
+  width: 930px;
+height: 2px;
+background: #CBCBCB;
+margin: 37px 0 48px;
+}
+
+.subName {
+  color: #000;
+text-align: center;
+font-family: "Noto Sans KR";
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin-right: 10px;
+}
+
+.subCount {
+  color: #0D5BDA;
+font-family: "Noto Sans KR";
+font-size: 15.2px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+}
+
+
+.subcategory-item a {
+  text-decoration: none;
+}

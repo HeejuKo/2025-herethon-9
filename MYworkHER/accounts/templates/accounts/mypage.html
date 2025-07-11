@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>마이페이지 - 마이워커</title>
+  <link rel="stylesheet" href="{% static 'css/mypage.css' %}" />
+  <link rel="stylesheet" href="{% static 'components/footer.css' %}" />
+  <link rel="stylesheet" href="{% static 'components/navbar.css' %}" />
+</head>
+<body>
+  <div id="navbar"></div>
+  {% include 'components/navbar.html' %}
+  <div class="mypage-container">
+    <!-- 프로필 사진 -->
+    <div class="profile-photo-wrapper">
+      {% if request.user.profileImage %}
+      <img
+        src="{{ request.user.profileImage.url }}"
+        alt="Profile Image"
+      />
+      {% else %}
+      <img
+        src="{% static 'img/basic_profile.svg' %}"
+        alt="Default Profile"
+      />
+      {% endif %}
+    </div>
+    
+    <!-- 프로필 수정 버튼 -> 링크로 이동 -->
+    <a href="{% url 'accounts:mypage_update' %}" class="edit-button">프로필 수정</a>
+
+    <!-- 프로필 정보 -->
+    <div class="profile-info">
+      <hr class="top-divider" />
+      <div class="info-row">
+        <div class="info-column">
+          <div class="info-block">
+            <span class="label">닉네임</span>
+            <div class="editable" id="nicknameWrapper">
+              <span class="value" id="nickname">{{ request.user.nickname }}</span>
+            </div>
+          </div>
+          <div class="info-block">
+            <span class="label">ID</span>
+            <span class="value" id="userid">{{ request.user.username }}</span>
+          </div>
+        </div>
+        <div class="vertical-divider"></div>
+        <div class="info-column">
+          <div class="info-block">
+            <span class="label">Phone</span>
+            <div class="editable" id="phoneWrapper">
+              <span class="value" id="phone">{{ request.user.phone }}</span>
+            </div>
+          </div>
+          <div class="info-block">
+            <span class="label">E-mail</span>
+            <div class="editable" id="emailWrapper">
+              <span class="value" id="email">{{ request.user.email }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="bio-block">
+        <span class="label">자기소개</span>
+        <div class="editable" id="bioWrapper">
+          <p class="bio" id="bio">{{ request.user.introduction }}</p>
+        </div>
+      </div>
+      <hr class="bottom-divider" />
+    </div>
+  </div>
+
+  <div id="footer-container"></div>
+  {% include 'components/footer.html' %}
+</body>
+</html>

@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>전문가 찾기</title>
+    <link rel="stylesheet" href="{% static 'css/expert.css' %}" />
+    <link rel="stylesheet" href="{% static 'components/footer.css' %}" />
+    <link rel="stylesheet" href="{% static 'components/navbar.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+</head>
+<body>
+{% include 'components/navbar.html' %}
+
+<div class="wrapper">
+<div class="Topwrapper">
+
+    <div class="Top">
+      <form id="expert-filter-form" method="GET" action="{% url 'experts:expert_search' %}">
+        <div class="SearchBox">
+          <img
+            src="{% static 'img/search.svg' %}"
+            alt="search"
+            width="26px"
+          />
+          <input class="Search" type="text" name="keyword" value="{{ keyword }}" placeholder="전문가명, 한줄소개, 키워드 검색">
+        </div>
+      </form>
+
+      <button class="SearchCategory">
+        <a href="{% url 'experts:category_list' %}">카테고리로 찾기 ></a>
+      </button>
+    </div>
+   
+  
+    <div class="SearchLine"></div>
+</div>
+
+    <div class="ReText">이런 전문가는 어떠신가요?</div>
+
+    <div class="ExpertBoxes" id="Recommend">
+      {% for expert in recommended_experts %}
+        <div class="ExpertBox">
+          <a href="{% url 'experts:expert_detail' expert.user.id %}">
+            <div class="aWrapper">
+          <img class="img" src="{% static 'img/profile.svg' %}" alt="profile" />
+            <div class="ExpertInfo">
+              <div class="NickNameDiv"">
+                <p class="Nickname">
+                  {{ expert.user.nickname }}
+                </p>
+                {% if expert.badge == 'VERIFIED' %}
+                  <img src="{% static 'img/badgeicon.svg' %}" class="BadgeIcon" />
+                {% endif %}
+              </div>
+              <div class="Introduce">{{ expert.bio }}</div>
+            </div>
+            </div>
+              <div class="Description">{{ expert.description|truncatechars:100 }}</div>
+
+          </a>
+        </div>
+    {% empty %}
+        <div>추천 전문가가 없습니다.</div>
+    {% endfor %}
+    </div>
+
+
+  {% include 'components/footer.html' %}
+</body>
+</html>
