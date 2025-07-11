@@ -1,29 +1,112 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
   <title>전문가 카테고리</title>
+    <link rel="stylesheet" href="{% static 'components/navbar.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/category.css' %}"/>
+    <link rel="stylesheet" href="{% static 'components/footer.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 </head>
 <body>
+{% include 'components/navbar.html' %}
+<div class="wrapper">
+  <div id="categoryContainer"></div>
+  <div class="line"></div>
+
+  <!-- Django가 렌더링한 하위 카테고리들 -->
   {% for key, cat in categories.items %}
-    <div class="category-box" onclick="toggleSub('{{ key }}')">
-      {{ cat.label }}
-    </div>
-    <div id="sub-{{ key }}" class="subcategory-list">
-      {% for sub in cat.subcategories %}
+    <div id="sub-{{ key }}" class="subcategory-list" style="display: none;">
+  {% for sub in cat.subcategories %}
+    {% if forloop.first or forloop.counter0|divisibleby:2 %}
+      <div class="subcategory-row">
+    {% endif %}
+
         <div class="subcategory-item">
           <a href="{% url 'experts:expert_category' %}?category={{ key }}&subcategory={{ sub.name }}">
-            {{ sub.name }} <span>전문가 {{ sub.count }}명</span>
+            <span class="subName"> {{ sub.name }}</span> <span class="subCount">전문가 {{ sub.count }}명</span>
           </a>
         </div>
-      {% endfor %}
-    </div>
+
+    {% if forloop.last or forloop.counter|divisibleby:2 %}
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
   {% endfor %}
 
-  <script>
+  </div>
+  {% include 'components/footer.html' %}
+
+   <script>
+    const categoryInfo = {
+      appliance: {
+        imgSrc: "/static/img/main_C1.svg",
+        alt: "repair",
+        className: "C1"
+      },
+      health: {
+        imgSrc: "/static/img/main_C2.svg",
+        alt: "sports",
+        className: "C2"
+      },
+      business: {
+        imgSrc: "/static/img/main_C3.svg",
+        alt: "consulting",
+        className: "C3"
+      },
+      lifestyle: {
+        imgSrc: "/static/img/main_C4.svg",
+        alt: "life",
+        className: "C4"
+      }
+    };
+
+    function createCategoryBox(key) {
+      const info = categoryInfo[key];
+      if (!info) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = "category-box";
+      wrapper.onclick = () => toggleSub(key);
+      wrapper.innerHTML = `
+        <div class="Category">
+          <div class="${info.className}">
+            <img id="img-${key}" src="${info.imgSrc}" alt="${info.alt}" width="222.516px" />
+          </div>
+        </div>
+      `;
+      return wrapper;
+    }
+
+    const categories = ['appliance', 'health', 'business', 'lifestyle'];
+    const container = document.getElementById('categoryContainer');
+
+    categories.forEach(key => {
+      const box = createCategoryBox(key);
+      container.appendChild(box);
+    });
+
+    // 기본 선택: appliance 카테고리 표시
+    toggleSub('appliance');
+
     function toggleSub(key) {
-      const el = document.getElementById('sub-' + key);
-      el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+      document.querySelectorAll('.subcategory-list').forEach(el => {
+        el.style.display = 'none'; // 전부 숨기고
+      });
+
+      const target = document.getElementById('sub-' + key);
+      if (target) {
+        target.style.display = 'block'; // 해당 키만 보이게
+      }
+
+      categories.forEach(catKey => {
+        const img = document.getElementById('img-' + catKey);
+        if (img) {
+          img.style.opacity = (catKey === key) ? '1' : '0.2';
+        }
+      });
     }
   </script>
 </body>

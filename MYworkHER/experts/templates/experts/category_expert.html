@@ -1,79 +1,412 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <title>전문가 리스트</title>
+    <link rel="stylesheet" href="{% static 'css/category.css' %}"/>
+
+  <link rel="stylesheet" href="{% static 'css/category_expert.css' %}"/>
+  <link rel="stylesheet" href="{% static 'components/footer.css' %}" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'components/navbar.css' %}"/>
+
 </head>
 <body>
+  {% include 'components/navbar.html' %}
 
-  <div>
-    <span>{{ category_label }} > {{ subcategory_label }}</span> 에 해당하는 
-    <strong>{{ total_count }}</strong> 명의 전문가가 있습니다.
+<div class="wrapper">
+  <div id="categoryContainer" style=" margin-top: 0; pointer-events: none; cursor: default;"></div>
+  <div class="line" style="margin-bottom: 29px;"></div>
+
+  <!-- Django가 렌더링한 하위 카테고리들 -->
+  {% for key, cat in categories.items %}
+    <div id="sub-{{ key }}" class="subcategory-list" style="display: none;">
+  {% for sub in cat.subcategories %}
+    {% if forloop.first or forloop.counter0|divisibleby:2 %}
+      <div style="display: none;" class="subcategory-row">
+    {% endif %}
+
+        <div style="display: none;" class="subcategory-item">
+          <a href="{% url 'experts:expert_category' %}?category={{ key }}&subcategory={{ sub.name }}">
+            <span class="subName"> {{ sub.name }}</span> <span class="subCount">전문가 {{ sub.count }}명</span>
+          </a>
+        </div>
+
+    {% if forloop.last or forloop.counter|divisibleby:2 %}
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+  {% endfor %}
+
+
+
+
+  <!-- 상위 카테고리 사진 4개... category.html와 똑같이 -->
+<div class="TextWrapper">
+  <div class="ResultText">
+    <span class="BlueText">{{ category_label }}</span>
+    <span class="BlackText">></span>
+    <span class="BlueText">{{ subcategory_label }}</span>
+    <span class="BlackText"> 에 해당하는 </span>
+    <span class="BlueText">{{ total_count }}</span>
+    <span class="BlackText">명의 전문가가 있습니다.</span>
   </div>
 
-  <form id="expert-filter-form" method="get">
+  <div class="ResultFilter">
+  <div class="ResultText"></div>
+
+    <form id="expert-filter-form" method="get">
+
     <input type="hidden" name="category" value="{{ request.GET.category }}">
     <input type="hidden" name="subcategory" value="{{ request.GET.subcategory }}">
 
-    <div>
-      <strong>지역</strong><br>
+  <button type="button" class="Region">
+    지역
+    <img
+      src="{% static 'img/filter.svg' %}"
+      alt="filter"
+      width="12.6px"
+    />
+    </button>
+    <div class="Regioncheck" id="RegionList">
+ <!-- 지역 필터 -->
+    <div class="reginWrapper">
+      <label class="custom-checkbox">
+        <input type="checkbox" name="seoul_all" value="true" {% if seoul_all %}checked{% endif %}>
+        <span class="checkmark"></span>
+        <span class="checkbox-label">서울시 전체</span>
+      </label>
+      <div class="line"></div>
+<div class="reginLabelWrapper">
       {% for region in region_list %}
-        <label>
-          <input type="checkbox" name="region" value="{{ region }}" {% if region in selected_region %}checked{% endif %}>
-          {{ region }}
-        </label>
+        {% if forloop.first or forloop.counter0|divisibleby:5 %}
+          <div class="EachFive">
+        {% endif %}
+
+            <label class="custom-checkbox">
+              <input type="checkbox" name="region" value="{{ region }}" {% if region in selected_region %}checked{% endif %}>
+              <span class="checkmark"></span>
+              <span class="checkbox-label">{{ region }}</span>
+            </label>
+
+        {% if forloop.last or forloop.counter|divisibleby:5 %}
+          </div>
+        {% endif %}
       {% endfor %}
+      </div>
     </div>
 
-    <div>
-      <strong>경력</strong><br>
-      <label><input type="checkbox" name="experience" value="0" {% if '0' in selected_experience %}checked{% endif %}> 1년 미만</label>
-      <label><input type="checkbox" name="experience" value="1" {% if '1' in selected_experience %}checked{% endif %}> 1년~3년</label>
-      <label><input type="checkbox" name="experience" value="3" {% if '3' in selected_experience %}checked{% endif %}> 3년~5년</label>
-      <label><input type="checkbox" name="experience" value="5" {% if '5' in selected_experience %}checked{% endif %}> 5년 이상</label>
     </div>
 
-    <div>
-      <label>
-        <input type="checkbox" name="badge" value="true" {% if badge %}checked{% endif %}>
-        인증배지 보유
+    <button type="button" class="Work">
+      경력
+      <img
+        src="{% static 'img/filter.svg' %}"
+        alt="filter"
+        width="12.6px"
+      />
+      </button>
+      <div class="WorkCheck">
+ <!-- 경력 필터 -->
+    <div class="EWrapper">
+      
+      <label class="custom-checkbox">
+        <input type="checkbox" name="experience"  >
+        <span class="checkmark"></span>
+        <span class="checkbox-label">경력 무관</span>
+      </label>
+      <div class="line"></div>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="experience" value="0" {% if '0' in selected_experience %}checked{% endif %}>
+        <span class="checkmark"></span>
+        <span class="checkbox-label">1년 미만</span>
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="experience" value="1" {% if '1' in selected_experience %}checked{% endif %}>
+        <span class="checkmark"></span>
+        <span class="checkbox-label">1년~3년</span>
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="experience" value="3" {% if '3' in selected_experience %}checked{% endif %}>
+        <span class="checkmark"></span>
+        <span class="checkbox-label">3년~5년</span>
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="experience" value="5" {% if '5' in selected_experience %}checked{% endif %}>
+        <span class="checkmark"></span>
+        <span class="checkbox-label">5년 이상</span>
       </label>
     </div>
-  </form>
 
-  <script>
-    document.querySelectorAll('#expert-filter-form input[type="checkbox"]').forEach(function(checkbox) {
-      checkbox.addEventListener('change', function() {
-        document.getElementById('expert-filter-form').submit();
-      });
-    });
-  </script>
+      </div>
 
-  <!-- 전문가 카드 리스트 -->
-  {% for expert in experts %}
-    <div>
-      <div>
-        <strong>{{ expert.user.nickname }}</strong>
-        {% if expert.badge == 'VERIFIED' %}
-          <span>✔️</span>
-        {% endif %}
-      </div>
-      <div>
-        {{ expert.bio }}
-      </div>
-      <div>
-        {{ expert.description|truncatechars:100 }}
+    
+
+
+        <button type="button" class="Badge">
+          인증배지
+          <img
+            src="{% static 'img/filter.svg' %}"
+            alt="filter"
+            width="12.6px"
+          />
+          </button>
+          <div class="BadgeCheck" id="BadgeList">
+
+                        <!-- 배지 필터 -->
+            <div class="VWrapper">
+              <!-- 전체 선택: badge 파라미터 없이 -->
+              <label class="custom-checkbox">
+                <input type="checkbox" name="badge_all" id="badge_all" >
+                <span class="checkmark"></span>
+                <span  class="checkbox-label">전체</span>
+              </label>
+      <div class="line"></div>
+
+              <!-- 인증배지 보유: badge=true -->
+              <label class="custom-checkbox">
+                <input type="checkbox" name="badge" value="true" id="badge_true" {% if badge %}checked{% endif %}>
+                <span class="checkmark"></span>
+                <span class="checkbox-label">인증배지 보유</span>
+              </label>
+            </div>
+          </div>
+          
+          <button type="submit" class="Search"  >
+          🔍
+      
+          </button>
+</div>
       </div>
     </div>
-    <hr>
-  {% empty %}
-    <p>해당 카테고리에 등록된 전문가가 없습니다.</p>
-  {% endfor %}
 
-  <!-- 전체보기 버튼 (예시용) -->
-  <div>
-    {{ total_count }} 개의 결과 전체보기
+
+   
+
+   
+
+   
+  </form>
+
+  <!-- 전문가 카드 리스트 -->
+    <div class="ExpertBoxes2">
+    {% for expert in experts %}
+      <div class="ExpertBox">
+        {% if expert.profileImage %}
+        <img
+          src="{{ expert.profileImage.url }}"
+          alt="profile"
+          width="91px"
+          class="img"
+        />
+        {% else %}
+        <img
+          src="{% static 'img/basic_profile.svg' %}"
+          alt="profile"
+          width="91px"
+          class="img"
+        />
+        {% endif %}
+
+        <div class="ExpertInfo">
+          <div class="NicknameDiv">
+            <div class="Nickname">{{ expert.user.nickname }}</div>
+            {% if expert.badge == 'VERIFIED' %}
+              <img
+                src="{% static 'img/badgeicon.svg' %}"
+                alt="badge"
+                width="33"
+                class="BadgeIcon"
+              >
+            {% endif %}
+          </div>
+          <div class="Introduce">{{ expert.bio }}</div>
+          <div class="Description">{{ expert.description|truncatechars:100 }}</div>
+        </div>
+      </div>
+      {% if experts|length > 5 %}
+        <button class="ShowAllBtn">
+          <span class="Count">{{ total_count }}</span><span class="ShowText"> 개의 결과 전체보기</span>
+        </button>
+      {% endif %}
+    {% empty %}
+      <p>해당 카테고리에 등록된 전문가가 없습니다.</p>
+    {% endfor %}
   </div>
+
+  {% include 'components/footer.html' %}
+
+
+  <script>
+
+    const toggleModal = (btnSelector, modalSelector, displayType = "block") => {
+    const btn = document.querySelector(btnSelector);
+    const modal = document.querySelector(modalSelector);
+
+    btn.addEventListener("click", () => {
+      if (!modal) return;
+      const isOpen = modal.style.display === displayType;
+      // 전부 닫고 선택한 것만 열기
+      document.querySelectorAll(".Regioncheck, .WorkCheck, .BadgeCheck").forEach(el => el.style.display = "none");
+      modal.style.display = isOpen ? "none" : displayType;
+    });
+  };
+
+  toggleModal(".Region", ".Regioncheck");
+  toggleModal(".Work", ".WorkCheck", "flex");
+  toggleModal(".Badge", ".BadgeCheck");
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const badgeAll = document.getElementById("badge_all");
+    const badgeTrue = document.getElementById("badge_true");
+    const form = document.getElementById("expert-filter-form");
+
+    if (badgeAll && badgeTrue) {
+      badgeAll.addEventListener("change", function () {
+        if (badgeAll.checked) {
+          badgeTrue.checked = false;
+        }
+        
+      });
+
+      badgeTrue.addEventListener("change", function () {
+        if (badgeTrue.checked) {
+          badgeAll.checked = false;
+        }
+      });
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    // 지역 필터: 개별 체크 시 "서울시 전체" 해제
+    const regionAllCheckbox = document.querySelector('input[name="region"]:not([value])');
+    const seoulAllCheckbox = document.querySelector('input[name="seoul_all"]');
+    const regionCheckboxes = document.querySelectorAll('input[name="region"][value]');
+
+    if (seoulAllCheckbox) {
+      seoulAllCheckbox.addEventListener("change", () => {
+        if (seoulAllCheckbox.checked) {
+          regionCheckboxes.forEach(cb => cb.checked = false);
+        }
+      });
+    }
+
+    regionCheckboxes.forEach((checkbox) => {
+      checkbox.addEventListener("change", () => {
+        if (checkbox.checked && regionAllCheckbox.checked) {
+          regionAllCheckbox.checked = false;
+        }
+      });
+    });
+
+    // 경력 필터: "경력 무관" 체크 시 나머지 해제, 나머지 중 하나 체크 시 "경력 무관" 해제
+    const experienceNoneCheckbox = document.querySelector('input[name="experience"]:not([value])'); // 경력 무관
+    const experienceDetailCheckboxes = document.querySelectorAll('input[name="experience"][value]');
+
+    if (experienceNoneCheckbox) {
+      // "경력 무관" 클릭 시 나머지 해제
+      experienceNoneCheckbox.addEventListener("change", () => {
+        if (experienceNoneCheckbox.checked) {
+          experienceDetailCheckboxes.forEach(cb => cb.checked = false);
+        }
+      });
+    }
+
+    experienceDetailCheckboxes.forEach((checkbox) => {
+      checkbox.addEventListener("change", () => {
+        if (checkbox.checked && experienceNoneCheckbox.checked) {
+          experienceNoneCheckbox.checked = false;
+        }
+      });
+    });
+
+    // "서울시 전체" 클릭 시 나머지 지역 체크 해제
+    if (regionAllCheckbox) {
+      regionAllCheckbox.addEventListener("change", () => {
+        if (regionAllCheckbox.checked) {
+          regionCheckboxes.forEach(cb => cb.checked = false);
+        }
+      });
+    }
+
+   
+  });
+  </script>
+
+  <script>
+    const categoryInfo = {
+      appliance: {
+        imgSrc: "/static/img/main_C1.svg",
+        alt: "repair",
+        className: "C1"
+      },
+      health: {
+        imgSrc: "/static/img/main_C2.svg",
+        alt: "sports",
+        className: "C2"
+      },
+      business: {
+        imgSrc: "/static/img/main_C3.svg",
+        alt: "consulting",
+        className: "C3"
+      },
+      lifestyle: {
+        imgSrc: "/static/img/main_C4.svg",
+        alt: "life",
+        className: "C4"
+      }
+    };
+
+    function createCategoryBox(key) {
+      const info = categoryInfo[key];
+      if (!info) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = "category-box";
+      wrapper.onclick = () => toggleSub(key);
+      wrapper.innerHTML = `
+        <div class="Category">
+          <div class="${info.className}">
+            <img id="img-${key}" src="${info.imgSrc}" alt="${info.alt}" width="222.516px" />
+          </div>
+        </div>
+      `;
+      return wrapper;
+    }
+
+    const categories = ['appliance', 'health', 'business', 'lifestyle'];
+    const container = document.getElementById('categoryContainer');
+
+    categories.forEach(key => {
+      const box = createCategoryBox(key);
+      container.appendChild(box);
+    });
+
+    // 기본 선택: appliance 카테고리 표시
+    toggleSub('appliance');
+
+    function toggleSub(key) {
+      document.querySelectorAll('.subcategory-list').forEach(el => {
+        el.style.display = 'none'; // 전부 숨기고
+      });
+
+      const target = document.getElementById('sub-' + key);
+      if (target) {
+        target.style.display = 'block'; // 해당 키만 보이게
+      }
+
+      categories.forEach(catKey => {
+        const img = document.getElementById('img-' + catKey);
+        if (img) {
+          img.style.opacity = (catKey === key) ? '1' : '0.2';
+        }
+      });
+    }
+  </script>
+
+  <script src="{% static 'components/navbar.js' %}"></script>
 
 </body>
 </html>
