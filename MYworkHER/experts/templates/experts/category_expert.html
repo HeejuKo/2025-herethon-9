@@ -189,11 +189,13 @@
 
    
   </form>
-
   <!-- 전문가 카드 리스트 -->
-    <div class="ExpertBoxes2">
+  <div class="ExpertBoxes2">
     {% for expert in experts %}
-      <div class="ExpertBox">
+    <div class="ExpertBox">
+        <a href="{% url 'experts:expert_detail' expert.user.id %}">
+            <div class="aWrapper">
+
         {% if expert.profileImage %}
         <img
           src="{{ expert.profileImage.url }}"
@@ -223,9 +225,12 @@
             {% endif %}
           </div>
           <div class="Introduce">{{ expert.bio }}</div>
-          <div class="Description">{{ expert.description|truncatechars:100 }}</div>
         </div>
       </div>
+      <div class="Description">{{ expert.description|truncatechars:100 }}</div>
+    </a>
+      </div>
+
       {% if experts|length > 5 %}
         <button class="ShowAllBtn">
           <span class="Count">{{ total_count }}</span><span class="ShowText"> 개의 결과 전체보기</span>
@@ -234,6 +239,7 @@
     {% empty %}
       <p>해당 카테고리에 등록된 전문가가 없습니다.</p>
     {% endfor %}
+    
   </div>
 
   {% include 'components/footer.html' %}
