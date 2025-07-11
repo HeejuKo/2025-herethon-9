@@ -54,33 +54,58 @@
       <tr width="100%">
           <td  align="center"><p>담당 기능 A</p><p>담당 기능 B</p><p>담당 기능 C</p></td>
            <td  align="center"><p>담당 기능 A</p><p>담당 기능 B</p><p>담당 기능 C</p></td>
-            <td  align="center"><p>담당 기능 A</p><p>담당 기능 B</p><p>담당 기능 C</p></td>
+            <td  align="center"><p>로그인&회원가입</p><p>채팅</p><p>마이페이지</p></td>
         <td  align="center"><p>담당 기능 A</p><p>담당 기능 B</p><p>담당 기능 C</p></td>
         <td  align="center"><p>담당 기능 A</p><p>담당 기능 B</p><p>담당 기능 C</p></td>
      </tr>
   </table>
 
 - **폴더 구조**
+  
 
   ```
-  📂 all_project
-  └─ my_project
-   ├─ my_project
-   │  ├─ __init__.py
-   │  ├─ asgi.py
-   │  ├─ settings.py
-   │  ├─ urls.py
-   │  └─ wsgi.py
-   ├─ myapp/
-   │  ├─ __init__.py
-   │  ├─ admin.py
-   │  ├─ apps.py
-   │  ├─ models.py
-   │  ├─ tests.py
-   │  └─ views.py
-   └─ manage.py
-  ```
+  📂 2025-HERETHON-9/
+  ├── .github/
+  ├── MYworkHER/
+  │   ├── accounts/
+  │   │   ├── __pycache__/
+  │   │   ├── migrations/
+  │   │   │   ├── __pycache__/
+  │   │   │   ├── __init__.py  
+  │   │   │   └── 0001_initial.py
+  │   │   ├── templates/
+  │   │   ├── __init__.py
+  │   │   ├── admin.py
+  │   │   ├── apps.py
+  │   │   ├── forms.py
+  │   │   ├── models.py
+  │   │   ├── tests.py
+  │   │   ├── urls.py
+  │   │   └── views.py
+  │   ├── chats/
+  │   │   ├── __pycache__/
+  │   │   ├── migrations/
+  │   │   ├── templates/
+  │   │   └── templatetags/
+  │   ├── experts/
+  │   ├── matching/
+  │   ├── media/   (회색 → 비어있거나 Git 추적 제외 중)
+  │   ├── myadmin/
+  │   ├── MYworkHER/
+  │   ├── pages/
+  │   ├── static/
+  │   └── templates/components/
+  ├── db.sqlite3
+  ├── manage.py
+  ├── venv/
+  ├── .gitignore
+  ├── README.md
+  └── requirement.txt
 
+
+
+  ```
+  
 - **개발환경에서의 실행 방법**
   ```
   $ django-admin startproject 프로젝트명
