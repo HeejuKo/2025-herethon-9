@@ -218,9 +218,12 @@ def expert_list(request):
     verified_experts = Expert.objects.filter(badge=BadgeChoices.VERIFIED)
     recommended_experts = random.sample(list(verified_experts), min(3, verified_experts.count()))
 
+    total_count = experts_qs.count()
+    experts = list(experts_qs[:5]) if not show_all else list(experts_qs)
+
     context = {
         'experts' : experts,
-        'total_count': len(experts),
+        'total_count': total_count,
         'recommended_experts': recommended_experts,
         'keyword' : keyword,
         'selected_region' : region_filters,
@@ -230,7 +233,7 @@ def expert_list(request):
         'region_list' : [r[1] for r in RegionChoices.choices]  # 지역 필터를 한글 기준으로 전달
     }
 
-    return render(request, 'experts/expert.html', context)
+    return render(request, 'experts/expert_search.html', context)
 
 @login_required
 def expert_detail(request, expert_id):
@@ -262,4 +265,48 @@ def expert_detail(request, expert_id):
         'region_display' : region_display,
         'reservation_count' : monthly_reservation_count,
         'chatroom_id': chatroom.id if chatroom else None,
+    })
+
+@login_required
+def expert_search(request):
+    keyword = request.GET.get('keyword', '')
+    experts = []
+    total_count = 0
+
+    if keyword:
+        category_val = get_category_value_by_label(keyword)
+        category_q = Q()
+        if category_val:
+            category_q = Q(category=category_val)
+
+        experts_qs = Expert.objects.select_related('user').filter(
+            Q(user__username__icontains=keyword) |
+            Q(bio__icontains=keyword) |
+            Q(description__icontains=keyword) |
+            category_q
+        )
+        total_count = experts_qs.count()
+        experts = list(experts_qs)
+    
+    region_filters = request.GET.getlist('region')
+    experience_filters = request.GET.getlist('experience')
+    badge_filter = request.GET.get('badge')
+
+    experience_options = [
+    ('0', '1년 미만'),
+    ('1', '1년~3년'),
+    ('3', '3년~5년'),
+    ('5', '5년 이상'),
+    ]
+
+
+    return render(request, 'experts/expert_search.html', {
+        'experts': experts,
+        'total_count': total_count,
+        'keyword': keyword,
+        'region_filters' : region_filters,
+        'experience_filters' : experience_filters,
+        'badge_filter' : badge_filter,
+        'region_list': [r[1] for r in RegionChoices.choices],
+        'experience_options': experience_options,
     })

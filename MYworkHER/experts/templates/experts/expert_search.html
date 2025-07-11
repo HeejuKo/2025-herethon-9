@@ -4,67 +4,210 @@
 <head>
   <meta charset="UTF-8" />
   <title>전문가 검색하기</title>
-    {% comment %} <link rel="stylesheet" href="{% static 'css/expert.css' %}" /> {% endcomment %}
+    <link rel="stylesheet" href="{% static 'css/expert_search.css' %}" />
     <link rel="stylesheet" href="{% static 'components/footer.css' %}" />
     <link rel="stylesheet" href="{% static 'components/navbar.css' %}" />
+     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 </head>
 <body>
 {% include 'components/navbar.html' %}
 
 <div class="wrapper">
+   
 
-  <div>
-      <strong>지역</strong><br>
-      {% for region in region_list %}
-        <label>
-          <input type="checkbox" name="region" value="{{ region }}" {% if region in selected_region %}checked{% endif %}>
-          {{ region }}
-        </label>
+  <form id="expert-filter-form" method="get">
+    <div class="Top">
+      <div class="SearchBox">
+        <img src="{%static 'img/search.svg'%}" alt="search" width="26px" />
+        <input class="Search" type="text" name="keyword" value="{{ keyword }}" placeholder="전문가명, 한줄소개, 키워드 검색">
+      </div>
+      <button type="button" class="SearchCategory">
+        <a href="{% url 'experts:category_list' %}">카테고리로 찾기 ></a>
+      </button>
+    </div>
+    <hr/>
+
+    <div class="ResultFilter">
+  <div class="ResultText">
+    <span class="BlueText">{{ keyword }}</span> 키워드에 해당하는 
+    <span class="BlueText">{{ total_count }}</span> 명의 전문가가 있습니다.
+  </div>
+
+  <form id="expert-filter-form" method="get">
+    <input type="hidden" name="category" value="{{ request.GET.category }}">
+    <input type="hidden" name="subcategory" value="{{ request.GET.subcategory }}">
+
+    <div class="FilterButtons">
+      <button type="button" class="Region">지역 <img src="{% static 'img/filter.svg' %}" alt="filter" width="12.6px" /></button>
+      <button type="button" class="Work">경력 <img src="{% static 'img/filter.svg' %}" alt="filter" width="12.6px" /></button>
+      <button type="button" class="Badge">인증배지 <img src="{% static 'img/filter.svg' %}" alt="filter" width="12.6px" /></button>
+    </div>
+
+    <div class="Regioncheck" id="RegionList">
+      <div class="RegionTop">
+          <label class="custom-checkbox">
+            <input class="checkbox" type="checkbox" id="checkAll" name="region" value="all">
+              {% if 'all' in selected_region %}checked{% endif %}
+            <span class="checkmark"></span>
+            <span class="checkbox-label">서울시 전체</span>
+          </label>
+        </div>
+        <div class="RegionLine"></div>
+        <div class="RegionGrid">
+          {% for region in region_list %}
+            <label class="custom-checkbox">
+              <input class="checkbox" type="checkbox" name="region" value="{{ region }}" {% if region in selected_region %}checked{% endif %}>
+            <span class="checkmark"></span>
+            <span class="checkbox-label">{{region}}</span>
+            </label>
       {% endfor %}
+      </div>
     </div>
 
-    <div>
-      <strong>경력</strong><br>
-      <label><input type="checkbox" name="experience" value="0" {% if '0' in selected_experience %}checked{% endif %}> 1년 미만</label>
-      <label><input type="checkbox" name="experience" value="1" {% if '1' in selected_experience %}checked{% endif %}> 1년~3년</label>
-      <label><input type="checkbox" name="experience" value="3" {% if '3' in selected_experience %}checked{% endif %}> 3년~5년</label>
-      <label><input type="checkbox" name="experience" value="5" {% if '5' in selected_experience %}checked{% endif %}> 5년 이상</label>
+    <div class="WorkCheck">
+      <div class="EWrapper">
+        <label class="custom-checkbox">
+          <input type="checkbox" name="experience">
+          <span class="checkmark"></span>
+          <span class="checkbox-label">경력 무관</span>
+        </label>
+        <div class="line"></div>
+        {% for val, label in experience_options %}
+        <label class="custom-checkbox">
+            <input type="checkbox" name="experience" value="{{ val }}" {% if val in selected_experience %}checked{% endif %}>
+            <span class="checkmark"></span>
+            <span class="checkbox-label">{{ label }}</span>
+        </label>
+        {% endfor %}
+      </div>
     </div>
 
-    <div>
-      <label>
-        <input type="checkbox" name="badge" value="true" {% if badge %}checked{% endif %}>
-        인증배지 보유
-      </label>
+    <div class="BadgeCheck" id="BadgeList">
+      <div class="VWrapper">
+        <label class="custom-checkbox">
+          <input type="checkbox" name="badge_all" id="badge_all">
+          <span class="checkmark"></span>
+          <span class="checkbox-label">전체</span>
+        </label>
+        <div class="line"></div>
+        <label class="custom-checkbox">
+          <input type="checkbox" name="badge" value="true" id="badge_true" {% if badge %}checked{% endif %}>
+          <span class="checkmark"></span>
+          <span class="checkbox-label">인증배지 보유</span>
+        </label>
+      </div>
     </div>
   </form>
+</div>
 
-  <script>
-    document.querySelectorAll('#expert-filter-form input[type="checkbox"]').forEach(function(checkbox) {
-      checkbox.addEventListener('change', function() {
-        document.getElementById('expert-filter-form').submit();
-      });
+<script>
+  // 필터 버튼 클릭 시 필터 모달 toggle
+  const toggleModal = (btnSelector, modalSelector, displayType = "block") => {
+    const btn = document.querySelector(btnSelector);
+    const modal = document.querySelector(modalSelector);
+    btn.addEventListener("click", () => {
+      const isOpen = modal.style.display === displayType;
+      document.querySelectorAll(".Regioncheck, .WorkCheck, .BadgeCheck").forEach(el => el.style.display = "none");
+      modal.style.display = isOpen ? "none" : displayType;
     });
-  </script>
+  };
 
-  <hr>
+  toggleModal(".Region", ".Regioncheck");
+  toggleModal(".Work", ".WorkCheck", "flex");
+  toggleModal(".Badge", ".BadgeCheck");
+
+  // ✅ 체크박스 클릭 시 URL 파라미터만 수정 (새로고침 없음)
+  document.querySelectorAll('#expert-filter-form input[type="checkbox"]').forEach((checkbox) => {
+    checkbox.addEventListener('change', () => {
+      const url = new URL(window.location.href);
+      const name = checkbox.name;
+      const value = checkbox.value;
+
+      // 기존 동일 name 파라미터 전부 삭제
+      url.searchParams.delete(name);
+
+      // 같은 이름의 체크된 항목 모두 다시 추가
+      document.querySelectorAll(`input[name="${name}"]:checked`).forEach(cb => {
+        url.searchParams.append(name, cb.value);
+      });
+
+      // ✅ 선택된 다른 필터도 유지해야 하므로 기존 다른 name들은 유지됨
+      // ✅ 예외 처리: badge_all 체크 시 badge=true 제거
+      if (name === "badge_all" && checkbox.checked) {
+        url.searchParams.delete("badge");
+      }
+      if (name === "badge" && checkbox.checked) {
+        url.searchParams.delete("badge_all");
+      }
+
+      // ✅ 경력 무관 선택 시 다른f experience 제거
+      if (name === "experience" && !checkbox.value) {
+        url.searchParams.delete("experience");
+        url.searchParams.append("experience", "");
+      }
+
+      // ✅ 경력 디테일 선택 시 경력 무관 제거
+      if (name === "experience" && checkbox.value) {
+        const emptyExperience = document.querySelector('input[name="experience"]:not([value])');
+        if (emptyExperience) {
+          emptyExperience.checked = false;
+        }
+        url.searchParams.delete("experience");
+        document.querySelectorAll('input[name="experience"]:checked').forEach(cb => {
+          url.searchParams.append("experience", cb.value);
+        });
+      }
+
+      // ✅ 서울시 전체 선택 시 다른 지역 제거
+      if (name === "region" && value === "all" && checkbox.checked) {
+        url.searchParams.delete("region");
+        url.searchParams.append("region", "all");
+      }
+
+      // ✅ 다른 지역 선택 시 전체 해제
+      if (name === "region" && value !== "all" && checkbox.checked) {
+        const allCheckbox = document.querySelector('input[name="region"][value="all"]');
+        if (allCheckbox) {
+          allCheckbox.checked = false;
+        }
+        url.searchParams.delete("region");
+        document.querySelectorAll('input[name="region"]:checked').forEach(cb => {
+          url.searchParams.append("region", cb.value);
+        });
+      }
+
+      // 최종적으로 새 URL로 이동
+      window.location.href = url.toString();
+    });
+  });
+</script>
+
 
   {% if experts %}
-    <h3>검색 결과 (총 {{ total_count }}명)</h3>
-    <ul>
+  <div class="ExpertBoxes">
     {% for expert in experts %}
-      <li>
-        <a href="{% url 'experts:expert_detail' expert.user.id %}">
-          {{ expert.user.nickname }}{% if expert.badge == 'VERIFIED' %} ✔️{% endif %}
-        </a><br>
-        {{ expert.bio }}<br>
-        {{ expert.description|truncatechars:100 }}
-      </li>
+      {% if forloop.counter <= 5 or show_all %}
+        <div class="ExpertBox">
+            <a href="{% url 'experts:expert_detail' expert.user.id %}" class="Nickname">
+          <img class="img" src="{% static 'img/profile.svg' %}" alt="profile" />
+          <div class="ExpertInfo">
+            <div class="NickNameDiv">
+                {{ expert.user.nickname }}
+              </a>
+              {% if expert.badge == 'VERIFIED' %}
+                <img src="{% static 'img/badgeicon.svg' %}" class="BadgeIcon" />
+              {% endif %}
+            </div>
+            <div class="Introduce">{{ expert.bio|default:"한줄소개 미등록" }}</div>
+            <div class="Description">{{ expert.description|truncatechars:100 }}</div>
+          </div>
+        </div>
+      {% endif %}
     {% endfor %}
-    </ul>
+  </div>
 
-    {% if not show_all %}
-    <form method="get">
+  {% if not show_all and total_count > 5 %}
+    <form method="get" class="ShowAllForm">
       <input type="hidden" name="keyword" value="{{ keyword }}">
       {% for region in selected_region %}
         <input type="hidden" name="region" value="{{ region }}">
@@ -76,15 +219,118 @@
         <input type="hidden" name="badge" value="true">
       {% endif %}
       <input type="hidden" name="show_all" value="true">
-      <button type="submit">전체 보기</button>
+      
     </form>
-    {% endif %}
-  {% elif keyword or selected_region or selected_experience or badge %}
-    <p>검색 결과가 없습니다.</p>
   {% endif %}
+{% elif keyword or selected_region or selected_experience or badge %}
+  <p>검색 결과가 없습니다.</p>
+{% endif %}
+    <button type="submit" class="ShowAllBtn">
+        <span class="BlueText">{{ total_count }}</span>개의 결과 전체보기
+    </button>
 
-  {% if not keyword and not selected_region and not selected_experience and not badge %}
-  <hr>
+
+  {% comment %} {% if not keyword and not selected_region and not selected_experience and not badge %} {% endcomment %}
+
+  {% include "components/footer.html" %}
+  <script src="{% static 'components/footer.js' %}"></script>
+  <script src="{% static 'components/navbar.js' %}"></script>
+  <script>
+
+    const toggleModal = (btnSelector, modalSelector, displayType = "block") => {
+    const btn = document.querySelector(btnSelector);
+    const modal = document.querySelector(modalSelector);
+
+    btn.addEventListener("click", () => {
+      if (!modal) return;
+      const isOpen = modal.style.display === displayType;
+      // 전부 닫고 선택한 것만 열기
+      document.querySelectorAll(".Regioncheck, .WorkCheck, .BadgeCheck").forEach(el => el.style.display = "none");
+      modal.style.display = isOpen ? "none" : displayType;
+    });
+  };
+
+  toggleModal(".Region", ".Regioncheck");
+  toggleModal(".Work", ".WorkCheck", "flex");
+  toggleModal(".Badge", ".BadgeCheck");
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const badgeAll = document.getElementById("badge_all");
+    const badgeTrue = document.getElementById("badge_true");
+    const form = document.getElementById("expert-filter-form");
+
+    if (badgeAll && badgeTrue) {
+      badgeAll.addEventListener("change", function () {
+        if (badgeAll.checked) {
+          badgeTrue.checked = false;
+        }
+        
+      });
+
+      badgeTrue.addEventListener("change", function () {
+        if (badgeTrue.checked) {
+          badgeAll.checked = false;
+        }
+      });
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    // 지역 필터: 개별 체크 시 "서울시 전체" 해제
+    const regionAllCheckbox = document.querySelector('input[name="region"]:not([value])');
+    const seoulAllCheckbox = document.querySelector('input[name="seoul_all"]');
+    const regionCheckboxes = document.querySelectorAll('input[name="region"][value]');
+
+    if (seoulAllCheckbox) {
+      seoulAllCheckbox.addEventListener("change", () => {
+        if (seoulAllCheckbox.checked) {
+          regionCheckboxes.forEach(cb => cb.checked = false);
+        }
+      });
+    }
+
+    regionCheckboxes.forEach((checkbox) => {
+      checkbox.addEventListener("change", () => {
+        if (checkbox.checked && regionAllCheckbox.checked) {
+          regionAllCheckbox.checked = false;
+        }
+      });
+    });
+
+    // 경력 필터: "경력 무관" 체크 시 나머지 해제, 나머지 중 하나 체크 시 "경력 무관" 해제
+    const experienceNoneCheckbox = document.querySelector('input[name="experience"]:not([value])'); // 경력 무관
+    const experienceDetailCheckboxes = document.querySelectorAll('input[name="experience"][value]');
+
+    if (experienceNoneCheckbox) {
+      // "경력 무관" 클릭 시 나머지 해제
+      experienceNoneCheckbox.addEventListener("change", () => {
+        if (experienceNoneCheckbox.checked) {
+          experienceDetailCheckboxes.forEach(cb => cb.checked = false);
+        }
+      });
+    }
+
+    experienceDetailCheckboxes.forEach((checkbox) => {
+      checkbox.addEventListener("change", () => {
+        if (checkbox.checked && experienceNoneCheckbox.checked) {
+          experienceNoneCheckbox.checked = false;
+        }
+      });
+    });
+
+    // "서울시 전체" 클릭 시 나머지 지역 체크 해제
+    if (regionAllCheckbox) {
+      regionAllCheckbox.addEventListener("change", () => {
+        if (regionAllCheckbox.checked) {
+          regionCheckboxes.forEach(cb => cb.checked = false);
+        }
+      });
+    }
+
+   
+  });
+  </script>
+
 
 </body>
 </html>
