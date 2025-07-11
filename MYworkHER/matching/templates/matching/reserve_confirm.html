@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>reserve_confirm</title>
     <link rel="stylesheet" href="{% static 'css/reserve_confirm.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
 </head>
 <body data-complete="{{ complete|default:False|yesno:"true,false" }}">
@@ -22,9 +23,9 @@
                     </a>
                 </div>
                 <div class="T_Category"><a href="{% url 'experts:category_list' %}" class="T_Category">카테고리</a></div>
-                <div class="T_Search"><a href={% url 'experts:expert_list'%} class="T_Search">전문가찾기</a></div>
+                <div class="T_Search"><a href="{% url 'experts:expert_list' %}" class="T_Search">전문가찾기</a></div>
                 {% if request.user.is_authenticated%}
-                    <div class="T_Chat"><a href={% url 'chats:chat_list'%} class="T_Chat">1:1상담</a>
+                    <div class="T_Chat"><a href="{% url 'chats:chat_list' %}" class="T_Chat">1:1상담</a>
                         {% if unread_chat_total > 0 %}
                         <div class="Alarm"></div>
                 {%endif%}
@@ -42,21 +43,29 @@
         </div>
 
         <div class="ReserveConfirm"style="{% if complete %}display: none;{% endif %}" >
+            
+            <div class="ReserveWrapper">
             <div class="ReserveCheck">예약 정보를 확인해주세요!</div>
 
-            <div class="ReserveInfo">
-                <img
-                    src="{% static "img/profile.svg" %}"
-                    alt="profile"
-                    width="114px"
-                    class="InfoImg"
-                />
-                <div class="InfoText">
-                    <div class="Nickname">{{ expert.nickname }}</div>
-                    <div class="Category">{{ expert.expert_profile.get_category_display }}</div>
-                </div>
+        </div>
+        <div class="ReserveInfo profile">
+            <img
+                src="{% static "img/profile.svg" %}"
+                alt="profile"
+                width="114px"
+                class="InfoImg"
+            />
+            <div class="InfoText">
+                <div class="Nickname">{{ expert.nickname }}</div>
+                <div class="Category">{{ expert.expert_profile.get_category_display }}</div>
             </div>
+        </div>
+
+
             <div class="ResLine"></div>
+
+            <div class="ReserveWrapper">
+
             <div class="Q1">
                 <span class="QNum">01</span>
                 <span class="QText"> 가능 예약 일자</span>
@@ -68,7 +77,12 @@
                     <p>선택된 날짜가 없습니다.</p>
                 {% endfor %}
             </div>
+            </div>
+
+
             <div class="ResLine"></div>
+
+            <div class="ReserveWrapper">
 
             <div class="Q2">
                 <span class="QNum">02</span>
@@ -79,7 +93,12 @@
                     <div class="TimeBtn">{{ time }}</div>
                 {% endfor %}
             </div>  
+            </div>
+
             <div class="ResLine"></div>
+
+            <div class="ReserveWrapper">
+
             <div class="Q3">
                 <span class="QNum">03</span>
                 <span class="QText">요청사항</span>
@@ -87,6 +106,10 @@
             <div class="RequestText">
                 {{ notes|linebreaksbr }}
             </div>
+            </div>
+
+            <div class="btnWrapper">
+
             <div class="TwoBtn">
                 <form method="get" action="{% url 'matching:create-matching' %}">
                     <input type="hidden" name="expert_id" value="{{ expert.id }}">
@@ -105,12 +128,13 @@
 
 
             </div>
+            </div>
         </div>
 
         <div class="Complete" style="{% if not complete %}display: none;{% endif %}">
             <div class="Left">
                 <img
-                    src={% static "img/bigcheck.svg"%}
+                    src="{% static 'img/bigcheck.svg' %}"
                     alt="bigcheck"
                     width="200px"
                     class="BigCheckImg"
@@ -120,7 +144,7 @@
             <div class="Right">
                 <div class="RightBox">
                     <img
-                        src={% static "img/profile.svg" %}
+                        src="{% static 'img/profile.svg' %}"
                         alt="profile";
                         width="98px"                    
                     />
