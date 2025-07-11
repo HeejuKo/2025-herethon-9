@@ -53,12 +53,25 @@
   <td  align="center">백엔드</td>
      </tr>
      </tr>
+     <tr width="100%">
+    <td align="center">
+      <a href="https://github.com/minseo123" target="_blank">@danginseo</a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/chaeyoung-dev" target="_blank">@chaeyounggggggg</a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/gyueun-j" target="_blank">@jeongkyueun</a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/won-jung" target="_blank">@on1yoneprivate</a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/heeju-g" target="_blank">@HeejuKo</a>
+    </td>
+  </tr>
     <tr width="100%">
-    <td align="center">@danginseo</td>
-    <td align="center">@chaeyounggggggg</td>
-    <td align="center">@jeongkyueun</td>
-    <td align="center">@on1yoneprivate </td>
-    <td align="center">@HeejuKo</td>
+    
   </tr>
       <tr width="100%">
           <td  align="center"><p>기획</p><p>디자인</p><p>발표</p></td>
