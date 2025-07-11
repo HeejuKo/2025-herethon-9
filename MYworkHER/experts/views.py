@@ -1,7 +1,7 @@
 import random
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Q, Count
 
 from matching.models import Matching
 from accounts.models import RegionChoices, User, UserType
@@ -10,36 +10,48 @@ from .models import BadgeChoices, CategoryChoices, Expert
 def category_list(request):
     return render(request, 'experts/category.html')  # 상위 카테고리 클릭 페이지
 
-@login_required
-def subcategory_list(request, category):
-    # 예: 'appliance'를 전달받았을 때 하위 카테고리 및 전문가 수 조회
-    category_map = {
-        'appliance': '가전/수리',
-        'health': '헬스/스포츠',
-        'business': '컨설팅/비즈니스',
-        'lifestyle': '생활/라이프',
-    }
+# @login_required
+# def subcategory_list(request, category):
+#     # 예: 'appliance'를 전달받았을 때 하위 카테고리 및 전문가 수 조회
+#     category_map = {
+#         'appliance': '가전/수리',
+#         'health': '헬스/스포츠',
+#         'business': '컨설팅/비즈니스',
+#         'lifestyle': '생활/라이프',
+#     }
 
-    label = category_map.get(category)
+#     label = category_map.get(category)
 
-    # 하위 카테고리 임시
-    subcategories = [
-        {'name': '하위 카테고리1', 'count': 122},
-        {'name': '하위 카테고리2', 'count': 122},
-    ]
+#     # 하위 카테고리 임시
+#     subcategories = [
+#         {'name': '하위 카테고리1', 'count': 122},
+#         {'name': '하위 카테고리2', 'count': 122},
+#     ]
 
-    return render(request, 'experts/subcategory.html', {
-        'category': category,
-        'label': label,
-        'subcategories': subcategories
-    })
+#     return render(request, 'experts/subcategory.html', {
+#         'category': category,
+#         'label': label,
+#         'subcategories': subcategories
+#     })
 
 def category_list(request):
     category_enum_map = {
-        'appliance': ('가전/수리', CategoryChoices.APPLIANCE, ['세탁기', '에어컨']),
-        'health': ('헬스/스포츠', CategoryChoices.HEALTH, ['헬스트레이너', '요가']),
-        'business': ('컨설팅/비즈니스', CategoryChoices.BUSINESS, ['경영', '세무']),
-        'lifestyle': ('생활/라이프', CategoryChoices.LIFESTYLE, ['청소', '인테리어']),
+        'appliance': ('가전/수리', CategoryChoices.APPLIANCE, [
+            '조명˙전등 수리', '가구 조립 및 수리', '방충망·창문 보수', '욕실 타일 보수', '도어락 교체',
+            '에어컨 설치 및 수리', 'TV˙가전 설치 및 수리', '문 손잡이˙경첩 수리', '수도꼭지/샤워기 수리'
+            ]),
+        'health': ('헬스/스포츠', CategoryChoices.HEALTH, [
+            '다이어트 코칭', '운동˙식단관리 코칭', '등산˙러닝˙사이클', '복싱˙격투기',
+            '산전˙산후 운동', '체형˙거북목 교정', '필라테스˙요가', '수영˙아쿠아로빅˙다이빙'
+            ]),
+        'business': ('컨설팅/비즈니스', CategoryChoices.BUSINESS, [
+            '여성 창업 컨설팅', '이력서˙자기소개서 코칭', '여성 CEO 멘토링', '워킹맘 멘토링',
+            '경력단절여성 컨설팅', 'SNS 브랜딩 및 운영', '여성 리더십˙자기계발', '여성 프리랜서 멘토링'
+            ]),
+        'lifestyle': ('생활/라이프', CategoryChoices.LIFESTYLE, [
+            '인테리어˙셀프시공', '반려동물 케어˙펫시터', '홈카페˙베이킹', '호신술˙경호술',
+            '방문청소˙정리', '육아˙베이비시터', '요리˙살림˙자취'
+            ]),
     }
 
     categories = {}
@@ -65,6 +77,7 @@ def expert_category(request):
     experience_filters = request.GET.getlist('experience')
     badge_filter = request.GET.get('badge')
     show_all = request.GET.get('show_all') == 'true'
+    seoul_all = request.GET.get('seoul_all') == 'true'
 
     category_enum_map = {
         'appliance': (CategoryChoices.APPLIANCE, '가전/수리'),
@@ -86,7 +99,7 @@ def expert_category(request):
         # experts_qs = experts_qs.filter(description__icontains=subcategory)
 
     # 지역 필터링
-    if region_filters:
+    if region_filters and not seoul_all:
         region_values = [get_region_value_by_label(label) for label in region_filters]
         region_values = [r for r in region_values if r]
         experts_qs = experts_qs.filter(user__region__in=region_values)
@@ -106,7 +119,7 @@ def expert_category(request):
         experts_qs = experts_qs.filter(queries)
 
     # 인증 배지 필터링
-    if badge_filter == 'true':
+    if badge_filter == 'false':
         experts_qs = experts_qs.filter(badge=BadgeChoices.VERIFIED)
 
     total_count = experts_qs.count()
@@ -121,6 +134,7 @@ def expert_category(request):
         'selected_experience': experience_filters,
         'badge': badge_filter == 'true',
         'show_all': show_all,
+        'seoul_all': seoul_all,
         'region_list': [r[1] for r in RegionChoices.choices],
     })
 

@@ -1,4 +1,5 @@
 {% load static %}
+{% load time_filters %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -14,6 +15,7 @@
   {% include "components/navbar.html" %}
   
   {% if room_data %}
+  <div class="Wrapper">
   <div class="chat-list-container">
     <ul class="chat-list">
       {% for item in room_data %}
@@ -53,7 +55,7 @@
               </div>
           </div>
           <div class="chat-time">
-            {{ item.last_msg.created_at|date:"n월 j일 H:i" }}
+            {{ item.last_msg.created_at|smart_chat_time }}
           </div>
         </a>
       </li>
@@ -66,8 +68,9 @@
     <p class="chat-empty-text">아직 진행 중인 1:1 상담 내역이 없어요!</p>
     <div class="chat-empty-buttons">
       <a href="{% url 'experts:category_list' %}">카테고리 둘러보기 ></a>
-      <a href="{% url 'experts:expert' %}">전문가 찾기 ></a>
+      <a href="{% url 'experts:expert_list' %}">전문가 찾기 ></a>
     </div>
+  </div>
   </div>
   {% endif %}
 

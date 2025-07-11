@@ -1,237 +1,66 @@
-html,body{
-    height: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
+body {
+  margin: 0;
+  font-family: "Noto Sans KR", sans-serif;
+  height: 100%;
+  object-fit: cover;
 }
-
-.Container{
-width: 100%;
-height: 950px;
-margin-bottom: 0;
- margin: 0 auto;
-}
-
-.Header{
-width: 100%; 
-height: 95px;
-flex-shrink: 0;
-border-bottom: 1px solid #CBCBCB;
-background: #FFF;
+      .wrapper {
 display: flex;
+flex-direction: column;
 align-items: center;
-justify-content: space-between;
-padding: 0 5%;
-box-sizing: border-box;
 }
 
-.LeftGroup {
-  display: flex;
-  align-items: center;
-  gap: 2rem; 
+#categoryContainer {
+display: flex;
+gap: 15px;
+margin-top: 70px;
 }
 
-.Logo{
-margin-left: 130px;
-margin-right: 57px;
+.subcategory-row {
+display: flex;
+gap: 16px;
+margin-bottom: 37.5px;
 }
 
-.T_Category{
-color: #0D5BDA;
-font-family: "Noto Sans KR";
-font-size: 24px;
-font-style: normal;
-font-weight: 600;
-line-height: normal;
-cursor: default;
-text-decoration: none;
+.subcategory-item {
+  width: 455px;
 }
 
-.T_Search{
-color: #000;
-font-family: "Noto Sans KR";
-font-size: 24px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-cursor: default;
-text-decoration: none;
+.subcategory-list {
+margin-left: 53px;
+margin-bottom: 100px;
+min-height: 330px;
+
 }
 
-.T_Chat{
-color: #000;
-font-family: "Noto Sans KR";
-font-size: 24px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-position: relative;
-cursor: default;
-}
-
-.Alarm{
-width: 10px;
-height: 10px;
-flex-shrink: 0;
-background-color: #0D5BDA;
-border-radius: 100%;
-position: absolute;
-top: 0;
-right: -8px;
-display: none;
-}
-
-.T_Mypage{
-color: #000;
-font-family: "Noto Sans KR";
-font-size: 24px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-cursor: default;
-}
-
-.Btn{
-color: #FFF;
-font-family: "Noto Sans KR";
-font-size: 20px;
-font-style: normal;
-font-weight: 600;
-line-height: normal;
-border-radius: 35px;
-background: #0D5BDA;
-border: none;
-outline: none;
-display: inline-flex;
-padding: 10px 23px;
-justify-content: center;
-align-items: center;
-gap: 10px;
-width: 183px;
-height: 49px;
-}
-
-.Logout{
- color: #000;
-font-family: "Noto Sans KR";
-font-size: 24px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-text-decoration-line: underline;
-text-decoration-style: solid;
-text-decoration-skip-ink: auto;
-text-decoration-thickness: auto;
-text-underline-offset: auto;
-text-underline-position: from-font;   
-}
-
-.Category{
-    margin-top: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.Line{
-width: 930px;
+.line {
+  width: 930px;
 height: 2px;
 background: #CBCBCB;
-margin: 41px auto;
+margin: 37px 0 48px;
 }
 
-
-
-.Footer{
-width: 100%;
-height: 211px;
-flex-shrink: 0;
-background: #ECF0F5;
-margin-top: 0;
-display: flex;
-justify-content: space-between;
-}
-.B_Text{
-color: #565656;
+.subName {
+  color: #000;
+text-align: center;
 font-family: "Noto Sans KR";
 font-size: 20px;
 font-style: normal;
-font-weight: 500;
-line-height: normal;
-}
-.S_Text{
-color: #565656;
-font-family: "Noto Sans KR";
-font-size: 14px;
-font-style: normal;
 font-weight: 400;
 line-height: normal;
-}
-.Workher{
-display: flex;
-flex-direction: column;
-margin-top: 33px;
-margin-left: 210px;
-}
-.About{
-display: flex;
-flex-direction: column;
-margin-top: 33px;
-margin-right: 253px;
-}
-.L_Line{
-width: 2px;
-height: 135px;
-background: #CBCBCB;
-margin-top: 33px;
+margin-right: 10px;
 }
 
-
-.Subs {
-display: grid;
-justify-content: center;
-grid-template-columns: repeat(2, 270px);
-gap: 30px 195px;
-}
-
-.SubItem {
-display: flex;
-width: 270px;
-align-items: center;
-
-}
-
-.name{
-color: #000;
-text-align: center;
+.subCount {
+  color: #0D5BDA;
 font-family: "Noto Sans KR";
-font-size: 24px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-margin-right: 15px;
-cursor: pointer;
-}
-.subCount{
-color: #0D5BDA;
-text-align: center;
-font-family: "Noto Sans KR";
-font-size: 18.202px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-cursor: default;
-}
-.count{
-color: #0D5BDA;
-font-family: "Noto Sans KR";
-font-size: 18.202px;
+font-size: 15.2px;
 font-style: normal;
 font-weight: 600;
 line-height: normal;
 }
 
-.Category .faded{
-opacity: 0.3;
+
+.subcategory-item a {
+  text-decoration: none;
 }
