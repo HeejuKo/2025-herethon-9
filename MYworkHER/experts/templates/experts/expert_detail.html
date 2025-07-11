@@ -25,7 +25,7 @@
                 <span class="Category">{{ category_display }}</span>
             </div>
             <div class="TwoBtn">
-                <a href="{% url 'matching:create-matching' %}?expert_id={{ expert.id }}" class="Reserve">예약하기</a>
+                <a href="{% url 'matching:create-matching' %}?expert_id={{ expert.id }}" class="Reserve">예약하기 &gt; </a>
                 <a href="{% url 'chats:chat_room' chatroom_id %}" class="Chat">1:1 상담하기 &gt;</a>
             </div>
             <div class="DetailLine"></div>

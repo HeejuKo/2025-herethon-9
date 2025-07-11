@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
             }
         });
         
-        choiceDayBox.insertBefore(dateDiv,choiceBtn);
+        choiceDayBox.insertBefore(dateDiv,datePicker);
     });
         
     const allTime = [];
