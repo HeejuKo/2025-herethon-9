@@ -10,6 +10,7 @@
 > 2025 여기톤(HERETHON)에서 “멋쟁이사자처럼”이 기획한 9팀 프로젝트입니다.
 
 ---
+
 ## ✨ 서비스 소개
 
 > **MYworkHER**는 여성 전문가와 여성 고객을 매칭해주는 상담·전문가 연결 플랫폼입니다.
@@ -195,5 +196,7 @@ $ python manage.py runserver
 5. 마이페이지에서 자신의 예약 내역과 전문가 피드백을 확인합니다.
 
 ---
+<img width="1440" height="281" alt="Group 90" src="https://github.com/user-attachments/assets/38426af7-8c65-4a0a-94aa-db0bbc142ce0" />
+
 
 > ✨ 우리 팀은 여성 전문가의 가치를 세상에 알리고, 사용자에게 신뢰할 수 있는 플랫폼을 만들기 위해 노력했습니다.
