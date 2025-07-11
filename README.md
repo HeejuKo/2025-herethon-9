@@ -51,19 +51,19 @@
   </tr>
   <tr>
     <td align="center">
-      <a href="https://github.com/minseo123" target="_blank">@danginseo</a>
+      <a href="https://github.com/danginseo" target="_blank">@danginseo</a>
     </td>
     <td align="center">
-      <a href="https://github.com/chaeyoung-dev" target="_blank">@chaeyounggggggg</a>
+      <a href="https://github.com/chaeyounggggggg" target="_blank">@chaeyounggggggg</a>
     </td>
     <td align="center">
-      <a href="https://github.com/gyueun-j" target="_blank">@jeongkyueun</a>
+      <a href="https://github.com/jeongkyueun" target="_blank">@jeongkyueun</a>
     </td>
     <td align="center">
-      <a href="https://github.com/won-jung" target="_blank">@on1yoneprivate</a>
+      <a href="https://github.com/on1yoneprivate" target="_blank">@on1yoneprivate</a>
     </td>
     <td align="center">
-      <a href="https://github.com/heeju-g" target="_blank">@HeejuKo</a>
+      <a href="https://github.com/HeejuKo" target="_blank">@HeejuKo</a>
     </td>
   </tr>
   <tr>
