@@ -40,6 +40,17 @@
   {% include 'components/footer.html' %}
 
    <script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const categoryFromURL = urlParams.get("category");
+
+  if (categoryFromURL && categories.includes(categoryFromURL)) {
+    toggleSub(categoryFromURL);
+  } else {
+    toggleSub('appliance');  // 기본값
+  }
+});
     const categoryInfo = {
       appliance: {
         imgSrc: "/static/img/main_C1.svg",
