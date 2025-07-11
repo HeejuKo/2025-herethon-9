@@ -68,19 +68,19 @@
   </tr>
   <tr>
     <td align="center">
-      <img src="https://i.ibb.co/sWXnzcJ/befbedf87e51f5b02aac8b882ada60fd-sticker.png" width="90px">
+      <img src="https://github.com/user-attachments/assets/4beedd9c-55cd-48a3-b0e4-ef13eb0b8eca" width="90px" />
     </td>
     <td align="center">
-      <img src="https://i.ibb.co/MRr1QMW/f67635fddb50d05f2d0f142e63b0ab5c-sticker.png" width="90px">
+      <img src="https://github.com/user-attachments/assets/0d5f1cf6-d3be-4fb1-99e2-4aee54498ce0" width="90px" />
     </td>
     <td align="center">
-      <img src="https://i.ibb.co/2KDG82L/d006044e5996d0023cd2e18425aa4677-sticker.png" width="90px">
+      <img src="https://github.com/user-attachments/assets/8623ffa4-5b5d-4eb0-bc16-fdf24d8b6a13" width="90px" />
     </td>
     <td align="center">
-      <img src="https://i.ibb.co/2KDG82L/d006044e5996d0023cd2e18425aa4677-sticker.png" width="90px">
+      <img src="https://github.com/user-attachments/assets/fd9a02fd-23d3-453f-9b78-127abba2302a" width="90px" />
     </td>
     <td align="center">
-      <img src="https://i.ibb.co/2KDG82L/d006044e5996d0023cd2e18425aa4677-sticker.png" width="90px">
+      <img src="https://github.com/user-attachments/assets/1b754c64-b188-4a72-bef1-d155dfd21e32" width="90px" />
     </td>
   </tr>
   <tr>
