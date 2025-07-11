@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Count
 
+from chats.models import ChatRoom
 from matching.models import Matching
 from accounts.models import RegionChoices, User, UserType
 from .models import BadgeChoices, CategoryChoices, Expert
@@ -250,9 +251,15 @@ def expert_detail(request, expert_id):
     # 지역구를 한글로 출력
     region_display = expert.get_region_display() if expert.region else "미등록" 
 
+    chatroom = ChatRoom.objects.filter(
+        Q(customer=request.user, expert=expert) |
+        Q(customer=expert, expert=request.user)
+    ).first()
+
     return render(request, 'experts/expert_detail.html', {
         'expert' : expert,
         'category_display' : category_display,
         'region_display' : region_display,
-        'reservation_count' : monthly_reservation_count
+        'reservation_count' : monthly_reservation_count,
+        'chatroom_id': chatroom.id if chatroom else None,
     })
