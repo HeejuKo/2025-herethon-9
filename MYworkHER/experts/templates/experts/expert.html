@@ -7,22 +7,25 @@
     <link rel="stylesheet" href="{% static 'css/expert.css' %}" />
     <link rel="stylesheet" href="{% static 'components/footer.css' %}" />
     <link rel="stylesheet" href="{% static 'components/navbar.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 </head>
 <body>
 {% include 'components/navbar.html' %}
 
 <div class="wrapper">
 
-  <form id="expert-filter-form" method="get">
     <div class="Top">
-      <div class="SearchBox">
-        <img
-          src="{%static 'img/search.svg'%}"
-          alt="search"
-          width="26px"
-        />
-        <input class="Search" type="text" name="keyword" value="{{ keyword }}" placeholder="전문가명, 한줄소개, 키워드 검색">
-      </div>
+      <form id="expert-filter-form" method="GET" action="{% url 'experts:expert_search' %}">
+        <div class="SearchBox">
+          <img
+            src="{% static 'img/search.svg' %}"
+            alt="search"
+            width="26px"
+          />
+          <input class="Search" type="text" name="keyword" value="{{ keyword }}" placeholder="전문가명, 한줄소개, 키워드 검색">
+        </div>
+      </form>
+
       <button class="SearchCategory">
         <a href="{% url 'experts:category_list' %}">카테고리로 찾기 ></a>
       </button>
@@ -35,12 +38,13 @@
     <div class="ExpertBoxes" id="Recommend">
       {% for expert in recommended_experts %}
         <div class="ExpertBox">
+          <a href="{% url 'experts:expert_detail' expert.user.id %}">
           <img class="img" src="{% static 'img/profile.svg' %}" alt="profile" />
           <div class="ExpertInfo">
             <div class="NickNameDiv">
-              <a href="{% url 'experts:expert_detail' expert.user.id %}" class="Nickname">
+              <p class="Nickname">
                 {{ expert.user.nickname }}
-              </a>
+              </p>
               {% if expert.badge == 'VERIFIED' %}
                 <img src="{% static 'img/badgeicon.svg' %}" class="BadgeIcon" />
               {% endif %}
@@ -48,27 +52,13 @@
             <div class="Introduce">{{ expert.bio }}</div>
             <div class="Description">{{ expert.description|truncatechars:100 }}</div>
           </div>
+          </a>
         </div>
-
-      {% empty %}
+    </div>
+    {% empty %}
         <div>추천 전문가가 없습니다.</div>
-      {% endfor %}
-    
-  <h3>추천 전문가</h3>
-  <ul>
-  {% for expert in recommended_experts %}
-    <li>
-      <a href="{% url 'experts:expert_detail' expert.user.id %}">
-        {{ expert.user.nickname }}{% if expert.badge == 'VERIFIED' %} ✔️{% endif %}
-      </a><br>
-      {{ expert.bio }}<br>
-      {{ expert.description|truncatechars:100 }}
-    </li>
-  {% empty %}
-    <li>추천 전문가가 없습니다.</li>
-  {% endfor %}
-  </ul>
-  {% endif %}
+    {% endfor %}
 
+  {% include 'components/footer.html' %}
 </body>
 </html>
