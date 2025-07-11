@@ -12,7 +12,7 @@
       
 
 <a href="{% url 'experts:category_list' %}" class="navbar-item {% if '/category' in request.path or request.path == '/experts/' %}active{% endif %}">카테고리</a>
-<a href="{% url 'experts:expert_list' %}" class="navbar-item {% if request.path == '/experts/search' %}active{% endif %}">전문가 찾기</a>
+<a href="{% url 'experts:expert_list' %}" class="navbar-item {% if '/experts/list' in request.path or '/experts/search' in request.path  %}active{% endif %}">전문가 찾기</a>
     
 <a href="{% url 'chats:chat_list' %}" class="navbar-item {% if '/chats' in request.path %}active{% endif %}">
   1&#58;1상담

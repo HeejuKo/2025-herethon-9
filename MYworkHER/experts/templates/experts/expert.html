@@ -13,6 +13,7 @@
 {% include 'components/navbar.html' %}
 
 <div class="wrapper">
+<div class="Topwrapper">
 
     <div class="Top">
       <form id="expert-filter-form" method="GET" action="{% url 'experts:expert_search' %}">
@@ -33,31 +34,37 @@
    
   
     <div class="SearchLine"></div>
+</div>
+
     <div class="ReText">이런 전문가는 어떠신가요?</div>
 
     <div class="ExpertBoxes" id="Recommend">
       {% for expert in recommended_experts %}
         <div class="ExpertBox">
           <a href="{% url 'experts:expert_detail' expert.user.id %}">
+            <div class="aWrapper">
           <img class="img" src="{% static 'img/profile.svg' %}" alt="profile" />
-          <div class="ExpertInfo">
-            <div class="NickNameDiv">
-              <p class="Nickname">
-                {{ expert.user.nickname }}
-              </p>
-              {% if expert.badge == 'VERIFIED' %}
-                <img src="{% static 'img/badgeicon.svg' %}" class="BadgeIcon" />
-              {% endif %}
+            <div class="ExpertInfo">
+              <div class="NickNameDiv"">
+                <p class="Nickname">
+                  {{ expert.user.nickname }}
+                </p>
+                {% if expert.badge == 'VERIFIED' %}
+                  <img src="{% static 'img/badgeicon.svg' %}" class="BadgeIcon" />
+                {% endif %}
+              </div>
+              <div class="Introduce">{{ expert.bio }}</div>
             </div>
-            <div class="Introduce">{{ expert.bio }}</div>
-            <div class="Description">{{ expert.description|truncatechars:100 }}</div>
-          </div>
+            </div>
+              <div class="Description">{{ expert.description|truncatechars:100 }}</div>
+
           </a>
         </div>
-    </div>
     {% empty %}
         <div>추천 전문가가 없습니다.</div>
     {% endfor %}
+    </div>
+
 
   {% include 'components/footer.html' %}
 </body>
