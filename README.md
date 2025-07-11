@@ -1,59 +1,55 @@
-# 2025-herethon-9
-2025 여기톤 : HER+ETHON 9팀
+# 💻 2025 HERETHON 9팀 - MYworkHER
 
 ![header](https://capsule-render.vercel.app/api?type=waving&color=0:3A5DFF,100:755DFE&height=300&section=header&text=MYworkHER&fontSize=55&fontAlignY=38&animation=fadeIn&desc=2025%20%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC%20%EC%97%AC%EA%B8%B0%ED%86%A4%209%ED%8C%80&descAlignY=51&descAlign=57&fontColor=FFFFFF)
 
-### 📙 프로젝트 소개
+---
 
-1. 리드미에 자신의 프로젝트를 소개해주세요!
-2. **_서비스 소개, 팀원 소개, 사용된 기술 스택_** 은 필수적으로 기재해주세요.
-3. 그 외에 _폴더 구조, 개발 환경에서의 실행 방법, ERD, (배포 시)배포 링크_ 등을 자유롭게 기재해주세요.
+## 🧩 프로젝트 소개
 
-### ✏️ 리드미 작성 예시
+> **MYworkHER**는 여성 전문가와의 매칭을 통해 문제 해결을 도와주는 플랫폼입니다.  
+> 2025 여기톤(HERETHON)에서 “멋쟁이사자처럼”이 기획한 9팀 프로젝트입니다.
 
-<hr/>
+---
+## ✨ 서비스 소개
 
-- **서비스 소개**
+> **MYworkHER**는 여성 전문가와 여성 고객을 매칭해주는 상담·전문가 연결 플랫폼입니다.
 
-  대법원과 각급법원의 조직은 법률로 정한다. 대통령·국무총리·국무위원·행정각부의 장·헌법재판소 재판관·법관·중앙선거관리위원회 위원·감사원장·감사위원 기타 법률이 정한 공무원이 그 직무집행에 있어서 헌법이나 법률을 위배한 때에는 국회는 탄핵의 소추를 의결할 수 있다. 국가원로자문회의의 의장은 직전대통령이 된다. 다만, 직전대통령이 없을 때에는 대통령이 지명한다.
+사용자는 플랫폼을 통해 다양한 분야(가전/수리, 헬스/스포츠, 컨설팅/비즈니스, 생활/라이프)의 여성 전문가를 쉽고 빠르게 찾을 수 있습니다.  
+전문가 프로필 열람, 카테고리별 탐색, 실시간 채팅, 예약 요청 등을 통해 문제 해결을 위한 1:1 연결이 가능합니다.
 
-  새로운 회계연도가 개시될 때까지 예산안이 의결되지 못한 때에는 정부는 국회에서 예산안이 의결될 때까지 다음의 목적을 위한 경비는 전년도 예산에 준하여 집행할 수 있다. 법관은 탄핵 또는 금고 이상의 형의 선고에 의하지 아니하고는 파면되지 아니하며, 징계처분에 의하지 아니하고는 정직·감봉 기타 불리한 처분을 받지 아니한다.
+**여성 전문가의 재능을 사회와 연결하는 것**,  
+**사용자에게 신뢰할 수 있는 솔루션을 제공하는 것** —  
+이것이 MYworkHER의 목표입니다.
 
-  외국인은 국제법과 조약이 정하는 바에 의하여 그 지위가 보장된다. 국무회의는 정부의 권한에 속하는 중요한 정책을 심의한다. 재의의 요구가 있을 때에는 국회는 재의에 붙이고, 재적의원과반수의 출석과 출석의원 3분의 2 이상의 찬성으로 전과 같은 의결을 하면 그 법률안은 법률로서 확정된다. 국가는 주택개발정책등을 통하여 모든 국민이 쾌적한 주거생활을 할 수 있도록 노력하여야 한다.
+---
 
-- **기술 스택**
+## 🛠️ 기술 스택
 
-  <span>프론트엔드: </span> <img src="https://img.shields.io/badge/html-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+### 💻 프론트엔드  
+![HTML](https://img.shields.io/badge/html-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JS](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
-  <span>백엔드: </span><img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=Django&logoColor=white">
+### ⚙️ 백엔드  
+![Python](https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Django](https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=Django&logoColor=white)
 
-  <span>기획·디자인: </span> <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
+### 🎨 기획 & 디자인  
+![Figma](https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
 
-- **팀원 소개**
-  <table border="" cellspacing="0" cellpadding="0" width="100%">
-  <tr width="100%">
-  <td align="center">김민서</a></td>
-  <td align="center">신채영</a></td>
-  <td align="center">정규은</a></td>
-  <td  align="center">고원정</a></td>
-  <td  align="center">고희주</a></td>
+---
+
+## 🧑‍🤝‍🧑 팀원 소개
+
+<table border="0" cellspacing="0" cellpadding="5" width="100%">
+  <tr>
+    <td align="center"><b>김민서</b></td>
+    <td align="center"><b>신채영</b></td>
+    <td align="center"><b>정규은</b></td>
+    <td align="center"><b>고원정</b></td>
+    <td align="center"><b>고희주</b></td>
   </tr>
-  <tr width="100%">
-  <td  align="center"><a href="https://imgbb.com/"><img src="https://i.ibb.co/sWXnzcJ/befbedf87e51f5b02aac8b882ada60fd-sticker.png" alt="befbedf87e51f5b02aac8b882ada60fd-sticker" border="0" width="90px"></a></td>
-  <td  align="center"><a href="https://imgbb.com/"><img src="https://i.ibb.co/MRr1QMW/f67635fddb50d05f2d0f142e63b0ab5c-sticker.png" alt="f67635fddb50d05f2d0f142e63b0ab5c-sticker" border="0" width="90px"></a></td>
-  <td  align="center"><a href="https://imgbb.com/"><img src="https://i.ibb.co/2KDG82L/d006044e5996d0023cd2e18425aa4677-sticker.png" alt="d006044e5996d0023cd2e18425aa4677-sticker" border="0" width="90px"></a></td>
-  <td  align="center"><a href="https://imgbb.com/"><img src="https://i.ibb.co/2KDG82L/d006044e5996d0023cd2e18425aa4677-sticker.png" alt="d006044e5996d0023cd2e18425aa4677-sticker" border="0" width="90px"></a></td>
-  <td  align="center"><a href="https://imgbb.com/"><img src="https://i.ibb.co/2KDG82L/d006044e5996d0023cd2e18425aa4677-sticker.png" alt="d006044e5996d0023cd2e18425aa4677-sticker" border="0" width="90px"></a></td>
-  
-  <tr width="100%">
-  <td  align="center">기획·디자인</td>
-  <td  align="center">프론트엔드</td>
-  <td  align="center">프론트엔드</td>
-  <td  align="center">백엔드</td>
-  <td  align="center">백엔드</td>
-     </tr>
-     </tr>
-     <tr width="100%">
+  <tr>
     <td align="center">
       <a href="https://github.com/minseo123" target="_blank">@danginseo</a>
     </td>
@@ -70,19 +66,55 @@
       <a href="https://github.com/heeju-g" target="_blank">@HeejuKo</a>
     </td>
   </tr>
-    <tr width="100%">
-    
+  <tr>
+    <td align="center">
+      <img src="https://i.ibb.co/sWXnzcJ/befbedf87e51f5b02aac8b882ada60fd-sticker.png" width="90px">
+    </td>
+    <td align="center">
+      <img src="https://i.ibb.co/MRr1QMW/f67635fddb50d05f2d0f142e63b0ab5c-sticker.png" width="90px">
+    </td>
+    <td align="center">
+      <img src="https://i.ibb.co/2KDG82L/d006044e5996d0023cd2e18425aa4677-sticker.png" width="90px">
+    </td>
+    <td align="center">
+      <img src="https://i.ibb.co/2KDG82L/d006044e5996d0023cd2e18425aa4677-sticker.png" width="90px">
+    </td>
+    <td align="center">
+      <img src="https://i.ibb.co/2KDG82L/d006044e5996d0023cd2e18425aa4677-sticker.png" width="90px">
+    </td>
   </tr>
-      <tr width="100%">
-          <td  align="center"><p>기획</p><p>디자인</p><p>발표</p></td>
-           <td  align="center"><p>메인</p><p>카테고리</p><p>전문가 찾기</p><p>예약</p></td>
-            <td  align="center"><p>로그인&회원가입</p><p>채팅</p><p>마이페이지</p></td>
-        <td  align="center"><p>메인</p><p>카테고리</p><p>전문가찾기</p><p>전문가 상세페이지</p></td>
-        <td  align="center"><p>로그인&회원가입</p><p>채팅</p><p>마이페이지</p></td>
-     </tr>
-  </table>
-<!--
-- **폴더 구조**
+  <tr>
+    <td align="center">기획 · 디자인</td>
+    <td align="center">프론트엔드</td>
+    <td align="center">프론트엔드</td>
+    <td align="center">백엔드</td>
+    <td align="center">백엔드</td>
+  </tr>
+  <tr>
+    <td align="center">
+      <p>기획</p><p>디자인</p><p>발표</p>
+    </td>
+    <td align="center">
+      <p>메인</p><p>카테고리</p><p>전문가 찾기</p><p>예약</p>
+    </td>
+    <td align="center">
+      <p>로그인 & 회원가입</p><p>채팅</p><p>마이페이지</p>
+    </td>
+    <td align="center">
+      <p>메인</p><p>카테고리</p><p>전문가 찾기</p><p>상세페이지</p>
+    </td>
+    <td align="center">
+      <p>로그인 & 회원가입</p><p>채팅</p><p>마이페이지</p>
+    </td>
+  </tr>
+</table>
+
+---
+
+## 📁 폴더 구조
+
+<details>
+<summary>클릭해서 보기</summary>
   
 
   ```
@@ -124,19 +156,43 @@
   ├── README.md
   └── requirement.txt
 
+  ```
+</details>
 
+---
 
-  ```
-  -->
-- **개발환경에서의 실행 방법**
-  ```
-   $ cd 2025-Herethon-9
-   $ python -m venv myvenv
-   $ source myvenv/Scripts/activate
-   $ pip install -r requirement.txt
-   $ cd MyworkdHER
-   $ python manage.py makemigrations
-   $ python manage.py migrate
-   $ python manage.py runserver
-  ```
-  <hr/>
+## ⚙️ 실행 방법 (개발 환경)
+
+```bash
+$ cd 2025-Herethon-9
+$ python -m venv myvenv
+$ source myvenv/Scripts/activate
+$ pip install -r requirement.txt
+$ cd MYworkHER
+$ python manage.py makemigrations
+$ python manage.py migrate
+$ python manage.py runserver
+```
+---
+
+## 🎬 기능 시연 (Demo)
+
+> [시연 영상 보러가기](https://www.youtube.com/watch?v=dummy-link)
+
+<img src="https://i.ibb.co/album/demo-gif.gif" width="600px" />
+
+---
+
+## 🧪 사용 예시
+
+### 👩‍💼 사용자 흐름 예시
+
+1. 사용자는 메인 페이지에서 카테고리를 탐색합니다.
+2. 전문가 프로필을 클릭해 상세정보를 확인합니다.
+3. 채팅 기능으로 1:1 상담을 요청합니다.
+4. 예약 기능을 통해 원하는 날짜를 선택해 요청을 완료합니다.
+5. 마이페이지에서 자신의 예약 내역과 전문가 피드백을 확인합니다.
+
+---
+
+> ✨ 우리 팀은 여성 전문가의 가치를 세상에 알리고, 사용자에게 신뢰할 수 있는 플랫폼을 만들기 위해 노력했습니다.
