@@ -3,7 +3,17 @@ html,body{
     margin: 0;
     display: flex;
     flex-direction: column;
+    font-family: 'Noto Sans KR', sans-serif;
 }
+
+form {
+  margin: 0 auto;
+width: 930px;
+display: flex;
+flex-direction: column;
+}
+
+
 .Container{
 flex: 1;
 width: 100%;
@@ -191,7 +201,6 @@ margin-top: 33px;
 .ReserveInfo{
 display: flex;
 align-items: center;
-margin-left: 365px;
 margin-top: 63px;
 margin-bottom: 56px;
 gap: 32px;
@@ -224,14 +233,7 @@ line-height: normal;
 width: 930px;
 height: 2px;
 background: #CBCBCB;
-margin: 0 auto 33px auto;
-}
-
-.Q1{
-display: flex;
-gap: 15px;
-align-items: center;
-margin-left: 385px;
+margin: 35px auto;
 }
 
 .QNum{
@@ -253,13 +255,21 @@ line-height: normal;
 }
 
 .ChoiceDay{
-margin-left: 385px;
+/* margin-left: 385px; */
+margin-left: 30px;
+/* margin: 33px auto; */
 margin-top: 25px;
-min-height: 250px;
 gap: 17px;
 display: flex;
 flex-wrap: wrap;
-max-width: 550px;
+/* max-width: 550px; */
+/* margin-bottom: 105px; */
+}
+
+.QWrapper {
+display: flex;
+flex-direction: column;
+min-height: 315px;
 }
 
 .ChoiceBtn{
@@ -269,20 +279,12 @@ cursor: pointer;
 display: inline-block
 }
 
-.Q2{
+.Q1, .Q2, .Q3{
 display: flex;
 gap: 15px;
 align-items: center;
-margin-left: 385px;
 }
 
-
-.Q3{
-display: flex;
-gap: 15px;
-align-items: center;
-margin-left: 385px;
-}
 
 .Request{
 display: flex;
@@ -294,7 +296,7 @@ gap: 8.723px;
 flex-shrink: 0;
 border-radius: 6.106px;
 background: #ECF0F5;
-margin-left: 375px;
+/* margin-left: 375px; */
 margin-top: 20px;
 border: none;
 outline: none;
@@ -323,26 +325,40 @@ cursor: pointer;
 .SelectedDate{
 display: inline-flex;
 align-items: center;
+gap: 12.317px;
+border-radius: 30.793px;
+background: #FFF;
+box-shadow: 0px 0px 5.44px 0px rgba(0, 0, 0, 0.25);
+height: 40px;
+cursor: pointer;
+padding: 5px 20px;
+margin-right: 25px;
+width: 144px;
+justify-content: center;
+}
+
+#datePicker{
+width: 130px;
+height: 37px;
+display: inline-flex;
+align-items: center;
 padding-left: 25px;
 gap: 12.317px;
 border-radius: 30.793px;
 background: #FFF;
 box-shadow: 0px 0px 5.44px 0px rgba(0, 0, 0, 0.25);
-width: 130px;
-height: 40px;
 cursor: pointer;
+border: none;
+font-size: 15px;
 }
 
-#datePicker{
-width: 130px;
-height: 44px;
-}
+
 
 .TimeBtnBox{
 display: flex;
 column-gap: 16px;
 row-gap: 14px;
-margin-left: 375px;
+/* margin-left: 375px; */
 margin-top: 30px;
 max-width: 654px;
 flex-wrap: wrap;

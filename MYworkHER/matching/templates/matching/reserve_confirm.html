@@ -22,9 +22,9 @@
                     </a>
                 </div>
                 <div class="T_Category"><a href="{% url 'experts:category_list' %}" class="T_Category">카테고리</a></div>
-                <div class="T_Search"><a href={% url 'experts:expert_list'%} class="T_Search">전문가찾기</a></div>
+                <div class="T_Search"><a href="{% url 'experts:expert_list' %}" class="T_Search">전문가찾기</a></div>
                 {% if request.user.is_authenticated%}
-                    <div class="T_Chat"><a href={% url 'chats:chat_list'%} class="T_Chat">1:1상담</a>
+                    <div class="T_Chat"><a href="{% url 'chats:chat_list' %}" class="T_Chat">1:1상담</a>
                         {% if unread_chat_total > 0 %}
                         <div class="Alarm"></div>
                 {%endif%}
@@ -110,7 +110,7 @@
         <div class="Complete" style="{% if not complete %}display: none;{% endif %}">
             <div class="Left">
                 <img
-                    src={% static "img/bigcheck.svg"%}
+                    src="{% static 'img/bigcheck.svg' %}"
                     alt="bigcheck"
                     width="200px"
                     class="BigCheckImg"
@@ -120,7 +120,7 @@
             <div class="Right">
                 <div class="RightBox">
                     <img
-                        src={% static "img/profile.svg" %}
+                        src="{% static 'img/profile.svg' %}"
                         alt="profile";
                         width="98px"                    
                     />
