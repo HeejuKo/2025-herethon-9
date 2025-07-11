@@ -12,46 +12,6 @@
 <body>
     <div class="Container">
         {% include 'components/navbar.html' %}
-        <!-- <div class="Header">
-            <div class="LeftGroup">
-                <div class="Logo">
-                    <a href="{% url 'matching:main' %}">
-                        <img 
-                            src="{% static "img/logo.svg" %}"
-                            alt="logo"
-                            width="136px"
-                        />
-                    </a>
-                    
-                </div>
-                <div class="T_Category">
-                    <a href="{% url 'experts:category_list' %}" class="T_Category"
-                    >카테고리</a
-                    >
-                </div>
-                <div class="T_Search">
-                    <a href="{% url 'experts:expert_list' %}" class="T_Search">전문가찾기</a>
-                </div>
-                {% if request.user.is_authenticated%}
-                <div class="T_Chat">
-                    <a href="{% url 'chats:chat_list'%}">1:1상담</a>
-                    {% if unread_chat_total > 0 %}
-                    <div class="Alarm"></div>
-                {%endif%}
-                </div>
-                <div class="T_Mypage">
-                    <a href="{% url 'accounts:mypage' %}" class="T_Mypage">마이페이지</a>
-                </div>
-            </div>
-        <div class="Logout">
-          <a href="{% url 'accounts:logout' %}">로그아웃</a>
-        </div>
-        {%else%}
-        <button class="Btn" id="loginSection" style="display: none">
-          <a href="{% url 'accounts:login'%}">로그인/회원가입</a>
-        </button>
-        {% endif %}
-      </div> -->
 
         <form method="POST" action="{% url 'matching:create-matching' %}" id="matchingForm">
         {% csrf_token %}
@@ -78,7 +38,7 @@
                 <span class="QText"> 가능 예약 일자를 선택해 주세요.</span>
             </div>
             <div class="ChoiceDay">
-                <div class="datePicked"></div>
+                
                 {% if selected_dates %}
                     {% for date in selected_dates %}
                         <div class="SelectedDate active" data-date="{{ date }}">{{ date }}</div>
