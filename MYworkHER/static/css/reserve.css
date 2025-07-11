@@ -28,7 +28,7 @@ box-sizing: border-box;
 .LeftGroup {
   display: flex;
   align-items: center;
-  gap: 40px; 
+  gap: 40px;
 }
 
 .Logo{
@@ -68,6 +68,7 @@ font-weight: 400;
 line-height: normal;
 position: relative;
 cursor: default;
+text-decoration: none;
 }
 
 .Alarm{
@@ -90,6 +91,8 @@ font-style: normal;
 font-weight: 400;
 line-height: normal;
 cursor: default;
+text-decoration: none;
+
 }
 
 .Btn{
@@ -124,8 +127,22 @@ text-decoration-style: solid;
 text-decoration-skip-ink: auto;
 text-decoration-thickness: auto;
 text-underline-offset: auto;
-text-underline-position: from-font;   
+text-underline-position: from-font;
+text-decoration: none;
 }
+
+.Logout a,
+.Btn a,
+.T_Category a,
+.T_Search a,
+.T_Mypage a,
+.T_Chat a{
+  text-decoration: none;
+  color: inherit;
+  font: inherit;
+  cursor: default;
+}
+
 
 .Footer{
 width: 100%;
