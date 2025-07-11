@@ -55,7 +55,7 @@
           <td  align="center"><p>담당 기능 A</p><p>담당 기능 B</p><p>담당 기능 C</p></td>
            <td  align="center"><p>담당 기능 A</p><p>담당 기능 B</p><p>담당 기능 C</p></td>
             <td  align="center"><p>로그인&회원가입</p><p>채팅</p><p>마이페이지</p></td>
-        <td  align="center"><p>담당 기능 A</p><p>담당 기능 B</p><p>담당 기능 C</p></td>
+        <td  align="center"><p>메인</p><p>카테고리</p><p>전문가찾기</p><p>전문가 상세페이지</p></td>
         <td  align="center"><p>담당 기능 A</p><p>담당 기능 B</p><p>담당 기능 C</p></td>
      </tr>
   </table>
@@ -89,7 +89,7 @@
   │   │   └── templatetags/
   │   ├── experts/
   │   ├── matching/
-  │   ├── media/   (회색 → 비어있거나 Git 추적 제외 중)
+  │   ├── media/   
   │   ├── myadmin/
   │   ├── MYworkHER/
   │   ├── pages/
