@@ -21,56 +21,29 @@ document.addEventListener("DOMContentLoaded", ()=>{
         alarm.style.display = isLogin&&unreadChat ? "block" : "none";
     }
 
-    const saved = localStorage.getItem("reservationData");
-    if(!saved){
-        alert("예약 정보가 없습니다.");
-        return;
-    }
-
-    const data=JSON.parse(saved);
-    const dayContainer = document.querySelector(".ChoiceDay");
-
-    data.dates.forEach(date => {
-        const [year, month, day] = date.split("-");
-        const formatted = `${year}년 ${parseInt(month)}월 ${parseInt(day)}일`;
-
-        const dateDiv = document.createElement("div");
-        dateDiv.className = "SelectedDate";
-        dateDiv.textContent = formatted;
-        dayContainer.appendChild(dateDiv);
-
-       
-    });
-
-    const timeContainer = document.querySelector(".TimeBtnBox");
-    data.times.forEach(time => {
-        const timeDiv = document.createElement("div");
-        timeDiv.className="TimeBtn";
-        timeDiv.textContent = time;
-
-        timeContainer.appendChild(timeDiv);
-    });
-
-    const requestContainer = document.querySelector(".RequestText");
-    requestContainer.textContent=data.request;
-
-
     const reviseBtn = document.querySelector(".Revise");
     if(reviseBtn){
         reviseBtn.addEventListener("click",()=>{
-            window.location.href="../pages/reserve.html";
+            const expertId = reviseBtn.dataset.expertId;
+            // 세션에 저장된 값이 이미 있으므로 expert_id만 넘김
+            window.location.href = `/matching/${expertId}/edit/`;  // edit_matching 뷰를 호출
         });
     }
 
     const reserveConfirmContainer = document.querySelector(".ReserveConfirm");
     const completeContainer = document.querySelector(".Complete");
 
-    const submitBtn = document.querySelector(".Submit");
-    if(submitBtn){
-        submitBtn.addEventListener("click",()=>{
-            reserveConfirmContainer.style.display="none";
-            completeContainer.style.display="flex";
-        });
+    // 예액 완료 여부 확인
+    const isComplete = document.body.dataset.complete === "true";
+
+    if (isComplete) {
+        // 예약 완료 상태 : 확인 화면 숨기고 완료 화면만 보이게
+        reserveConfirmContainer.style.display = "none";
+        completeContainer.style.display = "flex";
+    } else {
+        // 예약 전 : 확인 화면만 보이고 완료 화면은 숨김
+        reserveConfirmContainer.style.display = "block";
+        completeContainer.style.display = "none";
     }
 
     const homeBtn = document.querySelector(".C_Home");
