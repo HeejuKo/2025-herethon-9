@@ -357,6 +357,8 @@ font-size: 28.397px;
 font-style: normal;
 font-weight: 500;
 line-height: normal;
+display: flex;
+
 }
 
 
@@ -367,14 +369,17 @@ align-items: center;
 gap: 10px;
 width: 200px;
 }
+
 .BadgeText{
 color: #0D5BDA;
 font-family: "Noto Sans KR";
 font-size: 28.397px;
 font-style: normal;
 font-weight: 500;
-line-height: 1; display: flex;
+line-height: 1; 
+display: flex;
 align-items: center;
+
 }
 
 .BadgeText img{
@@ -406,4 +411,14 @@ background: linear-gradient(90deg, #0D5BDA 0%, #A76CE7 100%);
 background-clip: text;
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
+display: flex;
+align-items: center;
 }
+
+.Reserve{
+text-decoration: none;
+}
+.Chat{
+text-decoration: none;
+}
+
