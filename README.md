@@ -109,7 +109,13 @@
   
 - **개발환경에서의 실행 방법**
   ```
-  $ django-admin startproject 프로젝트명
-  $ python manage.py runserver
+   $ cd 2025-Herethon-9
+   $ python -m venv myvenv
+   $ source myvenv/Scripts/activate
+   $ pip install -r requirement.txt
+   $ cd MyworkdHER
+   $ python manage.py makemigrations
+   $ python manage.py migrate
+   $ python manage.py runserver
   ```
   <hr/>
