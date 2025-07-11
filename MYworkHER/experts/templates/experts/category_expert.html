@@ -16,7 +16,7 @@
   {% include 'components/navbar.html' %}
 
 <div class="wrapper">
-  <div id="categoryContainer" style=" margin-top: 0; pointer-events: none; cursor: default;"></div>
+  <div id="categoryContainer" style=" margin-top: 0;"></div>
   <div class="line" style="margin-bottom: 29px;"></div>
 
   <!-- Django가 렌더링한 하위 카테고리들 -->
@@ -43,8 +43,12 @@
 <div class="TextWrapper">
   <div class="ResultText">
     <span class="BlueText">{{ category_label }}</span>
+    {% if subcategory_label is None %}
+
+    {% else %}
     <span class="BlackText">></span>
     <span class="BlueText">{{ subcategory_label }}</span>
+    {% endif %}
     <span class="BlackText"> 에 해당하는 </span>
     <span class="BlueText">{{ total_count }}</span>
     <span class="BlackText">명의 전문가가 있습니다.</span>
@@ -355,22 +359,46 @@
       }
     };
 
-    function createCategoryBox(key) {
-      const info = categoryInfo[key];
-      if (!info) return;
+    // function createCategoryBox(key) {
+    //   const info = categoryInfo[key];
+    //   if (!info) return;
 
-      const wrapper = document.createElement('div');
-      wrapper.className = "category-box";
-      wrapper.onclick = () => toggleSub(key);
-      wrapper.innerHTML = `
-        <div class="Category">
-          <div class="${info.className}">
-            <img id="img-${key}" src="${info.imgSrc}" alt="${info.alt}" width="222.516px" />
-          </div>
-        </div>
-      `;
-      return wrapper;
-    }
+    //   const wrapper = document.createElement('div');
+    //   wrapper.className = "category-box";
+    //   //wrapper.onclick = () => toggleSub(key);
+
+    //   wrapper.innerHTML = `
+    //     <div class="Category">
+    //       <div class="${info.className}">
+    //         <img id="img-${key}" src="${info.imgSrc}" alt="${info.alt}" width="222.516px" />
+    //       </div>
+    //     </div>
+    //   `;
+    //   return wrapper;
+    // }
+
+    function createCategoryBox(key) {
+  const info = categoryInfo[key];
+  if (!info) return;
+
+  const wrapper = document.createElement('div');
+  wrapper.className = "category-box";
+
+  // 🔥 이동: /experts/?category=appliance
+  wrapper.onclick = () => {
+    const url = `/experts/?category=${key}`;
+    window.location.href = url;
+  };
+
+  wrapper.innerHTML = `
+    <div class="Category">
+      <div class="${info.className}">
+        <img id="img-${key}" src="${info.imgSrc}" alt="${info.alt}" width="222.516px" />
+      </div>
+    </div>
+  `;
+  return wrapper;
+}
 
     const categories = ['appliance', 'health', 'business', 'lifestyle'];
     const container = document.getElementById('categoryContainer');
