@@ -230,6 +230,10 @@ margin-top: 31px;
 margin-bottom: 0;
 }
 
+.TwoBtn a{
+  text-decoration: none;
+}
+
 .Reserve{
 display: flex;
 width: 208px;
@@ -246,6 +250,7 @@ font-size: 20px;
 font-style: normal;
 font-weight: 500;
 line-height: normal;
+text-decoration: none;
 }
 
 .Chat{
@@ -264,6 +269,7 @@ font-size: 20px;
 font-style: normal;
 font-weight: 500;
 line-height: normal;
+text-decoration: none;
 }
 
 .DetailLine{
@@ -367,7 +373,13 @@ font-family: "Noto Sans KR";
 font-size: 28.397px;
 font-style: normal;
 font-weight: 500;
-line-height: normal;
+line-height: 1; display: flex;
+align-items: center;
+}
+
+.BadgeText img{
+  height: 28px;
+  vertical-align: middle;
 }
 
 .ReserveNumBox{
