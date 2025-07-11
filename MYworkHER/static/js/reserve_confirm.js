@@ -33,12 +33,17 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const reserveConfirmContainer = document.querySelector(".ReserveConfirm");
     const completeContainer = document.querySelector(".Complete");
 
-    const submitBtn = document.querySelector(".Submit");
-    if(submitBtn){
-        submitBtn.addEventListener("click",()=>{
-            reserveConfirmContainer.style.display="none";
-            completeContainer.style.display="flex";
-        });
+    // 예액 완료 여부 확인
+    const isComplete = document.body.dataset.complete === "true";
+
+    if (isComplete) {
+        // 예약 완료 상태 : 확인 화면 숨기고 완료 화면만 보이게
+        reserveConfirmContainer.style.display = "none";
+        completeContainer.style.display = "flex";
+    } else {
+        // 예약 전 : 확인 화면만 보이고 완료 화면은 숨김
+        reserveConfirmContainer.style.display = "block";
+        completeContainer.style.display = "none";
     }
 
     const homeBtn = document.querySelector(".C_Home");

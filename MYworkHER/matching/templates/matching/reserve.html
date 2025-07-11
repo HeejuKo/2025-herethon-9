@@ -42,7 +42,7 @@
         <form method="POST" action="{% url 'matching:create-matching' %}" id="matchingForm">
         {% csrf_token %}
         <input type="hidden" name="expert_id" value="{{ selected_expert.id }}">
-        <input type="hidden" name="dates" id="datesInput">
+        <input type="hidden" name="dates" id="datesInput" value="{{selected_dates | join:","}}">
         <input type="hidden" name="times" id="timesInput" value="{{ selected_times|join:"," }}">
             <div class="ReserveInfo">
                 <img
@@ -64,8 +64,9 @@
             <div class="ChoiceDay">
                 {% if selected_dates %}
                     {% for date in selected_dates %}
-                        <div class="SelectedDate active" data-value="{{ date }}">{{ date }}</div>
+                        <div class="SelectedDate active" data-date="{{ date }}">{{ date }}</div>
                     {% endfor %}
+
                 {% endif %}
                 <input type="date" id="datePicker" style="display: none;" />
                 <img
@@ -113,15 +114,15 @@
             <div class="S_Text">BE 고원정 - 성신여자대학교 멋쟁이사자처럼 백엔드</div>
         </div>
     </footer>
-    <script>
-        const selectedDates = {{ selected_dates|safe }};  // Django에서 넘어온 선택된 날짜 배열
+   <script>
+        const selectedDates = JSON.parse(document.getElementById("selected-dates").textContent);
         const datesInput = document.getElementById("datesInput");
 
-        if (selectedDates && datesInput) {
-            // 콤마로 연결된 문자열로 변환 후 hidden input에 주입
+        if (Array.isArray(selectedDates) && datesInput) {
             datesInput.value = selectedDates.join(",");
         }
     </script>
+
 
     <script>
         const selectedTimes = {{ selected_times|safe }};

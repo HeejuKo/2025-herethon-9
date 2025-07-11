@@ -66,8 +66,6 @@ def create_matching(request):
                 'notes' : notes
             }
 
-            print("🔒 세션 저장 완료:", request.session['temp_matching'])
-
             return redirect('matching:reserve-confirm', matching_id=0)
     
     else:
@@ -163,35 +161,68 @@ def edit_matching(request, matching_id):
         'notes': temp['notes'],
     })
 
+# 예약 저장
+@login_required
+def submit_reservation(request):
+    if request.method == 'POST':
+        expert_id = request.POST.get('expert_id')
+        dates = request.POST.get('dates', '').split(',')
+        times = request.POST.get('times', '').split(',')
+        notes = request.POST.get('notes', '')
+
+        expert = get_object_or_404(User, id=expert_id)
+        customer = request.user
+
+        created_matchings = []
+
+        for date in dates:
+            if not date.strip():
+                continue
+            try:
+                date_obj = datetime.strptime(date.strip(), '%Y-%m-%d').date()
+            except ValueError:
+                continue
+
+            for time in times:
+                if not time.strip():
+                    continue
+                try:
+                    time_obj = datetime.strptime(time.strip(), '%H:%M').time()
+                except ValueError:
+                    continue 
+
+                # 중복 방지
+                if Matching.objects.filter(expert=expert, date=date_obj, time=time_obj).exists():
+                    continue
+
+                matching = Matching.objects.create(
+                    customer=customer,
+                    expert=expert,
+                    date=date_obj,
+                    time=time_obj,
+                    notes=notes
+                )
+                created_matchings.append(matching)
+
+        # 첫 번째로 생성된 matching으로 성공 페이지 이동
+        if created_matchings:
+             return render(request, 'matching/reserve_confirm.html', {
+                'expert': expert,
+                'date_matchings': dates,
+                'time_matchings': times,
+                'notes': notes,
+                'complete': True  # 예약 완료 상태
+            })
+        else:
+            # 아무것도 생성되지 않았을 경우
+            return redirect('matching:create')
+
 # 예약 확정 및 저장
 @login_required
 def matching_success(request, matching_id):
-    temp = request.session.pop('temp_matching', None)
-
-    if not temp:
-        return redirect('matching:create-matching')
-    
-    customer = request.user
-    expert = get_selected_expert(temp['expert_id'])
-    date_list = temp.get('dates')
-    time_list = temp['times']
-    notes = temp['notes']
-
-    new_matchings = []
-    try:
-        for date_str, time_str in product(date_list, time_list):
-            date = datetime.strptime(date_str, '%Y-%m-%d').date()
-            time = datetime.strptime(time_str, '%H:%M').time()
-            new_matchings.append(Matching(customer=customer, expert=expert, date=date, time=time, notes=notes))
-    except ValueError:
-        pass
-
-    Matching.objects.bulk_create(new_matchings)
-    chat_room, _ = ChatRoom.objects.get_or_create(customer=customer, expert=expert)
-
-    return JsonResponse ({
-        "success": True,
-        "chatroom_id": chat_room.id,
-        "expert_nickname": expert.nickname,
-        "category": expert.expert_profile.get_category_display(),
+    matching = get_object_or_404(Matching, id=matching_id)
+    return render(request, 'matching/success.html', {
+        'matching': matching,
+        'expert': matching.expert,
+        'category': matching.expert.expert_profile.get_category_display(),
     })

@@ -24,8 +24,14 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const choiceBtn = document.querySelector(".ChoiceBtn");
     const datePicker = document.getElementById("datePicker");
     const choiceDayBox = document.querySelector(".ChoiceDay");
+    const datesInput = document.getElementById("datesInput");
 
     const selectedDates = new Set();
+
+    // 날짜 input 값 갱신
+    function updateDatesInput() {
+        datesInput.value = Array.from(selectedDates).join(',');
+    }
 
     choiceBtn.addEventListener("click",()=>{
         datePicker.style.display="flex";
@@ -44,6 +50,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         }
 
         selectedDates.add(selectedDate);
+        updateDatesInput();  // 날짜 추가 시 input 갱신
 
         const [year,month,day] = selectedDate.split("-");
         const formmatedDate =`${year}년 ${parseInt(month)}월 ${parseInt(day)}일`;
@@ -53,11 +60,14 @@ document.addEventListener("DOMContentLoaded", ()=>{
         dateDiv.className="SelectedDate";
         dateDiv.textContent=formmatedDate;
 
+        dateDiv.dataset.date = selectedDate;
+
         dateDiv.addEventListener("click",()=>{
             const confirmDelete = confirm("이 날짜를 삭제할까요?");
             if(confirmDelete){
                 selectedDates.delete(selectedDate);
                 dateDiv.remove();
+                updateDatesInput();  // 날짜 삭제 시 input 갱신
             }
         });
         
@@ -109,16 +119,24 @@ document.addEventListener("DOMContentLoaded", ()=>{
     if (timesInput) {
         timesInput.value = selectedTimes.join(",");
     }
-
-
-
     
     const reserveBtn = document.querySelector(".ReserveBtn");
     
     reserveBtn.addEventListener("click",()=>{
         const requestText = document.querySelector(".Request").value;
-        const selectedTimes=Array.from(document.querySelectorAll(".TimeBtn.selected")).map(btn=>btn.textContent);
         const expertId = document.querySelector("input[name='expert_id']")?.value;
+
+        // 날짜 : dataset.date 기준으로 가져오기
+        const newlySelectedDates = Array.from(document.querySelectorAll(".SelectedDate"))
+            .map(div => div.dataset.date)
+            .filter(Boolean);
+
+
+        // 수정된 시간 업데이트
+        const newlySelectedTimes = Array.from(document.querySelectorAll(".TimeBtn.selected")).map(btn => btn.textContent);
+        if (newlySelectedTimes.length > 0) {
+            selectedTimes = newlySelectedTimes;
+        }
 
         if(selectedDates.size===0){
             alert("예약할 날짜를 최소 한 개 이상 선택해주세요.");
@@ -136,7 +154,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         }
 
         // hidden input에 값 채워 넣기
-        document.getElementById("datesInput").value = Array.from(selectedDates).join(",");
+        document.getElementById("datesInput").value = newlySelectedDates.join(",");
         document.getElementById("timesInput").value = selectedTimes.join(",");
 
         // form 제출

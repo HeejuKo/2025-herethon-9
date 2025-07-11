@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/reserve_confirm.css' %}">
 
 </head>
-<body>
+<body data-complete="{{ complete|default:False|yesno:"true,false" }}">
     <div class="Container">
         <div class="Header">
             <div class="LeftGroup">
@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <div class="ReserveConfirm">
+        <div class="ReserveConfirm"style="{% if complete %}display: none;{% endif %}" >
             <div class="ReserveCheck">예약 정보를 확인해주세요!</div>
 
             <div class="ReserveInfo">
@@ -58,9 +58,11 @@
                 <span class="QNum">01</span>
                 <span class="QText"> 가능 예약 일자</span>
             </div>
-            <div class="ChoiceDay">
+           <div class="ChoiceDay">
                 {% for date in date_matchings %}
-                    <div class="SelectedDate">{{ date }}</div>
+                    <div class="SelectedDate" data-value="{{ date }}">{{ date }}</div>
+                {% empty %}
+                    <p>선택된 날짜가 없습니다.</p>
                 {% endfor %}
             </div>
             <div class="ResLine"></div>
@@ -88,11 +90,21 @@
                     <button type="submit" class="Revise" data-expert-id="{{ expert.id }}">수정하기</button>
                 </form>
 
+                <form id="submitReserveForm" method="POST" action="{% url 'matching:submit_reservation' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="expert_id" value="{{ expert.id }}">
+                    <input type="hidden" name="dates" value="{{ date_matchings|join:"," }}">
+                    <input type="hidden" name="times" value="{{ time_matchings|join:"," }}">
+                    <input type="hidden" name="notes" value="{{ notes }}">
+                    
                     <button type="submit" class="Submit">예약신청</button>
+                </form>
+
+
             </div>
         </div>
 
-        <div class="Complete">
+        <div class="Complete" style="{% if not complete %}display: none;{% endif %}">
             <div class="Left">
                 <img
                     src={% static "img/bigcheck.svg"%}
