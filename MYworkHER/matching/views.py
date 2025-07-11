@@ -52,6 +52,13 @@ def create_matching(request):
 
     if request.method == 'POST':
         expert_id = request.POST.get('expert_id')
+
+        if not expert_id or not expert_id.isdigit():
+            return render(request, 'matching/reserve.html', {
+                'error' : '전문가 정보가 올바르지 않습니다. 다시 시도해 주세요.',
+                'experts' : experts,
+            })
+        
         date_list = request.POST.get('dates', '').split(',')
         time_list = request.POST.get('times', '').split(',')
         notes = request.POST.get('notes', '')
@@ -72,6 +79,7 @@ def create_matching(request):
         expert_id = request.GET.get('expert_id')
         if expert_id:
             selected_expert = get_selected_expert(expert_id)
+        
         
         # 예약 수정 시 이전에 선택한 예약 사항들을 반영
         temp = request.session.get('temp_matching')
@@ -206,6 +214,11 @@ def submit_reservation(request):
 
         # 첫 번째로 생성된 matching으로 성공 페이지 이동
         if created_matchings:
+
+
+            # 예약 성공 후 세션 삭제
+            if 'temp_matching' in request.session:
+                del request.session['temp_matching']
              
             chatroom, _ = ChatRoom.objects.get_or_create(customer=customer, expert=expert)
 
