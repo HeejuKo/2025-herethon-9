@@ -37,13 +37,9 @@
       </div>
     {% endif %}
   {% endfor %}
-</div>
+  </div>
   {% endfor %}
 
-
-
-
-  <!-- 상위 카테고리 사진 4개... category.html와 똑같이 -->
 <div class="TextWrapper">
   <div class="ResultText">
     <span class="BlueText">{{ category_label }}</span>
@@ -384,13 +380,15 @@
       container.appendChild(box);
     });
 
-    // 기본 선택: appliance 카테고리 표시
-    toggleSub('appliance');
+    // 카테고리 표시
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedCategory = urlParams.get("category") || "appliance"; // 기본값은 'appliance'
+    toggleSub(selectedCategory);
 
     function toggleSub(key) {
       document.querySelectorAll('.subcategory-list').forEach(el => {
         el.style.display = 'none'; // 전부 숨기고
-      });
+    });
 
       const target = document.getElementById('sub-' + key);
       if (target) {
