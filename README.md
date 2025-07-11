@@ -110,7 +110,7 @@
 </table>
 
 ---
-
+<!--
 ## 📁 폴더 구조
 
 <details>
@@ -173,8 +173,9 @@ $ python manage.py makemigrations
 $ python manage.py migrate
 $ python manage.py runserver
 ```
----
 
+---
+-->
 ## 🎬 기능 시연 (Demo)
 
 > [시연 영상 보러가기](https://www.youtube.com/watch?v=dummy-link)
