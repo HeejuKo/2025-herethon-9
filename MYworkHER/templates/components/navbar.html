@@ -15,7 +15,10 @@
 <a href="{% url 'experts:expert_list' %}" class="navbar-item {% if request.path == '/experts/search' %}active{% endif %}">전문가 찾기</a>
     
 <a href="{% url 'chats:chat_list' %}" class="navbar-item {% if '/chats' in request.path %}active{% endif %}">
-  1&#58;1상담<span class="alarm-dot"></span>
+  1&#58;1상담
+  {% if unread_chat_total > 0 %}
+    <span class="alarm-dot"></span>
+  {% endif %}
 </a>
 <a href="{% url 'accounts:mypage' %}" class="navbar-item {% if '/accounts' in request.path %}active{% endif %}">
   마이페이지

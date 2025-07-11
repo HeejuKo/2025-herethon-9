@@ -87,9 +87,9 @@
     </div>
 
     <!-- 3. 입력창 -->
-    <form method="POST" class="chat-input-form">
+    <form id="chatForm" method="POST" class="chat-input-form">
       {% csrf_token %}
-      <textarea name="content" placeholder="채팅을 입력하세요." required></textarea>
+      <textarea id="chatInput" name="content" placeholder="채팅을 입력하세요." required></textarea>
       <button type="submit" class="send-btn">
         <img src="{% static 'img/send-icon.svg' %}" alt="전송"/>
       </button>
@@ -99,5 +99,8 @@
   {% include "components/footer.html" %}
   <script src="{% static 'components/footer.js' %}"></script>
   <script src="{% static 'components/navbar.js' %}"></script>
+  <script src="{% static 'js/chat-room.js' %}"></script>
+
+
 </body>
 </html>
