@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>category_searchExpert</title>
+    <link rel="stylesheet" href="{% static 'css/category_expert.css' %}">
+    <link rel="stylesheet" href="{% static 'components/navbar.css' %}"/>
+</head>
+<body>
+    <div class="Container">
+        {% include 'components/navbar.html' %}
+        <div class="Category">
+            <div class="C1">
+                <a href="{% url 'experts:expert_category' %}?category=appliance">
+                <img
+                    src="{% static 'img/main_C1.svg' %}"
+                    alt="repair"
+                    width="222.516px"
+                />
+                </a>
+            </div>
+            <div class="C2">
+                <a href="{% url 'experts:expert_category' %}?category=health">
+                <img
+                    src="{% static 'img/main_C2.svg' %}"
+                    alt="sports"
+                    width="222.516px"
+                />
+                </a>
+            </div>
+            <div class="C3">
+                <a href="{% url 'experts:expert_category' %}?category=business"">
+                <img
+                    src="{% static 'img/main_C3.svg' %}"
+                    alt="consulting"
+                    width="222.516px"
+                />
+                </a>
+            </div>
+            <div class="C4">
+                <a href="{% url 'experts:expert_category' %}?category=lifestyle">
+                <img
+                    src="{% static 'img/main_C4.svg' %}"
+                    alt="life"
+                    width="222.516px"
+                />
+                </a>
+            </div>
+        </div>
+        <div class="Line"></div>
+
+        <div class="ResultFilter">
+            <div class="ResultText"></div>
+            <button class="Region">
+                지역
+                <img
+                    src="{% static 'img/filter.svg' %}"
+                    alt="filter"
+                    width="12.6px"
+                />
+            </button>
+            <div class="Regioncheck" id="RegionList"></div>
+
+            <button class="Work">
+                경력
+            <img
+                    src="{% static 'img/filter.svg' %}"
+                    alt="filter"
+                    width="12.6px"
+            />
+            </button>
+            <div class="WorkCheck"></div>
+
+            <button class="Badge">
+                인증배지
+            <img
+                src="{% static 'img/filter.svg' %}"
+                alt="filter"
+                width="12.6px"
+            />
+            </button>
+            <div class="BadgeCheck"></div>
+        </div>
+        <div class="ExpertBoxes">
+            
+        </div>
+        <button class="ShowAllBtn">
+            <span class="Count"></span>
+            <span class="ShowText"> 개의 결과 전체보기</span>
+        </button>
+    </div>
+    {% include 'components/footer.html' %}
+    <script src="{% static 'js/category_expert.js' %}"></script>
+</body>
+</html>
