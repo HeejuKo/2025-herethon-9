@@ -1,3 +1,8 @@
+body {
+  font-family: "Noto Sans KR", sans-serif;
+
+}
+
 .Top{
 display: flex;
 align-items: center;
@@ -433,4 +438,27 @@ border-radius: 12px;
 padding: 16px;
 z-index: 999;
 box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.ExpertInfo {
+    padding-top: 30px;
+}
+
+.NickNameDiv{
+
+    display: flex;
+    gap: 3px;
+    align-items: center;
+}
+
+.Nickname {
+    text-decoration: none;
+}
+
+
+.line {
+  width: 930px;
+height: 2px;
+background: #CBCBCB;
+margin-left: 281px;
 }
