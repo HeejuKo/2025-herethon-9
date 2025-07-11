@@ -206,16 +206,20 @@ def submit_reservation(request):
 
         # 첫 번째로 생성된 matching으로 성공 페이지 이동
         if created_matchings:
-             return render(request, 'matching/reserve_confirm.html', {
+             
+            chatroom, _ = ChatRoom.objects.get_or_create(customer=customer, expert=expert)
+
+            return render(request, 'matching/reserve_confirm.html', {
                 'expert': expert,
                 'date_matchings': dates,
                 'time_matchings': times,
                 'notes': notes,
+                'chatroom_id': chatroom.id,
                 'complete': True  # 예약 완료 상태
             })
         else:
             # 아무것도 생성되지 않았을 경우
-            return redirect('matching:create')
+            return redirect('matching:create-matching')
 
 # 예약 확정 및 저장
 @login_required
