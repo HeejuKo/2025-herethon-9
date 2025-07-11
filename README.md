@@ -44,7 +44,7 @@
   <td  align="center"><a href="https://imgbb.com/"><img src="https://i.ibb.co/2KDG82L/d006044e5996d0023cd2e18425aa4677-sticker.png" alt="d006044e5996d0023cd2e18425aa4677-sticker" border="0" width="90px"></a></td>
   <td  align="center"><a href="https://imgbb.com/"><img src="https://i.ibb.co/2KDG82L/d006044e5996d0023cd2e18425aa4677-sticker.png" alt="d006044e5996d0023cd2e18425aa4677-sticker" border="0" width="90px"></a></td>
   <td  align="center"><a href="https://imgbb.com/"><img src="https://i.ibb.co/2KDG82L/d006044e5996d0023cd2e18425aa4677-sticker.png" alt="d006044e5996d0023cd2e18425aa4677-sticker" border="0" width="90px"></a></td>
-  </tr>
+  
   <tr width="100%">
   <td  align="center">기획·디자인</td>
   <td  align="center">프론트엔드</td>
@@ -52,15 +52,23 @@
   <td  align="center">백엔드</td>
   <td  align="center">백엔드</td>
      </tr>
+     </tr>
+    <tr width="100%">
+    <td align="center">@danginseo</td>
+    <td align="center">@chaeyounggggggg</td>
+    <td align="center">@jeongkyueun</td>
+    <td align="center">@on1yoneprivate </td>
+    <td align="center">@HeejuKo</td>
+  </tr>
       <tr width="100%">
-          <td  align="center"><p>담당 기능 A</p><p>담당 기능 B</p><p>담당 기능 C</p></td>
-           <td  align="center"><p>담당 기능 A</p><p>담당 기능 B</p><p>담당 기능 C</p></td>
+          <td  align="center"><p>기획</p><p>디자인</p><p>발표</p></td>
+           <td  align="center"><p>메인</p><p>카테고리</p><p>전문가 찾기</p><p>예약</p></td>
             <td  align="center"><p>로그인&회원가입</p><p>채팅</p><p>마이페이지</p></td>
         <td  align="center"><p>메인</p><p>카테고리</p><p>전문가찾기</p><p>전문가 상세페이지</p></td>
-        <td  align="center"><p>담당 기능 A</p><p>담당 기능 B</p><p>담당 기능 C</p></td>
+        <td  align="center"><p>로그인&회원가입</p><p>채팅</p><p>마이페이지</p></td>
      </tr>
   </table>
-
+<!--
 - **폴더 구조**
   
 
@@ -106,7 +114,7 @@
 
 
   ```
-  
+  -->
 - **개발환경에서의 실행 방법**
   ```
    $ cd 2025-Herethon-9
