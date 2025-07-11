@@ -1,4 +1,5 @@
 {% load static %}
+{% load time_filters %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -54,7 +55,7 @@
               </div>
           </div>
           <div class="chat-time">
-            {{ item.last_msg.created_at|date:"n월 j일 H:i" }}
+            {{ item.last_msg.created_at|smart_chat_time }}
           </div>
         </a>
       </li>
