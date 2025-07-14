@@ -52,6 +52,7 @@
 
 ## 🧑‍🤝‍🧑 팀원 소개
 
+
 <table border="0" cellspacing="0" cellpadding="5" width="100%">
   <tr>
     <td align="center"><b>김민서</b></td>
@@ -59,6 +60,7 @@
     <td align="center"><b>정규은</b></td>
     <td align="center"><b>고원정</b></td>
     <td align="center"><b>고희주</b></td>
+    <td align="center"><b>노진경</b></td>
   </tr>
   <tr>
     <td align="center">
@@ -75,6 +77,9 @@
     </td>
     <td align="center">
       <a href="https://github.com/HeejuKo" target="_blank">@HeejuKo</a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/yeon-yeon1" target="_blank">@yeon-yeon1</a>
     </td>
   </tr>
   <tr>
@@ -93,6 +98,9 @@
     <td align="center">
       <img src="https://github.com/user-attachments/assets/1b754c64-b188-4a72-bef1-d155dfd21e32" width="90px" />
     </td>
+    <td align="center">
+      <img alt="image" src="https://github.com/user-attachments/assets/c4c2c473-63a7-47af-9679-0524c86d5107" width="90px" />
+    </td>
   </tr>
   <tr>
     <td align="center">기획 · 디자인</td>
@@ -100,6 +108,7 @@
     <td align="center">프론트엔드</td>
     <td align="center">백엔드</td>
     <td align="center">백엔드</td>
+    <td align="center">프론트엔드 · 총괄</td>
   </tr>
   <tr>
     <td align="center">
@@ -115,7 +124,10 @@
       <p>메인</p><p>카테고리</p><p>전문가 찾기</p><p>예약</p>
     </td>
     <td align="center">
-      <p>로그인 & 회원가입</p><p>1:1 상담</p><p>마이페이지</p><p>관리자 페이지</p>
+      <p>로그인 & 회원가입</p><p>1:1 상담</p><p>마이페이지</p><p>관리자 페이지</p><p>메인</p><p>카테고리</p><p>전문가 찾기</p><p>예약</p>
+    </td>
+    <td align="center">
+      <p>메인</p><p>카테고리</p><p>전문가 찾기</p><p>예약</p><p>회원가입</p><p>1:1 상담</p><p>마이페이지</p><p>관리자 페이지</p>
     </td>
   </tr>
 </table>
