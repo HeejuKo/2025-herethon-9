@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'accounts',
     'chats',
     'matching',
+    'category',
     'experts',
     'myadmin',
 ]

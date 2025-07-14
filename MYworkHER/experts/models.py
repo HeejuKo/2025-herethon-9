@@ -16,6 +16,7 @@ class BadgeChoices(models.TextChoices):
 class Expert(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='expert_profile')
     category = models.CharField(max_length=20, choices=CategoryChoices.choices, default=CategoryChoices.APPLIANCE, null=False)
+    subcategory = models.CharField(max_length=50, blank=True)
     bio = models.TextField(max_length=200, default='자기소개를 적어주세요.')
     description = models.TextField(default='업무 상세 설명을 적어주세요.')
     experience = models.IntegerField(default=0)

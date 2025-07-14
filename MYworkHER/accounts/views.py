@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import *
 from .models import *
 from experts.models import *
+from category.constants import CATEGORY_CHOICES
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
@@ -64,6 +65,7 @@ def get_region_value_by_label(label):
     for value, display in RegionChoices.choices:
         if label == display:
             return value
+        
     return None
 
 def signup_step5(request):
@@ -75,7 +77,13 @@ def signup_step5(request):
 
         if region_value:
             request.session['region'] = region_value  # 세션엔 value 저장해야 DB에 저장 가능
-            return redirect('accounts:signup_complete')
+            
+            user_type = request.session.get('user_type')
+            if user_type == 'EXPERT':
+                return redirect('accounts:signup_step6')
+            else:
+                return redirect('accounts:signup_complete')
+                
         else:
             return render(request, 'accounts/signup/step5.html', {
                 'districts': districts,
@@ -84,6 +92,29 @@ def signup_step5(request):
 
     return render(request, 'accounts/signup/step5.html', {'districts': districts})
 
+def signup_step6(request):
+    if request.method == 'POST':
+        category = request.POST.get('category')
+        if category in CATEGORY_CHOICES:
+            request.session['category'] = category
+            return redirect('accounts:signup_step7')
+    return render(request, 'accounts/signup/step6.html', {
+        'CATEGORY_CHOICES': CATEGORY_CHOICES
+    })
+
+def signup_step7(request):
+    category = request.session.get('category')
+    subcategories = CATEGORY_CHOICES.get(category, {}).get('subcategories', [])
+
+    if request.method == 'POST':
+        subcategory = request.POST.get('subcategory')
+        if subcategory in subcategories:
+            request.session['subcategory'] = subcategory
+            return redirect('accounts:signup_complete')
+
+    return render(request, 'accounts/signup/step7.html', {
+        'subcategories': subcategories
+    })
 
 def signup_complete(request):
     # 세션에서 모든 회원가입 정보 꺼내기
@@ -95,6 +126,8 @@ def signup_complete(request):
     nickname = request.session.get('nickname')
     introduction = request.session.get('introduction')
     region = request.session.get('region')
+    category = request.session.get('category')
+    subcategory = request.session.get('subcategory')
 
     id_image_name = request.session.get('id_image_name')
     id_image_content = request.session.get('id_image_content')
@@ -122,17 +155,23 @@ def signup_complete(request):
 
     user.save()
 
-    # 💡 전문가인 경우 Expert 객체 자동 생성
-    if user_type == 'EXPERT':
+    
+    if user_type == 'EXPERT' and category:
         Expert.objects.create(
-            user = user,
-            category = CategoryChoices.APPLIANCE,
+            user=user,
+            category=category,
+            subcategory=subcategory,
+            experience=0,
+            bio=f"{subcategory} 분야 전문가입니다.",
+            description=f"{subcategory} 관련 업무를 도와드립니다.",
         )
 
     request.session.flush()
 
     return render(request, 'accounts/signup/complete.html')
     
+
+
 def login(request):
     if request.method == 'GET':
         return render(request, 'accounts/login.html', {'form': AuthenticationForm()})
