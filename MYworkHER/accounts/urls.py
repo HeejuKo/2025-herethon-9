@@ -8,6 +8,7 @@ urlpatterns = [
     path('signup/step2/', signup_step2, name='signup_step2'),
     path('signup/step3/', signup_step3, name='signup_step3'),
     path('signup/step4/', signup_step4, name='signup_step4'),
+    path('signup/step5/', signup_step5, name='signup_step5'),
     path('signup/complete/', signup_complete, name='signup_complete'),
     path('login/', login, name='login'),
     path('logout/', logout, name='logout'),
