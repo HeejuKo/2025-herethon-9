@@ -1,22 +1,82 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form method="POST">
-  {% csrf_token %}
-  상위 카테고리: {{ category }}
-  <label>상세 분야를 선택해주세요</label>
-  <select name="subcategory" required>
-    {% for sub in subcategories %}
-      <option value="{{ sub }}">{{ sub }}</option>
-    {% endfor %}
-  </select>
-  <button type="submit">확인</button>
-</form>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>마이워커</title>
+    <link rel="icon" href="{% static 'img/icon.svg' %}" type="image/x-icon" />
+    <link rel="stylesheet" href="{% static 'css/signup7.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="containercover"></div>
+      <form method="POST">
+        {% csrf_token %}
+        <h1>상세 분야를 선택해주세요</h1>
+
+        <div class="category-grid">
+          {% for key, val in ordered_categories.items %}
+          <img
+            src="{% static 'img/main_C' %}{{ forloop.counter }}.svg"
+            alt="{{ val.label }}"
+            class="category-image {% if category == key %}active{% endif %}"
+          />
+          {% endfor %}
+        </div>
+
+        <div class="line"></div>
+
+        <div class="custom-dropdown">
+          <button type="button" class="dropdown-toggle">
+            상세 분야를 선택해주세요 <img src="{% static 'img/down.svg' %}" alt="↓" />
+          </button>
+
+          <ul class="dropdown-menu">
+            {% for sub in subcategories %}
+            <li class="dropdown-option" data-value="{{ sub }}">{{ sub }}</li>
+            {% endfor %}
+          </ul>
+          <input type="hidden" name="subcategory" id="selected-subcategory" required />
+        </div>
+
+        <div class="button-group">
+          <a href="{% url 'accounts:signup_step6' %}" class="back-button">이전</a>
+          <button type="submit" class="doneButton">확인</button>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const toggle = document.querySelector(".dropdown-toggle");
+        const menu = document.querySelector(".dropdown-menu");
+        const options = document.querySelectorAll(".dropdown-option");
+        const input = document.getElementById("selected-subcategory");
+        const bgcolor = document.querySelector(".containercover");
+
+        toggle.addEventListener("click", () => {
+          menu.style.display = menu.style.display === "block" ? "none" : "block";
+          bgcolor.classList.add("cover");
+        });
+
+        options.forEach((opt) => {
+          opt.addEventListener("click", () => {
+            toggle.textContent = opt.textContent;
+            input.value = opt.dataset.value;
+            menu.style.display = "none";
+            bgcolor.classList.remove("cover");
+          });
+        });
+
+        document.addEventListener("click", (e) => {
+          if (!e.target.closest(".custom-dropdown")) {
+            menu.style.display = "none";
+            bgcolor.classList.remove("cover");
+          }
+        });
+      });
+    </script>
+  </body>
 </html>

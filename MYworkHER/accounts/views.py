@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.files.base import ContentFile
 from base64 import b64decode
+from collections import OrderedDict
 
 def signup_step1(request):
     if request.method == 'POST':
@@ -111,9 +112,18 @@ def signup_step7(request):
         if subcategory in subcategories:
             request.session['subcategory'] = subcategory
             return redirect('accounts:signup_complete')
+        
+    ordered_categories = OrderedDict([
+        ('APPLIANCE', CATEGORY_CHOICES['APPLIANCE']),
+        ('HEALTH', CATEGORY_CHOICES['HEALTH']),
+        ('BUSINESS', CATEGORY_CHOICES['BUSINESS']),
+        ('LIFESTYLE', CATEGORY_CHOICES['LIFESTYLE']),
+    ])
 
     return render(request, 'accounts/signup/step7.html', {
-        'category':category, 'subcategories': subcategories
+        'subcategories': subcategories,
+        'category': category,
+        'ordered_categories': ordered_categories,
     })
 
 def signup_complete(request):
