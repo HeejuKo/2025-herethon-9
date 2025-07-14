@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import *
-from .models import User
+from .models import *
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
@@ -53,11 +53,36 @@ def signup_step4(request):
         if form.is_valid():
             request.session['nickname'] = form.cleaned_data['nickname']
             request.session['introduction'] = form.cleaned_data['introduction']
-            return redirect('accounts:signup_complete')
+            return redirect('accounts:signup_step5')
     else:
         form = SignupStep4Form()
 
     return render(request, 'accounts/signup/step4.html', {'form': form})
+
+def get_region_value_by_label(label):
+    for value, display in RegionChoices.choices:
+        if label == display:
+            return value
+    return None
+
+def signup_step5(request):
+    districts = [label for _, label in RegionChoices.choices]
+
+    if request.method == 'POST':
+        region_label = request.POST.get('region')
+        region_value = get_region_value_by_label(region_label)  # ← label → value 매핑
+
+        if region_value:
+            request.session['region'] = region_value  # 세션엔 value 저장해야 DB에 저장 가능
+            return redirect('accounts:signup_complete')
+        else:
+            return render(request, 'accounts/signup/step5.html', {
+                'districts': districts,
+                'error': "올바른 지역을 선택해주세요."
+            })
+
+    return render(request, 'accounts/signup/step5.html', {'districts': districts})
+
 
 def signup_complete(request):
     # 세션에서 모든 회원가입 정보 꺼내기
@@ -68,6 +93,7 @@ def signup_complete(request):
     user_type = request.session.get('user_type')
     nickname = request.session.get('nickname')
     introduction = request.session.get('introduction')
+    region = request.session.get('region')
 
     id_image_name = request.session.get('id_image_name')
     id_image_content = request.session.get('id_image_content')
@@ -83,6 +109,7 @@ def signup_complete(request):
         userType = user_type,
         nickname = nickname,
         introduction = introduction,
+        region = region,
         isVerified = False
     )
     user.set_password(password)
