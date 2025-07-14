@@ -6,7 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <form method="post">
+  {% if request.session.user_type == 'CUSTOMER' %}
+    <h2>거주지를 선택해주세요!</h2>
+  {% else %}
+    <h2>활동지를 선택해주세요!</h2>
+  {% endif %}
+
+  <form method="POST">
   {% csrf_token %}
   <div class="district-grid">
     {% for district in districts %}
