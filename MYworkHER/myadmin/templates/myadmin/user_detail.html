@@ -7,10 +7,13 @@
     <title>마이워커</title>
     <link rel="icon" href="{% static 'img/icon.svg' %}" type="image/x-icon" />
     <link rel="stylesheet" href="{% static 'css/user_detail.css' %}" />
+    <link rel="stylesheet" href="{% static 'components/admin-navbar.css' %}" />
+
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div class="Container">
+      {% comment %}
       <div class="Header">
         <div class="LeftGroup">
           <div class="Logo">
@@ -24,12 +27,15 @@
           <a href="{% url 'accounts:logout'%}"> 로그아웃 </a>
         </div>
       </div>
+      {% endcomment %}
+      <div id="navbar">{% include 'components/admin-navbar.html' %}</div>
+
       <div class="MemberBox">
         <div class="Nickname">{{ user.username }} ({{ user.nickname }})</div>
         <div class="Details">
           <div class="Left">
-            <div class="DetailText">신분증 이미지</div>
-            <img src="{{ user.idImage.url }}" alt="id-img" width="339px" />
+            <div class="DetailText idcard">신분증 이미지</div>
+            <img src="{{ user.idImage.url }}" alt="id-img" />
           </div>
           <div class="D_Line"></div>
           <div class="Right">
@@ -80,6 +86,7 @@
         </div>
       </div>
     </div>
+    {% comment %}
     <footer class="Footer">
       <div class="Workher">
         <div class="B_Text">MY workHER 마이워커</div>
@@ -100,5 +107,7 @@
         <div class="S_Text">BE 고원정 - 성신여자대학교 멋쟁이사자처럼 백엔드</div>
       </div>
     </footer>
+    {% endcomment %}
+    <div id="footer-container">{% include 'components/footer.html' %}</div>
   </body>
 </html>

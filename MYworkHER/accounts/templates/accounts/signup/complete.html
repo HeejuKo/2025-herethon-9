@@ -1,19 +1,20 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>회원가입 완료 - 마이워커</title>
-  <link rel="stylesheet" href="{% static 'css/complete.css' %}" />
-</head>
-<body>
-  <div class="container">
-    <img src="{% static 'img/check.png' %}" alt="완료 아이콘" class="check-icon" />
-    <h1>회원등록을 완료했어요!</h1>
-    <div class="buttonWrapper">
-    <a href="{% url 'accounts:login' %}" class="login-button" >로그인 하러가기</a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>마이워커</title>
+    <link rel="stylesheet" href="{% static 'css/complete.css' %}" />
+    <link rel="icon" href="{% static 'img/icon.svg' %}" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="container">
+      <img src="{% static 'img/check.png' %}" alt="완료 아이콘" class="check-icon" />
+      <h1>회원등록을 완료했어요!</h1>
+      <div class="buttonWrapper">
+        <a href="{% url 'accounts:login' %}" class="login-button">로그인 하러가기</a>
       </div>
-  </div>
-</body>
+    </div>
+  </body>
 </html>

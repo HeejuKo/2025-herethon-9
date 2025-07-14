@@ -1,41 +1,42 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>프로필 정보 설정 - 마이워커</title>
-  <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
-</head>
-<body>
-  <div class="container">
-    <h1>프로필 정보를 설정해주세요!</h1>
-    <form method="POST" novalidate>
-      {% csrf_token %}
-      
-      <!-- 닉네임 -->
-      <div class="form-group">
-        <div class="label-row">
-          <label for="id_nickname">닉네임<span class="required">*</span></label>
-          {{ form.nickname.errors }}
-        </div>
-        {{ form.nickname }}
-      </div>
-      
-      <!-- 자기소개 -->
-      <div class="form-group">
-        <div class="label-row">
-          <label for="id_introduction">자기소개<span class="required">*</span></label>
-          {{ form.introduction.errors }}
-        </div>
-        {{ form.introduction }}
-      </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>마이워커</title>
+    <link rel="icon" href="{% static 'img/icon.svg' %}" type="image/x-icon" />
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>프로필 정보를 설정해주세요!</h1>
+      <form method="POST" novalidate>
+        {% csrf_token %}
 
-      <div class="button-group">
-        <a href="{% url 'accounts:signup_step3' %}" class="back-button" >이전</a>
-        <button type="submit" id="doneButton">완료</button>
-      </div>
-    </form>
-  </div>
-</body>
+        <!-- 닉네임 -->
+        <div class="form-group">
+          <div class="label-row">
+            <label for="id_nickname">닉네임<span class="required">*</span></label>
+            {{ form.nickname.errors }}
+          </div>
+          {{ form.nickname }}
+        </div>
+
+        <!-- 자기소개 -->
+        <div class="form-group">
+          <div class="label-row">
+            <label for="id_introduction">자기소개<span class="required">*</span></label>
+            {{ form.introduction.errors }}
+          </div>
+          {{ form.introduction }}
+        </div>
+
+        <div class="button-group">
+          <a href="{% url 'accounts:signup_step3' %}" class="back-button">이전</a>
+          <button type="submit" id="doneButton">완료</button>
+        </div>
+      </form>
+    </div>
+  </body>
 </html>

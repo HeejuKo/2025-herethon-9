@@ -2,11 +2,12 @@ body {
   margin: 0;
   padding: 0;
   background: #ffffff;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 .container {
   max-width: 811px;
+  min-height: 580px;
   margin: 40px auto;
   padding: 20px;
 }
@@ -34,7 +35,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .user-card a {
@@ -51,11 +52,11 @@ body {
 }
 
 .status-pending {
-  color: #0D5BDA;
+  color: #0d5bda;
 }
 
 .status-verified {
-  color: #00B333;
+  color: #00b333;
 }
 
 /* 구분선이 포함된 user-info */
@@ -70,4 +71,8 @@ body {
 .search-icon {
   width: 22px;
   height: 22px;
+}
+
+a:visited {
+  color: black;
 }
