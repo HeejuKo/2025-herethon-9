@@ -96,7 +96,7 @@
       <img src="https://github.com/user-attachments/assets/fd9a02fd-23d3-453f-9b78-127abba2302a" width="90px" />
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/1b754c64-b188-4a72-bef1-d155dfd21e32" width="90px" />
+      <img src="https://github.com/user-attachments/assets/fea3aac9-882d-497a-bdfb-bf0bffe485c3" width="90px"/>
     </td>
     <td align="center">
       <img alt="image" src="https://github.com/user-attachments/assets/c4c2c473-63a7-47af-9679-0524c86d5107" width="90px" />
