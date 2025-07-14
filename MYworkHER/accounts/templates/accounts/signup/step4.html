@@ -18,7 +18,9 @@
         <div class="form-group">
           <div class="label-row">
             <label for="id_nickname">닉네임<span class="required">*</span></label>
-            {{ form.nickname.errors }}
+            {% if form.nickname.errors %}
+            <span class="error">닉네임이 올바르지 않습니다!</span>
+            {% endif %}
           </div>
           {{ form.nickname }}
         </div>
@@ -27,7 +29,9 @@
         <div class="form-group">
           <div class="label-row">
             <label for="id_introduction">자기소개<span class="required">*</span></label>
-            {{ form.introduction.errors }}
+            {% if form.introduction.errors %}
+            <span class="error">길이가 올바르지 않습니다!</span>
+            {% endif %}
           </div>
           {{ form.introduction }}
         </div>

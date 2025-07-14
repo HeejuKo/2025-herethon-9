@@ -5,26 +5,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="{% static 'img/icon.svg' %}" type="image/x-icon" />
+    <link rel="stylesheet" href="{% static 'css/signup5.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" />
+
     <title>마이워커</title>
   </head>
   <body>
-    {% if request.session.user_type == 'CUSTOMER' %}
-    <h2>거주지를 선택해주세요!</h2>
-    {% else %}
-    <h2>활동지를 선택해주세요!</h2>
-    {% endif %}
+    <div class="container">
+      {% if request.session.user_type == 'CUSTOMER' %}
+      <h1>거주지를 선택해주세요!</h1>
+      {% else %}
+      <h1>활동지를 선택해주세요!</h1>
+      {% endif %}
 
-    <form method="POST">
-      {% csrf_token %}
-      <div class="district-grid">
-        {% for district in districts %}
-        <label class="radio-chip">
-          <input type="radio" name="region" value="{{ district }}" />
-          <span>{{ district }}</span>
-        </label>
-        {% endfor %}
-      </div>
-      <button type="submit">확인</button>
-    </form>
+      <form method="POST">
+        {% csrf_token %}
+        <div class="district-grid">
+          {% for district in districts %}
+          <label class="radio-chip">
+            <input type="radio" name="region" value="{{ district }}" />
+            <span>{{ district }}</span>
+          </label>
+          {% endfor %}
+        </div>
+        <div class="button-group">
+          <a href="{% url 'accounts:signup_step4' %}" class="back-button">이전</a>
+          <button type="submit" class="doneButton">완료</button>
+        </div>
+      </form>
+    </div>
+
+    <script src="{% static 'js/signup5.js' %}"></script>
   </body>
 </html>
