@@ -24,7 +24,7 @@
         <input class="Search" type="text" name="keyword" value="{{ keyword }}" placeholder="전문가명, 한줄소개, 키워드 검색">
       </div>
       <button type="button" class="SearchCategory">
-        <a href="{% url 'experts:category_list' %}">카테고리로 찾기 ></a>
+        <a href="{% url 'category:category_list' %}">카테고리로 찾기 ></a>
       </button>
     </div>
 
@@ -59,7 +59,7 @@
             <label class="custom-checkbox">
               <input class="checkbox" type="checkbox" name="region" value="{{ region }}" {% if region in selected_region %}checked{% endif %}>
             <span class="checkmark"></span>
-            <span class="checkbox-label">{{region}}</span>
+            <span class="checkbox-label">{{ region }}</span>
             </label>
       {% endfor %}
       </div>

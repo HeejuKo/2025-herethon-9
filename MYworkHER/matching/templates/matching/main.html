@@ -22,7 +22,7 @@
 
                     
                     {% if request.user.is_authenticated %}
-                    <a href="{% url 'experts:category_list' %}" class="navbar-item">카테고리</a>
+                    <a href="{% url 'category:category_list' %}" class="navbar-item">카테고리</a>
                     {% else %}
                     <a href="{% url 'accounts:login' %}" class="navbar-item">카테고리</a>
                     {% endif %}
@@ -62,7 +62,7 @@
         </div>
         <div class="Category">
             <div class="C1">
-                <a href="{% url 'experts:expert_category' %}?category=appliance">
+                <a href="{% url 'category:expert_category' %}?category=appliance">
                 <img
                     src="{% static 'img/main_C1.svg' %}"
                     alt="repair"
@@ -71,7 +71,7 @@
                 </a>
             </div>
             <div class="C2">
-                <a href="{% url 'experts:expert_category' %}?category=health">
+                <a href="{% url 'category:expert_category' %}?category=health">
                 <img
                     src="{% static 'img/main_C2.svg' %}"
                     alt="sports"
@@ -80,7 +80,7 @@
                 </a>
             </div>
             <div class="C3">
-                <a href="{% url 'experts:expert_category' %}?category=business"">
+                <a href="{% url 'category:expert_category' %}?category=business"">
                 <img
                     src="{% static 'img/main_C3.svg' %}"
                     alt="consulting"
@@ -89,7 +89,7 @@
                 </a>
             </div>
             <div class="C4">
-                <a href="{% url 'experts:expert_category' %}?category=lifestyle">
+                <a href="{% url 'category:expert_category' %}?category=lifestyle">
                 <img
                     src="{% static 'img/main_C4.svg' %}"
                     alt="life"

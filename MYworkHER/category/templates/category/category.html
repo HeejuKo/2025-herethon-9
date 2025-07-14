@@ -25,7 +25,7 @@
           {% endif %}
 
           <div class="subcategory-item">
-            <a href="{% url 'experts:expert_category' %}?category={{ key }}&subcategory={{ sub.name }}">
+            <a href="{% url 'category:expert_category' %}?category={{ key }}&subcategory={{ sub.name }}">
               <span class="subName"> {{ sub.name }}</span> <span class="subCount">전문가 {{ sub.count }}명</span>
             </a>
           </div>

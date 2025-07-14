@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+    <form method="POST">
+  {% csrf_token %}
+  <label>상위 카테고리를 선택해주세요</label>
+  {% for key, val in CATEGORY_CHOICES.items %}
+    <label>
+      <input type="radio" name="category" value="{{ key }}" required>
+      {{ val.label }}
+    </label>
+  {% endfor %}
+  <button type="submit">다음</button>
+</form>
+</body>
+</html>
