@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>로그인 - 마이워커</title>
-  <link rel="stylesheet" href="../css/login.css" />
-</head>
-<body>
-  <div class="container">
-    <div class="login-section">
-      <h2>로그인</h2>
-      <form id="login-form" action="#" method="post">
-        <input type="text" name="username" placeholder="ID" required />
-        <input type="password" name="password" placeholder="Password" required />
-        <button type="submit">SIGN IN</button>
-      </form>
-    </div>
-    <div class="info-section">
-      <div class="info-content">
-        <img src="../assets/img/login_logo.svg" alt="마이워커 로고" class="logo-full" />
-        <p class="signup-text">회원이 아니라면</p>
-        <a href="signup.html" class="signup-btn">SIGN UP</a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>마이워커</title>
+    <link rel="stylesheet" href="../css/login.css" />
+    <link rel="icon" href="{% static 'img/icon.svg' %}" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="login-section">
+        <h2>로그인</h2>
+        <form id="login-form" action="#" method="post">
+          <input type="text" name="username" placeholder="ID" required />
+          <input type="password" name="password" placeholder="Password" required />
+          <button type="submit">SIGN IN</button>
+        </form>
+      </div>
+      <div class="info-section">
+        <div class="info-content">
+          <img src="../assets/img/login_logo.svg" alt="마이워커 로고" class="logo-full" />
+          <p class="signup-text">회원이 아니라면</p>
+          <a href="signup.html" class="signup-btn">SIGN UP</a>
+        </div>
       </div>
     </div>
-  </div>
-  <script src="../js/login.js"></script>
-</body>
+    <script src="../js/login.js"></script>
+  </body>
 </html>

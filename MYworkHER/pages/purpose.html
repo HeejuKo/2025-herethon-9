@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>가입 목적 선택 - 마이워커</title>
-  <link rel="stylesheet" href="../css/purpose.css" />
-</head>
-<body>
-  <div class="container">
-    <h1>어떤 목적으로 가입하셨는지 알려주세요!</h1>
-    <div class="card-group">
-      <div class="card" data-role="customer">
-        <img src="../assets/img/customer.png" alt="고객 아이콘" />
-        <p>고객으로 왔어요</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>마이워커</title>
+    <link rel="stylesheet" href="../css/purpose.css" />
+    <link rel="icon" href="{% static 'img/icon.svg' %}" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>어떤 목적으로 가입하셨는지 알려주세요!</h1>
+      <div class="card-group">
+        <div class="card" data-role="customer">
+          <img src="../assets/img/customer.png" alt="고객 아이콘" />
+          <p>고객으로 왔어요</p>
+        </div>
+        <div class="card" data-role="expert">
+          <img src="../assets/img/expert.png" alt="전문가 아이콘" />
+          <p>전문가로 왔어요</p>
+        </div>
       </div>
-      <div class="card" data-role="expert">
-        <img src="../assets/img/expert.png" alt="전문가 아이콘" />
-        <p>전문가로 왔어요</p>
+      <div class="button-group">
+        <button type="button" class="back-button">이전</button>
+        <button type="button" id="doneButton">완료</button>
       </div>
     </div>
-    <div class="button-group">
-      <button type="button" class="back-button">이전</button>
-      <button type="button" id="doneButton">완료</button>
-    </div>
-  </div>
-  <script src="../js/purpose.js"></script>
-</body>
+    <script src="../js/purpose.js"></script>
+  </body>
 </html>

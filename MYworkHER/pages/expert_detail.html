@@ -1,120 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>expert_detail</title>
-    <link rel="stylesheet" href="../css/expert_detail.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>마이워커</title>
+    <link rel="stylesheet" href="../css/expert_detail.css" />
+    <link rel="icon" href="{% static 'img/icon.svg' %}" type="image/x-icon" />
+  </head>
+  <body>
     <div class="Container">
-        <div class="Header">
-            <div class="LeftGroup">
-                <div class="Logo">
-                    <a href="../index.html">
-                        <img 
-                            src="../assets/img/logo.svg"
-                            alt="logo"
-                            width="136px"
-                        />
-                    </a> 
-                </div>
-                <div class="T_Category"><a href="../pages/category.html" class="T_Category">카테고리</a></div>
-                <div class="T_Search"><a href="../pages/expert.html" class="T_Search">전문가찾기</a></div>
-                <div class="T_Chat">1:1상담
-                        <div class="Alarm"></div>
-                </div>
-                <div class="T_Mypage">마이페이지</div>
-            </div>
-           <button class="Btn" id="loginSection" style="display:none;">로그인/회원가입</button>
+      <div class="Header">
+        <div class="LeftGroup">
+          <div class="Logo">
+            <a href="../index.html">
+              <img src="../assets/img/logo.svg" alt="logo" width="136px" />
+            </a>
+          </div>
+          <div class="T_Category"><a href="../pages/category.html" class="T_Category">카테고리</a></div>
+          <div class="T_Search"><a href="../pages/expert.html" class="T_Search">전문가찾기</a></div>
+          <div class="T_Chat">
+            1:1상담
+            <div class="Alarm"></div>
+          </div>
+          <div class="T_Mypage">마이페이지</div>
         </div>
-        <div class="TopSection"></div>
-        <img
-            class="Profile"
-            src="../assets/img/profile.svg"
-            alt="profile"
-            width="154px"
-        />
-        <div class="BottomSection">
-            <img
-                class="Back"
-                src="../assets/img/back.svg"
-                alt="back"
-                width="47px"
-            />
-            <div class="IntroBox">
-                <span class="Nickname">전문가 닉네임</span>
-                <span class="Category">카테고리(가전/수리)</span>
-            </div>
-            <div class="TwoBtn">
-                <button class="Reserve">예약하기 ></button>
-                <button class="Chat">1:1 상담하기 ></button>
-            </div>
-            <div class="DetailLine"></div>
-            <div class="DetailTextBox">
-                <div class="DetailIntroduce">자기소개 자기소개</div>
-                <div class="DetailDes">업무설명 업무설명</div>
-            </div>
+        <button class="Btn" id="loginSection" style="display: none">로그인/회원가입</button>
+      </div>
+      <div class="TopSection"></div>
+      <img class="Profile" src="../assets/img/profile.svg" alt="profile" width="154px" />
+      <div class="BottomSection">
+        <img class="Back" src="../assets/img/back.svg" alt="back" width="47px" />
+        <div class="IntroBox">
+          <span class="Nickname">전문가 닉네임</span>
+          <span class="Category">카테고리(가전/수리)</span>
+        </div>
+        <div class="TwoBtn">
+          <button class="Reserve">예약하기 ></button>
+          <button class="Chat">1:1 상담하기 ></button>
+        </div>
+        <div class="DetailLine"></div>
+        <div class="DetailTextBox">
+          <div class="DetailIntroduce">자기소개 자기소개</div>
+          <div class="DetailDes">업무설명 업무설명</div>
+        </div>
 
-            <div class="DetailFilterBox">
-                <div class="LocationBox">
-                    <img
-                        src="../assets/img/location.svg"
-                        alt="location"
-                        width="73px"
-                    />
-                    <div class="LocationText">미등록</div>
-                </div>
-                <div class="DetailShortLine"></div>
-                <div class="WorkBox">
-                    <img
-                        src="../assets/img/work.svg"
-                        alt="work"
-                        width="77px"
-                    />
-                    <div class="WorkText"> 미등록</div>
-                </div>
-                <div class="DetailShortLine"></div>
-                <div class="BadgeBox">
-                    <img
-                        src="../assets/img/badge.svg"
-                        alt="badge"
-                        width="93px"
-                    />
-                    <div class="BadgeText">미등록</div>
-                </div>
-            </div>
-            <div class="ReserveNumBox">
-                <img
-                    src="../assets/img/reservenum.svg"
-                    width="122px"
-                        lass="ReserveImg"
-                />
-                <div class="ReserveNumText">00건</div>
-            </div>
-        
+        <div class="DetailFilterBox">
+          <div class="LocationBox">
+            <img src="../assets/img/location.svg" alt="location" width="73px" />
+            <div class="LocationText">미등록</div>
+          </div>
+          <div class="DetailShortLine"></div>
+          <div class="WorkBox">
+            <img src="../assets/img/work.svg" alt="work" width="77px" />
+            <div class="WorkText">미등록</div>
+          </div>
+          <div class="DetailShortLine"></div>
+          <div class="BadgeBox">
+            <img src="../assets/img/badge.svg" alt="badge" width="93px" />
+            <div class="BadgeText">미등록</div>
+          </div>
         </div>
-        
-        
-        
+        <div class="ReserveNumBox">
+          <img src="../assets/img/reservenum.svg" width="122px" lass="ReserveImg" />
+          <div class="ReserveNumText">00건</div>
+        </div>
+      </div>
     </div>
     <footer class="Footer">
-        <div class="Workher">
-            <div class="B_Text">MY workHER 마이워커</div>
-            <div class="S_Text">"당신을 위한 여성 전문가"</div>
-            <div class="S_Text">마이워커는 가전/수리, 헬스/스포츠, 컨설팅/비지니스 등 다양한 분야에서 여성 고객과 여성 전문가의 커넥션을 지원하며,</div>
-            <div class="S_Text">여성 가치 증진을 목적으로 하는 혁신 플랫폼입니다.</div>
+      <div class="Workher">
+        <div class="B_Text">MY workHER 마이워커</div>
+        <div class="S_Text">"당신을 위한 여성 전문가"</div>
+        <div class="S_Text">
+          마이워커는 가전/수리, 헬스/스포츠, 컨설팅/비지니스 등 다양한 분야에서 여성 고객과 여성 전문가의 커넥션을
+          지원하며,
         </div>
-        <div class="L_Line"></div>
-        <div class="About">
-            <div class="B_Text">About us</div>
-            <div class="S_Text">PM/DE 김민서 - 숙명여자대학교 멋쟁이 사자처럼 기획/디자인</div>
-            <div class="S_Text">FE 신채영 - 동덕여자대학교 멋쟁이사자처럼 프론트엔드</div>
-            <div class="S_Text">FE 정규은 - 서울여자대학교 멋쟁이사자처럼 프론트엔드</div>
-            <div class="S_Text">BE 고희주 - 덕성여자대학교 멋쟁이사자처럼 백엔드</div>
-            <div class="S_Text">BE 고원정 - 성신여자대학교 멋쟁이사자처럼 백엔드</div>
-        </div>
+        <div class="S_Text">여성 가치 증진을 목적으로 하는 혁신 플랫폼입니다.</div>
+      </div>
+      <div class="L_Line"></div>
+      <div class="About">
+        <div class="B_Text">About us</div>
+        <div class="S_Text">PM/DE 김민서 - 숙명여자대학교 멋쟁이 사자처럼 기획/디자인</div>
+        <div class="S_Text">FE 신채영 - 동덕여자대학교 멋쟁이사자처럼 프론트엔드</div>
+        <div class="S_Text">FE 정규은 - 서울여자대학교 멋쟁이사자처럼 프론트엔드</div>
+        <div class="S_Text">BE 고희주 - 덕성여자대학교 멋쟁이사자처럼 백엔드</div>
+        <div class="S_Text">BE 고원정 - 성신여자대학교 멋쟁이사자처럼 백엔드</div>
+      </div>
     </footer>
     <script src="../js/expert_detail.js"></script>
-</body>
+  </body>
 </html>

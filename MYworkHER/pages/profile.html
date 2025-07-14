@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>프로필 정보 설정 - 마이워커</title>
-  <link rel="stylesheet" href="../css/profile.css" />
-</head>
-<body>
-  <div class="container">
-    <h1>프로필 정보를 설정해주세요!</h1>
-    <form id="profileForm" novalidate>
-      <div class="form-group">
-        <div class="label-row">
-          <label>닉네임<span class="required">*</span></label>
-          <span class="error" id="nicknameError"></span>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>마이워커</title>
+    <link rel="stylesheet" href="../css/profile.css" />
+    <link rel="icon" href="{% static 'img/icon.svg' %}" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>프로필 정보를 설정해주세요!</h1>
+      <form id="profileForm" novalidate>
+        <div class="form-group">
+          <div class="label-row">
+            <label>닉네임<span class="required">*</span></label>
+            <span class="error" id="nicknameError"></span>
+          </div>
+          <input type="text" id="nickname" placeholder="닉네임 입력 (10자 이하)" />
         </div>
-        <input type="text" id="nickname" placeholder="닉네임 입력 (10자 이하)" />
-      </div>
-      <div class="form-group">
-        <div class="label-row">
-          <label>자기소개<span class="required">*</span></label>
-          <span class="error" id="bioError"></span>
+        <div class="form-group">
+          <div class="label-row">
+            <label>자기소개<span class="required">*</span></label>
+            <span class="error" id="bioError"></span>
+          </div>
+          <textarea id="bio" placeholder="자기소개 입력 (200자 이하)"></textarea>
         </div>
-        <textarea id="bio" placeholder="자기소개 입력 (200자 이하)"></textarea>
-      </div>
-      <div class="button-group">
-        <button type="button" class="back-button">이전</button>
-        <button type="submit" id="doneButton">완료</button>
-      </div>
-    </form>
-  </div>
-  <script src="../js/profile.js"></script>
-</body>
+        <div class="button-group">
+          <button type="button" class="back-button">이전</button>
+          <button type="submit" id="doneButton">완료</button>
+        </div>
+      </form>
+    </div>
+    <script src="../js/profile.js"></script>
+  </body>
 </html>

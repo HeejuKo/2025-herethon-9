@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>성별 인증 - 마이워커</title>
-  <link rel="stylesheet" href="../css/verify.css" />
-</head>
-<body>
-  <div class="container">
-    <h1>성별을 인증해주세요!</h1>
-    <div class="upload-box">
-      <img src="../assets/img/mdi_camera.svg" alt="카메라 아이콘" class="camera-icon" />
-      <p>글자가 잘 인식되도록 신분증 이미지<br/>(주민등록증, 운전면허증)를 업로드해 주세요!</p>
-      <label class="upload-button">
-        +
-        <input type="file" id="fileInput" accept="image/*" hidden />
-      </label>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>마이워커</title>
+    <link rel="stylesheet" href="../css/verify.css" />
+    <link rel="icon" href="{% static 'img/icon.svg' %}" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>성별을 인증해주세요!</h1>
+      <div class="upload-box">
+        <img src="../assets/img/mdi_camera.svg" alt="카메라 아이콘" class="camera-icon" />
+        <p>글자가 잘 인식되도록 신분증 이미지<br />(주민등록증, 운전면허증)를 업로드해 주세요!</p>
+        <label class="upload-button">
+          +
+          <input type="file" id="fileInput" accept="image/*" hidden />
+        </label>
+      </div>
+      <div class="button-group">
+        <button type="button" class="back-button">이전</button>
+        <button type="button" id="confirmButton">확인</button>
+      </div>
     </div>
-    <div class="button-group">
-      <button type="button" class="back-button">이전</button>
-      <button type="button" id="confirmButton">확인</button>
-    </div>
-  </div>
-  <script src="../js/verify.js"></script>
-</body>
+    <script src="../js/verify.js"></script>
+  </body>
 </html>
