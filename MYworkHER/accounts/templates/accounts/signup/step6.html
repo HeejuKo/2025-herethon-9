@@ -1,20 +1,52 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-</head>
-    <form method="POST">
-  {% csrf_token %}
-  <label>상위 카테고리를 선택해주세요</label>
-  {% for key, val in CATEGORY_CHOICES.items %}
-    <label>
-      <input type="radio" name="category" value="{{ key }}" required>
-      {{ val.label }}
-    </label>
-  {% endfor %}
-  <button type="submit">다음</button>
-</form>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>마이워커</title>
+    <link rel="icon" href="{% static 'img/icon.svg' %}" type="image/x-icon" />
+    <link rel="stylesheet" href="{% static 'css/signup5.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+      <form method="POST">
+        {% csrf_token %}
+        <h1>상위 카테고리를 선택해주세요</h1>
+
+        <div class="category-grid">
+          {% for key, val in CATEGORY_CHOICES.items %}
+          <label class="category-option">
+            <input type="radio" name="category" value="{{ key }}" required />
+            <img
+              class="category-image"
+              src="{% static 'img/main_C' %}{{ forloop.counter }}.svg"
+              alt="{{ val.label }}"
+            />
+            {% comment %}
+            <p>{{ val.label }}</p>
+            {% endcomment %}
+          </label>
+          {% endfor %}
+        </div>
+
+        <div class="button-group">
+          <a href="{% url 'accounts:signup_step5' %}" class="back-button">이전</a>
+          <button type="submit" class="doneButton">확인</button>
+        </div>
+      </form>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const options = document.querySelectorAll(".category-option");
+
+        options.forEach((option) => {
+          option.addEventListener("click", () => {
+            options.forEach((opt) => opt.classList.remove("selectedImg"));
+            option.classList.add("selectedImg");
+          });
+        });
+      });
+    </script>
+  </body>
 </html>

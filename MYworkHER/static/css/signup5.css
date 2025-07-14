@@ -91,3 +91,32 @@ h1 {
   color: #0d5bda;
   background: #ecf0f5;
 }
+
+/* signup6 */
+
+.category-option input {
+  display: none;
+}
+
+.category-grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 599px;
+  justify-content: center;
+  align-items: center;
+  margin: 106px 0;
+}
+
+.category-image {
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.category-option.selectedImg .category-image {
+  opacity: 1;
+}
+
+.category-option img {
+  width: 222.516px;
+}
