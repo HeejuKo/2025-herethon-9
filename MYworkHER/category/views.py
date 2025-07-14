@@ -1,19 +1,29 @@
-from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from category.constants import CATEGORY_CHOICES
 
+from category.constants import *
 from accounts.models import *
 from experts.models import *
 from .models import *
 
-# 키워드 검색 시 한글 - 영문 매핑
-def get_category_value_by_label(keyword):
-    for value, label in CategoryChoices.choices:
-        if keyword in label:
-            return value
-    return None
+def category_list(request):
+    categories = {}
+
+    for key, (enum_value, label) in CATEGORY_ENUM_MAP.items():
+        sub_list = CATEGORY_CHOICES[enum_value]['subcategories']  # enum_value는 CategoryChoices.APPLIANCE 등
+
+        subcategories = []
+        for sub in sub_list:
+            count = Expert.objects.filter(category=enum_value, subcategory=sub).count()
+            subcategories.append({'name': sub, 'count': count})
+
+        categories[key] = {
+            'label': label,
+            'subcategories': subcategories
+        }
+
+    return render(request, 'category/category.html', {'categories': categories})
 
 # 지역구 필터링 영문 매핑
 def get_region_value_by_label(label):
@@ -21,43 +31,6 @@ def get_region_value_by_label(label):
         if label == display:  # 예: '마포구' == '마포구'
             return value       # 반환: 'MAPO'
     return None
-
-def category_list(request):
-    return render(request, 'category/category.html')  # 상위 카테고리 클릭 페이지
-
-def category_list(request):
-    category_enum_map = {
-        'appliance': ('가전/수리', CategoryChoices.APPLIANCE, [
-            '조명˙전등 수리', '가구 조립 및 수리', '방충망·창문 보수', '욕실 타일 보수', '도어락 교체',
-            '에어컨 설치 및 수리', 'TV˙가전 설치 및 수리', '문 손잡이˙경첩 수리', '수도꼭지/샤워기 수리'
-            ]),
-        'health': ('헬스/스포츠', CategoryChoices.HEALTH, [
-            '다이어트 코칭', '운동˙식단관리 코칭', '등산˙러닝˙사이클', '복싱˙격투기',
-            '산전˙산후 운동', '체형˙거북목 교정', '필라테스˙요가', '수영˙아쿠아로빅˙다이빙'
-            ]),
-        'business': ('컨설팅/비즈니스', CategoryChoices.BUSINESS, [
-            '여성 창업 컨설팅', '이력서˙자기소개서 코칭', '여성 CEO 멘토링', '워킹맘 멘토링',
-            '경력단절여성 컨설팅', 'SNS 브랜딩 및 운영', '여성 리더십˙자기계발', '여성 프리랜서 멘토링'
-            ]),
-        'lifestyle': ('생활/라이프', CategoryChoices.LIFESTYLE, [
-            '인테리어˙셀프시공', '반려동물 케어˙펫시터', '홈카페˙베이킹', '호신술˙경호술',
-            '방문청소˙정리', '육아˙베이비시터', '요리˙살림˙자취'
-            ]),
-    }
-
-    categories = {}
-
-    for key, (label, enum_value, sub_list) in category_enum_map.items():
-        subcategories = []
-        for sub in sub_list:
-            count = Expert.objects.filter(category=enum_value).count()  # 하위 필터 없다면 상위 기준으로
-            subcategories.append({'name': sub, 'count': count})
-        categories[key] = {
-            'label': label,
-            'subcategories': subcategories
-        }
-
-    return render(request, 'category/category.html', {'categories': categories})
 
 @login_required
 def expert_category(request):
@@ -84,6 +57,9 @@ def expert_category(request):
     if category in category_enum_map:
         category_value, category_label = category_enum_map[category]
         experts_qs = experts_qs.filter(category=category_value)
+
+        if subcategory:
+            experts_qs = experts_qs.filter(subcategory=subcategory)
 
     # 지역 필터링
     if region_filters and not seoul_all:

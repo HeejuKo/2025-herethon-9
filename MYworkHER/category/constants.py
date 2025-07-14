@@ -1,3 +1,5 @@
+from experts.models import CategoryChoices
+
 CATEGORY_CHOICES = {
     'APPLIANCE': {
         'label': '가전/수리',
@@ -27,4 +29,11 @@ CATEGORY_CHOICES = {
             '방문청소˙정리', '육아˙베이비시터', '요리˙살림˙자취'
         ]
     },
+}
+
+CATEGORY_ENUM_MAP = {
+    'appliance': (CategoryChoices.APPLIANCE, '가전/수리'),
+    'health': (CategoryChoices.HEALTH, '헬스/스포츠'),
+    'business': (CategoryChoices.BUSINESS, '컨설팅/비즈니스'),
+    'lifestyle': (CategoryChoices.LIFESTYLE, '생활/라이프'),
 }
