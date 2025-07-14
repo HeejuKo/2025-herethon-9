@@ -15,11 +15,11 @@ class BadgeChoices(models.TextChoices):
 
 class Expert(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='expert_profile')
-    category = models.CharField(max_length=20, choices=CategoryChoices.choices, null=False)
-    bio = models.TextField(max_length=200)
-    description = models.TextField()            # 업무 상세 설명
-    experience = models.IntegerField()          # 경력 (단위 : 년)
-    badge = models.CharField(max_length=20, choices=BadgeChoices.choices, default=BadgeChoices.NONE)
+    category = models.CharField(max_length=20, choices=CategoryChoices.choices, default=CategoryChoices.APPLIANCE, null=False)
+    bio = models.TextField(max_length=200, default='자기소개를 적어주세요.')
+    description = models.TextField(default='업무 상세 설명을 적어주세요.')
+    experience = models.IntegerField(default=0)
+    badge = models.CharField(max_length=20, choices=BadgeChoices.choices, default=BadgeChoices.NONE, blank=True, null=True)
 
     # 한 달 예약 수
     @property
