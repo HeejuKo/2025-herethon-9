@@ -1,89 +1,66 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>전문가 상세 페이지</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>마이워커</title>
+    <link rel="icon" href="{% static 'img/icon.svg' %}" type="image/x-icon" />
+
     <link rel="stylesheet" href="{% static 'css/expert_detail.css' %}" />
     <link rel="stylesheet" href="{% static 'components/footer.css' %}" />
     <link rel="stylesheet" href="{% static 'components/navbar.css' %}" />
-</head>
-<body>
+  </head>
+  <body>
     {% include "components/navbar.html" %}
     <div class="Container">
-        <div class="TopSection"></div>
-        <img
-            class="Profile"
-            src="{% static 'img/profile.svg' %}"
-            alt="profile"
-            width="154px"
-        />
-        <div class="BottomSection">
-            <div class="IntroBox">
-                <span class="Nickname">{{ expert.nickname }}</span>
-                <span class="Category">{{ category_display }}</span>
-            </div>
-            <div class="TwoBtn">
-                <a href="{% url 'matching:create-matching' %}?expert_id={{ expert.id }}" class="Reserve">예약하기 &gt; </a>
-                <a href="{% url 'chats:chat_request' expert.id %}" class="Chat">1:1 상담하기 &gt;</a>
-            </div>
-            <div class="DetailLine"></div>
-            <div class="DetailTextBox">
-                <div class="DetailIntroduce">{{ expert.expert_profile.bio|default:"한줄소개 미등록" }}</div>
-                <div class="DetailDes">{{ expert.expert_profile.description|default:"업무설명 미등록" }}</div>
-            </div>
-
-            <div class="DetailFilterBox">
-                <div class="LocationBox">
-                    <img
-                        src="{% static 'img/location.svg' %}"
-                        alt="location"
-                        width="73px"
-                    />
-                    <div class="LocationText">{{ region_display |default:"미등록" }}</div>
-                </div>
-                <div class="DetailShortLine"></div>
-                <div class="WorkBox">
-                    <img
-                        src="{% static 'img/work.svg' %}"
-                        alt="work"
-                        width="77px"
-                    />
-                    <div class="WorkText"> {{ expert.expert_profile.experience|default:"미등록" }} 년</div>
-                </div>
-                <div class="DetailShortLine"></div>
-                <div class="BadgeBox">
-                    <div class="BadgeText">
-                        인증배지
-                        {% if expert.expert_profile.badge == 'VERIFIED' %}
-                        <img
-                            src="{% static 'img/badgeicon.svg' %}"
-                            alt="인증배지"
-                            width="80px"
-                            style="margin-left: 10px;"
-                        />
-                        {% else %}
-                        <span style="color: #0D5BDA; margin-left: 10px;">미인증</span>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            <div class="ReserveNumBox">
-                <img
-                    src="{% static 'img/reservenum.svg' %}"
-                    width="122px"
-                    class="ReserveImg"
-                />
-                <div class="ReserveNumText">{{ reservation_count }}건</div>
-            </div>
-        
+      <div class="TopSection"></div>
+      <img class="Profile" src="{% static 'img/profile.svg' %}" alt="profile" width="154px" />
+      <div class="BottomSection">
+        <div class="IntroBox">
+          <span class="Nickname">{{ expert.nickname }}</span>
+          <span class="Category">{{ category_display }}</span>
         </div>
-             
+        <div class="TwoBtn">
+          <a href="{% url 'matching:create-matching' %}?expert_id={{ expert.id }}" class="Reserve">예약하기 &gt; </a>
+          <a href="{% url 'chats:chat_request' expert.id %}" class="Chat">1:1 상담하기 &gt;</a>
+        </div>
+        <div class="DetailLine"></div>
+        <div class="DetailTextBox">
+          <div class="DetailIntroduce">{{ expert.expert_profile.bio|default:"한줄소개 미등록" }}</div>
+          <div class="DetailDes">{{ expert.expert_profile.description|default:"업무설명 미등록" }}</div>
+        </div>
+
+        <div class="DetailFilterBox">
+          <div class="LocationBox">
+            <img src="{% static 'img/location.svg' %}" alt="location" width="73px" />
+            <div class="LocationText">{{ region_display |default:"미등록" }}</div>
+          </div>
+          <div class="DetailShortLine"></div>
+          <div class="WorkBox">
+            <img src="{% static 'img/work.svg' %}" alt="work" width="77px" />
+            <div class="WorkText">{{ expert.expert_profile.experience|default:"미등록" }} 년</div>
+          </div>
+          <div class="DetailShortLine"></div>
+          <div class="BadgeBox">
+            <div class="BadgeText">
+              인증배지 {% if expert.expert_profile.badge == 'VERIFIED' %}
+              <img src="{% static 'img/badgeicon.svg' %}" alt="인증배지" width="80px" style="margin-left: 10px" />
+              {% else %}
+              <span style="color: #0d5bda; margin-left: 10px">미인증</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="ReserveNumBox">
+          <img src="{% static 'img/reservenum.svg' %}" width="122px" class="ReserveImg" />
+          <div class="ReserveNumText">{{ reservation_count }}건</div>
+        </div>
+      </div>
     </div>
     {% include "components/footer.html" %}
     <script src="{% static 'components/footer.js' %}"></script>
     <script src="{% static 'components/navbar.js' %}"></script>
     <script src="{% static 'js/load-components.js' %}"></script>
-</body>
+  </body>
 </html>

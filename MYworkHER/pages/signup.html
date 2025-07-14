@@ -1,50 +1,56 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>회원가입 - 마이워커</title>
-  <link rel="stylesheet" href="../css/signup.css" />
-</head>
-<body>
-  <div class="container">
-    <h1>회원가입</h1>
-    <form id="signup-form" novalidate>
-      <div class="form-group">
-  <div class="label-row">
-    <label>ID<span class="required">*</span></label>
-    <span class="error" id="id-error"></span>
-  </div>
-  <input type="text" name="id" id="id" placeholder="아이디 입력 (6~20자)" />
-</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>마이워커</title>
+    <link rel="stylesheet" href="../css/signup.css" />
+    <link rel="icon" href="{% static 'img/icon.svg' %}" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>회원가입</h1>
+      <form id="signup-form" novalidate>
+        <div class="form-group">
+          <div class="label-row">
+            <label>ID<span class="required">*</span></label>
+            <span class="error" id="id-error"></span>
+          </div>
+          <input type="text" name="id" id="id" placeholder="아이디 입력 (6~20자)" />
+        </div>
 
-<div class="form-group">
-  <div class="label-row">
-    <label>Password<span class="required">*</span></label>
-    <span class="error" id="password-error"></span>
-  </div>
-  <div class="password-fields">
-    <input type="password" name="password" id="password" placeholder="비밀번호 입력(문자, 숫자 포함 8~20자)" />
-    <input type="password" name="passwordConfirm" id="passwordConfirm" placeholder="비밀번호 확인" />
-  </div>
-</div>
+        <div class="form-group">
+          <div class="label-row">
+            <label>Password<span class="required">*</span></label>
+            <span class="error" id="password-error"></span>
+          </div>
+          <div class="password-fields">
+            <input type="password" name="password" id="password" placeholder="비밀번호 입력(문자, 숫자 포함 8~20자)" />
+            <input type="password" name="passwordConfirm" id="passwordConfirm" placeholder="비밀번호 확인" />
+          </div>
+        </div>
 
-<div class="form-group">
-  <div class="label-row">
-    <label>연락처<span class="required">*</span></label>
-    <span class="error" id="contact-error"></span>
-  </div>
-  <input type="text" name="phone" id="phone" placeholder="휴대폰 번호 입력 (- 제외 11자리)" pattern="\d*"
-  inputmode="numeric"/>
-  <input type="email" name="email" id="email" placeholder="이메일 입력" />
-</div>
+        <div class="form-group">
+          <div class="label-row">
+            <label>연락처<span class="required">*</span></label>
+            <span class="error" id="contact-error"></span>
+          </div>
+          <input
+            type="text"
+            name="phone"
+            id="phone"
+            placeholder="휴대폰 번호 입력 (- 제외 11자리)"
+            pattern="\d*"
+            inputmode="numeric"
+          />
+          <input type="email" name="email" id="email" placeholder="이메일 입력" />
+        </div>
 
-
-      <div class="button-group">
-        <button type="submit" id="submit-button" disabled>확인</button>
-      </div>
-    </form>
-  </div>
-  <script src="../js/signup.js"></script>
-</body>
+        <div class="button-group">
+          <button type="submit" id="submit-button" disabled>확인</button>
+        </div>
+      </form>
+    </div>
+    <script src="../js/signup.js"></script>
+  </body>
 </html>
