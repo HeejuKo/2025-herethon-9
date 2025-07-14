@@ -85,10 +85,6 @@ def expert_category(request):
         category_value, category_label = category_enum_map[category]
         experts_qs = experts_qs.filter(category=category_value)
 
-    # 하위 카테고리는 적용 X
-    # if subcategory:
-        # experts_qs = experts_qs.filter(description__icontains=subcategory)
-
     # 지역 필터링
     if region_filters and not seoul_all:
         region_values = [get_region_value_by_label(label) for label in region_filters]

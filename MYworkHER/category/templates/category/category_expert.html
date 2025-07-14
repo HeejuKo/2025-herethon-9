@@ -5,12 +5,11 @@
   <meta charset="UTF-8">
   <title>마이워커</title>
     <link rel="icon" href="{% static 'img/icon.svg' %}" type="image/x-icon" />
-  <link rel="stylesheet" href="{% static 'css/category.css' %}"/>
-  <link rel="stylesheet" href="{% static 'css/category_expert.css' %}"/>
-  <link rel="stylesheet" href="{% static 'components/footer.css' %}" />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'components/navbar.css' %}"/>
-
+    <link rel="stylesheet" href="{% static 'css/category.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/category_expert.css' %}"/>
+    <link rel="stylesheet" href="{% static 'components/footer.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'components/navbar.css' %}"/>
 </head>
 <body>
   {% include 'components/navbar.html' %}
@@ -390,9 +389,9 @@
   const wrapper = document.createElement('div');
   wrapper.className = "category-box";
 
-  // 🔥 이동: /experts/?category=appliance
+  // 🔥 이동: /category/?category=appliance
   wrapper.onclick = () => {
-    const url = `/experts/?category=${key}`;
+    const url = `/category/?category=${key}`;
     window.location.href = url;
   };
 

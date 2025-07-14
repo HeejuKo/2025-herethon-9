@@ -9,6 +9,7 @@
 <body>
     <form method="POST">
   {% csrf_token %}
+  상위 카테고리: {{ category }}
   <label>상세 분야를 선택해주세요</label>
   <select name="subcategory" required>
     {% for sub in subcategories %}
