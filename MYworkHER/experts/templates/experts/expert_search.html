@@ -243,14 +243,14 @@
     const btn = document.querySelector(btnSelector);
     const modal = document.querySelector(modalSelector);
 
-    btn.addEventListener("click", () => {
-      if (!modal) return;
-      const isOpen = modal.style.display === displayType;
-      // 전부 닫고 선택한 것만 열기
-      document.querySelectorAll(".Regioncheck, .WorkCheck, .BadgeCheck").forEach(el => el.style.display = "none");
-      modal.style.display = isOpen ? "none" : displayType;
-    });
-  };
+      btn.addEventListener("click", () => {
+        if (!modal) return;
+        const isOpen = modal.style.display === displayType;
+        // 전부 닫고 선택한 것만 열기
+        document.querySelectorAll(".Regioncheck, .WorkCheck, .BadgeCheck").forEach(el => el.style.display = "none");
+        modal.style.display = isOpen ? "none" : displayType;
+      });
+    };
 
   toggleModal(".Region", ".Regioncheck");
   toggleModal(".Work", ".WorkCheck", "flex");
