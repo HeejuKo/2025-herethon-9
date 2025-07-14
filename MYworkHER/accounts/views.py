@@ -113,7 +113,7 @@ def signup_step7(request):
             return redirect('accounts:signup_complete')
 
     return render(request, 'accounts/signup/step7.html', {
-        'subcategories': subcategories
+        'category':category, 'subcategories': subcategories
     })
 
 def signup_complete(request):
