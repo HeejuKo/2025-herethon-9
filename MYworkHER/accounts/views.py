@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import *
 from .models import *
+from experts.models import *
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
@@ -120,6 +121,14 @@ def signup_complete(request):
         user.idImage.save(id_image_name, ContentFile(image_bytes), save = False)
 
     user.save()
+
+    # 💡 전문가인 경우 Expert 객체 자동 생성
+    if user_type == 'EXPERT':
+        Expert.objects.create(
+            user = user,
+            category = CategoryChoices.APPLIANCE,
+        )
+
     request.session.flush()
 
     return render(request, 'accounts/signup/complete.html')

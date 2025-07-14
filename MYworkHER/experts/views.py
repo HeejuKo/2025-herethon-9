@@ -139,7 +139,6 @@ def expert_category(request):
         'region_list': [r[1] for r in RegionChoices.choices],
     })
 
-
 # 키워드 검색 시 한글 - 영문 매핑
 def get_category_value_by_label(keyword):
     for value, label in CategoryChoices.choices:
@@ -354,8 +353,8 @@ def expert_search(request):
         if category_val:
             category_q = Q(category=category_val)
 
-        experts_qs = Expert.objects.select_related('user').filter(
-            Q(user__username__icontains=keyword) |
+        experts_qs = Expert.objectss.select_related('user').filter(
+            Q(user__nickname__icontains=keyword) |
             Q(bio__icontains=keyword) |
             Q(description__icontains=keyword) |
             category_q
