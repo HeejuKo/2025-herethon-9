@@ -135,7 +135,6 @@
       {% endif %}
     {% endfor %}
   </div>
-  {% endif %}
 {% elif keyword or selected_region or selected_experience or badge %}
   <p class="none">검색 결과가 없습니다.</p>
 {% endif %}
@@ -148,103 +147,9 @@
   {% comment %} {% if not keyword and not selected_region and not selected_experience and not badge %} {% endcomment %}
 
   {% include "components/footer.html" %}
-  <script src="{% static 'components/footer.js' %}"></script>
-  <script src="{% static 'components/navbar.js' %}"></script>
-  <script>
-
-    const toggleModal = (btnSelector, modalSelector, displayType = "block") => {
-    const btn = document.querySelector(btnSelector);
-    const modal = document.querySelector(modalSelector);
-
-      btn.addEventListener("click", () => {
-        if (!modal) return;
-        const isOpen = modal.style.display === displayType;
-        // 전부 닫고 선택한 것만 열기
-        document.querySelectorAll(".Regioncheck, .WorkCheck, .BadgeCheck").forEach(el => el.style.display = "none");
-        modal.style.display = isOpen ? "none" : displayType;
-      });
-    };
-
-  toggleModal(".Region", ".Regioncheck");
-  toggleModal(".Work", ".WorkCheck", "flex");
-  toggleModal(".Badge", ".BadgeCheck");
-
-  document.addEventListener("DOMContentLoaded", function () {
-    const badgeAll = document.getElementById("badge_all");
-    const badgeTrue = document.getElementById("badge_true");
-    const form = document.getElementById("expert-filter-form");
-
-    if (badgeAll && badgeTrue) {
-      badgeAll.addEventListener("change", function () {
-        if (badgeAll.checked) {
-          badgeTrue.checked = false;
-        }
-        
-      });
-
-      badgeTrue.addEventListener("change", function () {
-        if (badgeTrue.checked) {
-          badgeAll.checked = false;
-        }
-      });
-    }
-  });
-
-  document.addEventListener("DOMContentLoaded", function () {
-    // 지역 필터: 개별 체크 시 "서울시 전체" 해제
-    const regionAllCheckbox = document.querySelector('input[name="region"]:not([value])');
-    const seoulAllCheckbox = document.querySelector('input[name="seoul_all"]');
-    const regionCheckboxes = document.querySelectorAll('input[name="region"][value]');
-
-    if (seoulAllCheckbox) {
-      seoulAllCheckbox.addEventListener("change", () => {
-        if (seoulAllCheckbox.checked) {
-          regionCheckboxes.forEach(cb => cb.checked = false);
-        }
-      });
-    }
-
-    regionCheckboxes.forEach((checkbox) => {
-      checkbox.addEventListener("change", () => {
-        if (checkbox.checked && regionAllCheckbox.checked) {
-          regionAllCheckbox.checked = false;
-        }
-      });
-    });
-
-    // 경력 필터: "경력 무관" 체크 시 나머지 해제, 나머지 중 하나 체크 시 "경력 무관" 해제
-    const experienceNoneCheckbox = document.querySelector('input[name="experience"]:not([value])'); // 경력 무관
-    const experienceDetailCheckboxes = document.querySelectorAll('input[name="experience"][value]');
-
-    if (experienceNoneCheckbox) {
-      // "경력 무관" 클릭 시 나머지 해제
-      experienceNoneCheckbox.addEventListener("change", () => {
-        if (experienceNoneCheckbox.checked) {
-          experienceDetailCheckboxes.forEach(cb => cb.checked = false);
-        }
-      });
-    }
-
-    experienceDetailCheckboxes.forEach((checkbox) => {
-      checkbox.addEventListener("change", () => {
-        if (checkbox.checked && experienceNoneCheckbox.checked) {
-          experienceNoneCheckbox.checked = false;
-        }
-      });
-    });
-
-    // "서울시 전체" 클릭 시 나머지 지역 체크 해제
-    if (regionAllCheckbox) {
-      regionAllCheckbox.addEventListener("change", () => {
-        if (regionAllCheckbox.checked) {
-          regionCheckboxes.forEach(cb => cb.checked = false);
-        }
-      });
-    }
-
-   
-  });
-  </script>
+  
+  
+  <script src="{% static 'js/filter_common.js' %}"></script>
 
 </body>
 </html>
