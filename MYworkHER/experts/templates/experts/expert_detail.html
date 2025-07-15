@@ -28,7 +28,7 @@
         <div class="DetailLine"></div>
         <div class="DetailTextBox">
           <div class="DetailIntroduce">{{ expert.expert_profile.bio|default:"한줄소개 미등록" }}</div>
-          <div class="DetailDes">{{ expert.expert_profile.description|default:"업무설명 미등록" }}</div>
+          <div class="DetailDes">{{ expert.expert_profile.description|default:"업무 설명 미등록" }}</div>
         </div>
 
         <div class="DetailFilterBox">
@@ -39,7 +39,13 @@
           <div class="DetailShortLine"></div>
           <div class="WorkBox">
             <img src="{% static 'img/work.svg' %}" alt="work" width="77px" />
-            <div class="WorkText">{{ expert.expert_profile.experience|default:"미등록" }} 년</div>
+            <div class="WorkText">
+              {% if expert.expert_profile.experience %}
+                {{ expert.expert_profile.experience }}년
+              {% else %}
+                미등록
+              {% endif %}
+            </div>
           </div>
           <div class="DetailShortLine"></div>
           <div class="BadgeBox">
