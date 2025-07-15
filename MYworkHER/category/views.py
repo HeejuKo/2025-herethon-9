@@ -43,19 +43,12 @@ def expert_category(request):
     show_all = request.GET.get('show_all') == 'true'
     seoul_all = request.GET.get('seoul_all') == 'true'
 
-    category_enum_map = {
-        'appliance': (CategoryChoices.APPLIANCE, '가전/수리'),
-        'health': (CategoryChoices.HEALTH, '헬스/스포츠'),
-        'business': (CategoryChoices.BUSINESS, '컨설팅/비즈니스'),
-        'lifestyle': (CategoryChoices.LIFESTYLE, '생활/라이프'),
-    }
-
     category_value = None
     category_label = None
     experts_qs = Expert.objects.select_related('user').all()
 
-    if category in category_enum_map:
-        category_value, category_label = category_enum_map[category]
+    if category in CATEGORY_ENUM_MAP:
+        category_value, category_label = CATEGORY_ENUM_MAP[category]
         experts_qs = experts_qs.filter(category=category_value)
 
         if subcategory:
