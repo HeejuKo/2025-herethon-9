@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   background-color: #f5f5f5;
   display: flex;
   justify-content: center;
@@ -16,7 +16,7 @@ body {
   border-radius: 35px;
   padding: 40px;
   box-sizing: border-box;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -40,7 +40,7 @@ h1 {
 }
 
 .required {
-  color: #0D5BDA;
+  color: #0d5bda;
   margin-left: 4px;
 }
 
@@ -95,15 +95,15 @@ button {
 
 /* 비활성화 상태 */
 button:disabled {
-  background-color: #FFFFFF;
-  border: 2px solid #CBCBCB;  
-  color: #CBCBCB;
+  background-color: #ffffff;
+  border: 2px solid #cbcbcb;
+  color: #cbcbcb;
   cursor: default;
 }
 
 /* 활성화 상태 */
 button.enabled {
-  background-color: #0D5BDA;
+  background-color: #0d5bda;
   color: #fff;
 }
 .label-row {
@@ -123,4 +123,8 @@ button.enabled {
   margin: 0 0 8px 6px;
   font-weight: 500;
   min-height: 0;
+}
+
+#signup-form input {
+  outline: none;
 }
