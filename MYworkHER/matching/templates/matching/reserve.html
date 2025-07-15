@@ -21,12 +21,21 @@
         <input type="hidden" name="dates" id="datesInput" value="{{selected_dates | join:","}}">
         <input type="hidden" name="times" id="timesInput" value="{{ selected_times|join:"," }}">
             <div class="ReserveInfo">
+                {% if selected_expert.profileImage %}
                 <img
-                    src="{% static "img/profile.svg" %}"
+                    src="{{ selected_expert.profileImage.url }}"
                     alt="profile"
                     width="114px"
                     class="InfoImg"
                 />
+                {% else %}
+                <img
+                    src="{% static 'img/profile.svg' %}"
+                    alt="profile"
+                    width="114px"
+                    class="InfoImg"
+                />
+                {% endif %}
                 <div class="InfoText">
                     <div class="Nickname">{{selected_expert.nickname}}</div>
                     <div class="Category">{{selected_expert.expert_profile.get_category_display}}</div>
@@ -37,7 +46,7 @@
 <div class="QWrapper">
             <div class="Q1">
                 <span class="QNum">01</span>
-                <span class="QText"> 가능 예약 일자를 선택해 주세요.</span>
+                <span class="QText"> 가능 예약 일자를 선택해주세요.</span>
             </div>
             <div class="ChoiceDay">
                 
@@ -59,7 +68,7 @@
             <div class="ResLine"></div>
             <div class="Q2">
                 <span class="QNum">02</span>
-                <span class="QText">가능 예약 시간대를 선택해 주세요.</span>
+                <span class="QText">가능 예약 시간대를 선택해주세요.</span>
             </div>
             <div class="TimeBtnBox">
                 {% for time in available_times %}

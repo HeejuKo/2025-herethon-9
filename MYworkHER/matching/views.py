@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from itertools import product
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
+from django.contrib import messages
 
 from accounts.models import UserType
 from .models import Matching
@@ -32,10 +33,7 @@ def main(request):
 
 # 전문가 id를 받아와 예약 진행
 def get_selected_expert(expert_id):
-    try:
-        return User.objects.get(id=expert_id, userType=UserType.EXPERT)
-    except User.DoesNotExist:
-        return None
+    return get_object_or_404(User, id=expert_id, userType=UserType.EXPERT)
     
 def get_available_dates():
     today = datetime.today()
@@ -233,13 +231,3 @@ def submit_reservation(request):
         else:
             # 아무것도 생성되지 않았을 경우
             return redirect('matching:create-matching')
-
-# 예약 확정 및 저장
-@login_required
-def matching_success(request, matching_id):
-    matching = get_object_or_404(Matching, id=matching_id)
-    return render(request, 'matching/success.html', {
-        'matching': matching,
-        'expert': matching.expert,
-        'category': matching.expert.expert_profile.get_category_display(),
-    })
