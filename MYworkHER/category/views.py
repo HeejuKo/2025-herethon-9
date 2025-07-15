@@ -32,42 +32,13 @@ def get_region_value_by_label(label):
             return value       # 반환: 'MAPO'
     return None
 
-@login_required
-def expert_category(request):
-    category = request.GET.get('category')
-    subcategory = request.GET.get('subcategory')
-
-    region_filters = request.GET.getlist('region')
-    experience_filters = request.GET.getlist('experience')
-    badge_filter = request.GET.get('badge')
-    show_all = request.GET.get('show_all') == 'true'
-    seoul_all = request.GET.get('seoul_all') == 'true'
-
-    category_enum_map = {
-        'appliance': (CategoryChoices.APPLIANCE, '가전/수리'),
-        'health': (CategoryChoices.HEALTH, '헬스/스포츠'),
-        'business': (CategoryChoices.BUSINESS, '컨설팅/비즈니스'),
-        'lifestyle': (CategoryChoices.LIFESTYLE, '생활/라이프'),
-    }
-
-    category_value = None
-    category_label = None
-    experts_qs = Expert.objects.select_related('user').all()
-
-    if category in category_enum_map:
-        category_value, category_label = category_enum_map[category]
-        experts_qs = experts_qs.filter(category=category_value)
-
-        if subcategory:
-            experts_qs = experts_qs.filter(subcategory=subcategory)
-
-    # 지역 필터링
+def apply_region_filter(queryset, region_filters, seoul_all):
     if region_filters and not seoul_all:
-        region_values = [get_region_value_by_label(label) for label in region_filters]
-        region_values = [r for r in region_values if r]
-        experts_qs = experts_qs.filter(user__region__in=region_values)
+        region_values = list(filter(None, (get_region_value_by_label(label) for label in region_filters)))
+        return queryset.filter(user__region__in=region_values)
+    return queryset
 
-    # 경력 필터링
+def apply_experience_filter(queryset, experience_filters):
     if experience_filters:
         queries = Q()
         for e in experience_filters:
@@ -79,11 +50,41 @@ def expert_category(request):
                 queries |= Q(experience__gte=3, experience__lt=5)
             elif e == '5':
                 queries |= Q(experience__gte=5)
-        experts_qs = experts_qs.filter(queries)
+        return queryset.filter(queries)
+    return queryset
 
-    # 인증 배지 필터링
-    if badge_filter == 'false':
-        experts_qs = experts_qs.filter(badge=BadgeChoices.VERIFIED)
+def apply_badge_filter(queryset, badge_filter):
+    if badge_filter == 'true':
+        return queryset.filter(badge=BadgeChoices.VERIFIED)
+    return queryset
+
+@login_required
+def expert_category(request):
+    category = request.GET.get('category')
+    subcategory = request.GET.get('subcategory')
+
+    region_filters = request.GET.getlist('region')
+    experience_filters = request.GET.getlist('experience')
+    badge_filter = request.GET.get('badge')
+    seoul_all = request.GET.get('seoul_all') == 'true'
+    show_all = request.GET.get('show_all') == 'true'
+
+    category_value = None
+    category_label = None
+    experts_qs = Expert.objects.select_related('user').all()
+
+    # 카테고리 및 서브카테고리 필터
+    if category in CATEGORY_ENUM_MAP:
+        category_value, category_label = CATEGORY_ENUM_MAP[category]
+        experts_qs = experts_qs.filter(category=category_value)
+
+        if subcategory:
+            experts_qs = experts_qs.filter(subcategory=subcategory)
+
+    # 필터 적용
+    experts_qs = apply_region_filter(experts_qs, region_filters, seoul_all)
+    experts_qs = apply_experience_filter(experts_qs, experience_filters)
+    experts_qs = apply_badge_filter(experts_qs, badge_filter)
 
     total_count = experts_qs.count()
     experts = list(experts_qs[:10]) if not show_all else list(experts_qs)
