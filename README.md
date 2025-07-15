@@ -36,6 +36,9 @@
 
 ## 🛠️ 기술 스택
 
+### 🎨 기획 & 디자인  
+![Figma](https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
+
 ### 💻 프론트엔드  
 ![HTML](https://img.shields.io/badge/html-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white)
@@ -44,9 +47,6 @@
 ### ⚙️ 백엔드  
 ![Python](https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Django](https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=Django&logoColor=white)
-
-### 🎨 기획 & 디자인  
-![Figma](https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
 
 ---
 
@@ -115,75 +115,24 @@
       <p>기획</p><p>디자인</p><p>발표</p>
     </td>
     <td align="center">
-      <p>메인</p><p>카테고리</p><p>전문가 찾기</p><p>예약</p><p>관리자 상세 페이지</p>
+      <p>메인 페이지</p><p>카테고리</p><p>전문가 찾기</p><p>예약</p><p>관리자 상세 페이지</p>
     </td>
     <td align="center">
       <p>로그인 & 회원가입</p><p>1:1 상담</p><p>마이페이지</p><p>관리자 목록 페이지</p>
     </td>
     <td align="center">
-      <p>메인</p><p>카테고리</p><p>전문가 찾기</p><p>예약</p>
+      <p>메인 페이지</p><p>카테고리</p><p>전문가 찾기</p><p>예약</p>
     </td>
     <td align="center">
-      <p>로그인 & 회원가입</p><p>1:1 상담</p><p>마이페이지</p><p>관리자 페이지</p><p>메인</p><p>카테고리</p><p>전문가 찾기</p><p>예약</p>
+      <p>로그인 & 회원가입</p><p>메인 페이지</p><p>1:1 상담</p><p>마이페이지</p><p>카테고리</p><p>전문가 찾기</p><p>예약</p><p>관리자 페이지</p>
     </td>
     <td align="center">
-      <p>메인</p><p>카테고리</p><p>전문가 찾기</p><p>예약</p><p>회원가입</p><p>1:1 상담</p><p>마이페이지</p><p>관리자 페이지</p>
+      <p>회원가입</p><p>메인 페이지</p><p>1:1 상담</p><p>마이페이지</p><p>카테고리</p><p>전문가 찾기</p><p>예약</p><p>관리자 페이지</p>
     </td>
   </tr>
 </table>
 
 ---
-<!--
-## 📁 폴더 구조
-
-<details>
-<summary>클릭해서 보기</summary>
-  
-
-  ```
-  📂 2025-HERETHON-9/
-  ├── .github/
-  ├── MYworkHER/
-  │   ├── accounts/
-  │   │   ├── __pycache__/
-  │   │   ├── migrations/
-  │   │   │   ├── __pycache__/
-  │   │   │   ├── __init__.py  
-  │   │   │   └── 0001_initial.py
-  │   │   ├── templates/
-  │   │   ├── __init__.py
-  │   │   ├── admin.py
-  │   │   ├── apps.py
-  │   │   ├── forms.py
-  │   │   ├── models.py
-  │   │   ├── tests.py
-  │   │   ├── urls.py
-  │   │   └── views.py
-  │   ├── chats/
-  │   │   ├── __pycache__/
-  │   │   ├── migrations/
-  │   │   ├── templates/
-  │   │   └── templatetags/
-  │   ├── experts/
-  │   ├── matching/
-  │   ├── media/   
-  │   ├── myadmin/
-  │   ├── MYworkHER/
-  │   ├── pages/
-  │   ├── static/
-  │   └── templates/components/
-  ├── db.sqlite3
-  ├── manage.py
-  ├── venv/
-  ├── .gitignore
-  ├── README.md
-  └── requirement.txt
-
-  ```
-</details>
-
----
--->
 
 
 ## 🎬 기능 시연 (Demo)
