@@ -195,21 +195,19 @@
         <a href="{% url 'experts:expert_detail' expert.user.id %}">
             <div class="aWrapper">
 
-        {% if expert.profileImage %}
-        <img
-          src="{{ expert.profileImage.url }}"
-          alt="profile"
-          width="91px"
-          class="img"
-        />
-        {% else %}
-        <img
-          src="{% static 'img/basic_profile.svg' %}"
-          alt="profile"
-          width="91px"
-          class="img"
-        />
-        {% endif %}
+        {% if expert.user.profileImage %}
+                <img
+                    src="{{ expert.user.profileImage.url }}"
+                    alt="profile"
+                    class="img"
+                />
+                {% else %}
+                <img
+                    src="{% static 'img/profile.svg' %}"
+                    alt="profile"
+                    class="img"
+                />
+                {% endif %}
 
         <div class="ExpertInfo">
           <div class="NicknameDiv">

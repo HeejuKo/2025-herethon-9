@@ -103,7 +103,19 @@
       {% if forloop.counter <= 5 or show_all %}
         <div class="ExpertBox">
             <a href="{% url 'experts:expert_detail' expert.user.id %}" class="Nickname">
-          <img class="img" src="{% static 'img/profile.svg' %}" alt="profile" />
+           {% if expert.user.profileImage %}
+                <img
+                    src="{{ expert.user.profileImage.url }}"
+                    alt="profile"
+                    class="img"
+                />
+                {% else %}
+                <img
+                    src="{% static 'img/profile.svg' %}"
+                    alt="profile"
+                    class="img"
+                />
+                {% endif %}
           <div class="ExpertInfo">
             <div class="NickNameDiv">
                 {{ expert.user.nickname }}

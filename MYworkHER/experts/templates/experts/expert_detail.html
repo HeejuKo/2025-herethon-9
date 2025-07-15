@@ -15,7 +15,21 @@
     {% include "components/navbar.html" %}
     <div class="Container">
       <div class="TopSection"></div>
-      <img class="Profile" src="{% static 'img/profile.svg' %}" alt="profile" width="154px" />
+      {% if expert.profileImage %}
+                <img
+                    src="{{ expert.profileImage.url }}"
+                    alt="profile"
+                    width="154px"
+                    class="Profile"
+                />
+                {% else %}
+                <img
+                    src="{% static 'img/profile.svg' %}"
+                    alt="profile"
+                    width="154px"
+                    class="Profile"
+                />
+                {% endif %}
       <div class="BottomSection">
         <div class="IntroBox">
           <span class="Nickname">{{ expert.nickname }}</span>
