@@ -137,9 +137,8 @@
 
 ## 🎬 기능 시연 (Demo)
 
-> [시연 영상 보러가기](https://www.youtube.com/watch?v=dummy-link)
+https://github.com/user-attachments/assets/954d7993-196c-4a7f-bd8b-b51c0c332c79
 
-<img src="https://i.ibb.co/album/demo-gif.gif" width="600px" />
 
 ---
 
