@@ -7,7 +7,6 @@ body {
 .Top {
   display: flex;
   align-items: center;
-  /* margin-left: 110px; */
 }
 
 .SearchBox {
@@ -18,7 +17,6 @@ body {
   background: #ecf0f5;
   display: flex;
   align-items: center;
-  /* margin-left: 255px; */
   margin-top: 52px;
   padding-left: 30px;
 }
@@ -79,7 +77,6 @@ body {
   height: 1.577px;
   background: #cbcbcb;
   margin-top: 41px;
-  /* margin-left: 370px; */
 }
 
 .ReText {
@@ -143,10 +140,6 @@ body {
 }
 
 .NickNameDiv {
-  /* display: flex;
-    align-items: center;
-    margin-top: 27px;
-    text-decoration: none; */
   display: flex;
   gap: 6px;
 }
@@ -168,7 +161,6 @@ body {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  /* margin-bottom: 34px; */
 }
 
 .Description {
@@ -178,10 +170,6 @@ body {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  /* margin-left: -90px; */
-  /* width: 853.486px; */
-  /* height: 55.216px; */
-  /* flex-shrink: 0; */
   margin: 16px 40px 0;
 }
 
@@ -462,11 +450,4 @@ body {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-}
-
-.ExpertBoxes div {
-  height: 390px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }

@@ -40,11 +40,8 @@
           <div class="WorkBox">
             <img src="{% static 'img/work.svg' %}" alt="work" width="77px" />
             <div class="WorkText">
-              {% if expert.expert_profile.experience %}
-                {{ expert.expert_profile.experience }}년
-              {% else %}
-                미등록
-              {% endif %}
+              <!-- prettier-ignore -->
+              {% if expert.expert_profile.experience %} {{ expert.expert_profile.experience }}년 {% else %} 미등록 {%endif %}
             </div>
           </div>
           <div class="DetailShortLine"></div>
@@ -59,7 +56,9 @@
           </div>
         </div>
         <div class="ReserveNumBox">
-          <img src="{% static 'img/reservenum.svg' %}" width="122px" class="ReserveImg" />
+          <!-- prettier-ignore -->
+          {% comment %}<img src="{% static 'img/reservenum.svg' %}" width="122px" class="ReserveImg" /> {% endcomment%}
+          <span class="reserveSpan">이번달 예약</span>
           <div class="ReserveNumText">{{ reservation_count }}건</div>
         </div>
       </div>

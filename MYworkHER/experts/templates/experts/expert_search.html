@@ -10,6 +10,22 @@
     <link rel="stylesheet" href="{% static 'components/footer.css' %}" />
     <link rel="stylesheet" href="{% static 'components/navbar.css' %}" />
      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+     <style>
+      .wrapper {
+        min-height: 465px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .none {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 380px;
+      }
+     </style>
 </head>
 <body>
 {% include 'components/navbar.html' %}
@@ -184,7 +200,7 @@
 </script>
 
   <div class="line"></div>
-
+<div class="wrapper">
   {% if experts %}
   <div class="ExpertBoxes">
     {% for expert in experts %}
@@ -225,12 +241,13 @@
     </form>
   {% endif %}
 {% elif keyword or selected_region or selected_experience or badge %}
-  <p>검색 결과가 없습니다.</p>
+  <p class="none">검색 결과가 없습니다.</p>
 {% endif %}
     <button type="submit" class="ShowAllBtn">
         <span class="BlueText">{{ total_count }}</span>개의 결과 전체보기
     </button>
 
+  </div>
 
   {% comment %} {% if not keyword and not selected_region and not selected_experience and not badge %} {% endcomment %}
 
