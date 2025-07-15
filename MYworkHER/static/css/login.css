@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   background-color: #f5f5f5;
   display: flex;
   justify-content: center;
@@ -15,7 +15,7 @@ body {
   display: flex;
   border-radius: 35px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* 왼쪽 영역 */
@@ -47,15 +47,15 @@ body {
   background: #f0f2f5;
   border-radius: 8px;
   font-size: 15px;
+  outline: none;
 }
 
 /* 왼쪽 버튼 */
 .login-section button {
-
   display: block;
-  padding: 12px 34px;            
-  background-color: #0D5BDA;
-  border: 2px solid #0D5BDA;
+  padding: 12px 34px;
+  background-color: #0d5bda;
+  border: 2px solid #0d5bda;
 
   color: #fff;
   font-size: 16px;
@@ -63,14 +63,14 @@ body {
   border-radius: 30px;
   cursor: pointer;
   text-align: center;
-margin: 0 auto;
-margin-top: 25px;
+  margin: 0 auto;
+  margin-top: 25px;
 }
 
 /* 오른쪽 영역 */
 .info-section {
   width: 50%;
-  background-color: #0D5BDA;
+  background-color: #0d5bda;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -105,5 +105,5 @@ margin-top: 25px;
 }
 
 .signup-btn:hover {
-  background-color: rgba(255,255,255,0.2);
+  background-color: rgba(255, 255, 255, 0.2);
 }

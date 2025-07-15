@@ -7,13 +7,14 @@
     <title>마이워커</title>
     <link rel="icon" href="{% static 'img/icon.svg' %}" type="image/x-icon" />
 
+    <link rel="stylesheet" href="{% static 'components/navbar.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/reserve_confirm.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
 </head>
 <body data-complete="{{ complete|default:False|yesno:"true,false" }}">
     <div class="Container">
-        <div class="Header">
+        {% comment %} <div class="Header">
             <div class="LeftGroup">
                 <div class="Logo">
                     <a href="{% url 'matching:main' %}">
@@ -42,7 +43,9 @@
             {%else%}
             <button class="Btn" id="loginSection" style="display:none;"><a href="{% url 'accounts:login'%}">로그인/회원가입</a></button>
             {% endif %}
-        </div>
+        </div> {% endcomment %}
+    {% include "components/navbar.html" %}
+
 
         <div class="ReserveConfirm"style="{% if complete %}display: none;{% endif %}" >
             
