@@ -276,7 +276,7 @@ body {
   /* padding-right: 20px; */
   /* padding-bottom: 30px; */
   top: 365px;
-  right: 565px;
+  right: 543px;
   display: none;
 }
 
@@ -308,6 +308,7 @@ body {
   position: relative;
   white-space: nowrap;
   justify-content: flex-start;
+  margin-bottom: 8px;
 }
 
 .custom-checkbox .checkmark {
@@ -352,12 +353,12 @@ body {
   position: absolute;
   box-sizing: border-box;
   top: 365px;
-  right: 495px;
+  right: 457px;
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 12px;
-  padding-bottom: 32px;
+  padding-bottom: 22px;
   display: none;
 }
 
@@ -382,7 +383,7 @@ body {
   box-sizing: border-box;
   top: 365px;
 
-  right: 380px;
+  right: 350px;
   gap: 12px;
   display: none;
 }
@@ -532,6 +533,8 @@ flex-shrink: 0; */
 .TextWrapper {
   display: flex;
   margin-bottom: 30px;
+  justify-content: space-between;
+  width: 925px;
 }
 
 .Search {
@@ -564,7 +567,7 @@ flex-shrink: 0; */
 
 .reginWrapper .line {
   width: 540px;
-  margin: 18px 0;
+  margin: 10px 0;
 }
 
 .EWrapper {
@@ -578,7 +581,7 @@ flex-shrink: 0; */
 
 .EWrapper .line {
   width: 124px;
-  margin: 18px 0;
+  margin: 10px 0;
 }
 
 .VWrapper {
@@ -588,5 +591,9 @@ flex-shrink: 0; */
 
 .VWrapper .line {
   width: 158px;
-  margin: 18px 0;
+  margin: 10px 0;
+}
+
+.WorkCheck .custom-checkbox:first-child {
+  margin-bottom: 0;
 }

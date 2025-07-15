@@ -6,19 +6,26 @@
         <img src="{% static 'img/logo.svg' %}" alt="로고" />
       </a>
 
-<a href="{% url 'category:category_list' %}" class="navbar-item {% if '/category' in request.path or request.path == '/category/' %}active{% endif %}">카테고리</a>
-<a href="{% url 'experts:expert_main' %}" class="navbar-item {% if '/experts/list' in request.path or '/experts/search' in request.path  %}active{% endif %}">전문가 찾기</a>
-    
-<a href="{% url 'chats:chat_list' %}" class="navbar-item {% if '/chats' in request.path %}active{% endif %}">
-  1&#58;1상담
-  {% if unread_chat_total > 0 %}
-    <span class="alarm-dot"></span>
-  {% endif %}
-</a>
-<a href="{% url 'accounts:mypage' %}" class="navbar-item {% if '/accounts' in request.path %}active{% endif %}">
-  마이페이지
-</a>
-</div>
+      <a
+        href="{% url 'category:category_list' %}"
+        class="navbar-item {% if '/category' in request.path or request.path == '/category/' %}active{% endif %}"
+        >카테고리</a
+      >
+      <a
+        href="{% url 'experts:expert_main' %}"
+        class="navbar-item {% if '/experts/list' in request.path or '/experts/search' in request.path or '/experts/' in request.path %}active{% endif %}"
+        >전문가 찾기</a
+      >
+
+      <a href="{% url 'chats:chat_list' %}" class="navbar-item {% if '/chats' in request.path %}active{% endif %}">
+        1&#58;1상담 {% if unread_chat_total > 0 %}
+        <span class="alarm-dot"></span>
+        {% endif %}
+      </a>
+      <a href="{% url 'accounts:mypage' %}" class="navbar-item {% if '/accounts' in request.path %}active{% endif %}">
+        마이페이지
+      </a>
+    </div>
     <div class="navbar-right">
       <button class="logout-btn">
         <a href="{% url 'accounts:logout' %}">로그아웃</a>

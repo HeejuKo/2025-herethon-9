@@ -171,7 +171,7 @@ body {
   gap: 10px;
 
   border-radius: 30px;
-  background: #00b333;
+  background: rgba(13, 91, 218, 0.8);
   color: #fff;
   font-family: "Noto Sans KR";
   font-size: 24px;
@@ -182,9 +182,9 @@ body {
   outline: none;
 }
 .Submit.deactive {
-  border: 2px solid #00b333;
+  border: 2px solid rgba(13, 91, 218, 0.8);
   background: #fff;
-  color: #00b333;
+  color: rgba(13, 91, 218, 0.8);
 }
 .Withdraw.hidden {
   display: none;
@@ -197,7 +197,7 @@ body {
   gap: 10px;
 
   border-radius: 30px;
-  background: #ce1717;
+  background: rgba(218, 13, 13, 0.8);
   color: #fff;
   font-family: "Noto Sans KR";
   font-size: 24px;

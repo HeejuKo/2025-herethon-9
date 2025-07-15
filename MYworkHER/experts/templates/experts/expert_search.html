@@ -9,22 +9,6 @@
     <link rel="stylesheet" href="{% static 'components/footer.css' %}" />
     <link rel="stylesheet" href="{% static 'components/navbar.css' %}" />
      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-
-     <style>
-      .wrapper {
-        min-height: 465px;
-        display: flex;
-        flex-direction: column;
-      }
-
-      .none {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        height: 380px;
-      }
-     </style>
 </head>
 <body>
 {% include 'components/navbar.html' %}
@@ -99,7 +83,7 @@
             <span class="checkmark"></span>
             <span class="checkbox-label">전체</span>
           </label>
-          <div class="line"></div>
+          <div class="BadgeCheckline"></div>
           <label class="custom-checkbox">
             <input type="checkbox" name="badge" value="true" id="badge_true" {% if badge %}checked{% endif %}>
             <span class="checkmark"></span>

@@ -52,11 +52,11 @@ body {
 }
 
 .status-pending {
-  color: #0d5bda;
+  color: #565656;
 }
 
 .status-verified {
-  color: #00b333;
+  color: #0d5bda;
 }
 
 /* 구분선이 포함된 user-info */
