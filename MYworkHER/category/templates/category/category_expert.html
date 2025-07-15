@@ -245,15 +245,14 @@
 
 
   <script>
-
-    const toggleModal = (btnSelector, modalSelector, displayType = "block") => {
+  // 모달 열고 닫기
+  const toggleModal = (btnSelector, modalSelector, displayType = "block") => {
     const btn = document.querySelector(btnSelector);
     const modal = document.querySelector(modalSelector);
 
     btn.addEventListener("click", () => {
       if (!modal) return;
       const isOpen = modal.style.display === displayType;
-      // 전부 닫고 선택한 것만 열기
       document.querySelectorAll(".Regioncheck, .WorkCheck, .BadgeCheck").forEach(el => el.style.display = "none");
       modal.style.display = isOpen ? "none" : displayType;
     });
@@ -263,30 +262,23 @@
   toggleModal(".Work", ".WorkCheck", "flex");
   toggleModal(".Badge", ".BadgeCheck");
 
+  // DOM이 로드되면 필터 관련 이벤트 연결
   document.addEventListener("DOMContentLoaded", function () {
+    // 🔹 인증배지: 전체 vs 인증보유 충돌 방지
     const badgeAll = document.getElementById("badge_all");
     const badgeTrue = document.getElementById("badge_true");
-    const form = document.getElementById("expert-filter-form");
 
     if (badgeAll && badgeTrue) {
-      badgeAll.addEventListener("change", function () {
-        if (badgeAll.checked) {
-          badgeTrue.checked = false;
-        }
-        
+      badgeAll.addEventListener("change", () => {
+        if (badgeAll.checked) badgeTrue.checked = false;
       });
 
-      badgeTrue.addEventListener("change", function () {
-        if (badgeTrue.checked) {
-          badgeAll.checked = false;
-        }
+      badgeTrue.addEventListener("change", () => {
+        if (badgeTrue.checked) badgeAll.checked = false;
       });
     }
-  });
 
-  document.addEventListener("DOMContentLoaded", function () {
-    // 지역 필터: 개별 체크 시 "서울시 전체" 해제
-    const regionAllCheckbox = document.querySelector('input[name="region"]:not([value])');
+    // 🔹 지역 필터: 서울시 전체 vs 개별 구
     const seoulAllCheckbox = document.querySelector('input[name="seoul_all"]');
     const regionCheckboxes = document.querySelectorAll('input[name="region"][value]');
 
@@ -298,20 +290,19 @@
       });
     }
 
-    regionCheckboxes.forEach((checkbox) => {
-      checkbox.addEventListener("change", () => {
-        if (checkbox.checked && regionAllCheckbox.checked) {
-          regionAllCheckbox.checked = false;
+    regionCheckboxes.forEach(cb => {
+      cb.addEventListener("change", () => {
+        if (cb.checked && seoulAllCheckbox?.checked) {
+          seoulAllCheckbox.checked = false;
         }
       });
     });
 
-    // 경력 필터: "경력 무관" 체크 시 나머지 해제, 나머지 중 하나 체크 시 "경력 무관" 해제
-    const experienceNoneCheckbox = document.querySelector('input[name="experience"]:not([value])'); // 경력 무관
+    // 🔹 경력 필터: 경력 무관 vs 상세 조건
+    const experienceNoneCheckbox = document.querySelector('input[name="experience"]:not([value])');
     const experienceDetailCheckboxes = document.querySelectorAll('input[name="experience"][value]');
 
     if (experienceNoneCheckbox) {
-      // "경력 무관" 클릭 시 나머지 해제
       experienceNoneCheckbox.addEventListener("change", () => {
         if (experienceNoneCheckbox.checked) {
           experienceDetailCheckboxes.forEach(cb => cb.checked = false);
@@ -319,122 +310,92 @@
       });
     }
 
-    experienceDetailCheckboxes.forEach((checkbox) => {
-      checkbox.addEventListener("change", () => {
-        if (checkbox.checked && experienceNoneCheckbox.checked) {
+    experienceDetailCheckboxes.forEach(cb => {
+      cb.addEventListener("change", () => {
+        if (cb.checked && experienceNoneCheckbox?.checked) {
           experienceNoneCheckbox.checked = false;
         }
       });
     });
-
-    // "서울시 전체" 클릭 시 나머지 지역 체크 해제
-    if (regionAllCheckbox) {
-      regionAllCheckbox.addEventListener("change", () => {
-        if (regionAllCheckbox.checked) {
-          regionCheckboxes.forEach(cb => cb.checked = false);
-        }
-      });
-    }
-
-   
   });
   </script>
 
   <script>
-    const categoryInfo = {
-      appliance: {
-        imgSrc: "/static/img/main_C1.svg",
-        alt: "repair",
-        className: "C1"
-      },
-      health: {
-        imgSrc: "/static/img/main_C2.svg",
-        alt: "sports",
-        className: "C2"
-      },
-      business: {
-        imgSrc: "/static/img/main_C3.svg",
-        alt: "consulting",
-        className: "C3"
-      },
-      lifestyle: {
-        imgSrc: "/static/img/main_C4.svg",
-        alt: "life",
-        className: "C4"
-      }
-    };
-
-    // function createCategoryBox(key) {
-    //   const info = categoryInfo[key];
-    //   if (!info) return;
-
-    //   const wrapper = document.createElement('div');
-    //   wrapper.className = "category-box";
-    //   //wrapper.onclick = () => toggleSub(key);
-
-    //   wrapper.innerHTML = `
-    //     <div class="Category">
-    //       <div class="${info.className}">
-    //         <img id="img-${key}" src="${info.imgSrc}" alt="${info.alt}" width="222.516px" />
-    //       </div>
-    //     </div>
-    //   `;
-    //   return wrapper;
-    // }
-
-    function createCategoryBox(key) {
-  const info = categoryInfo[key];
-  if (!info) return;
-
-  const wrapper = document.createElement('div');
-  wrapper.className = "category-box";
-
-  // 🔥 이동: /category/?category=appliance
-  wrapper.onclick = () => {
-    const url = `/category/?category=${key}`;
-    window.location.href = url;
+  // 카테고리 박스 생성 및 하위 카테고리 토글
+  const categoryInfo = {
+    appliance: {
+      imgSrc: "/static/img/main_C1.svg",
+      alt: "repair",
+      className: "C1"
+    },
+    health: {
+      imgSrc: "/static/img/main_C2.svg",
+      alt: "sports",
+      className: "C2"
+    },
+    business: {
+      imgSrc: "/static/img/main_C3.svg",
+      alt: "consulting",
+      className: "C3"
+    },
+    lifestyle: {
+      imgSrc: "/static/img/main_C4.svg",
+      alt: "life",
+      className: "C4"
+    }
   };
 
-  wrapper.innerHTML = `
-    <div class="Category">
-      <div class="${info.className}">
-        <img id="img-${key}" src="${info.imgSrc}" alt="${info.alt}" width="222.516px" />
+  function createCategoryBox(key) {
+    const info = categoryInfo[key];
+    if (!info) return;
+
+    const wrapper = document.createElement('div');
+    wrapper.className = "category-box";
+
+    wrapper.onclick = () => {
+      const url = `/category/?category=${key}`;
+      window.location.href = url;
+    };
+
+    wrapper.innerHTML = `
+      <div class="Category">
+        <div class="${info.className}">
+          <img id="img-${key}" src="${info.imgSrc}" alt="${info.alt}" width="222.516px" />
+        </div>
       </div>
-    </div>
-  `;
-  return wrapper;
-}
+    `;
+    return wrapper;
+  }
 
-    const categories = ['appliance', 'health', 'business', 'lifestyle'];
-    const container = document.getElementById('categoryContainer');
+  const categories = ['appliance', 'health', 'business', 'lifestyle'];
+  const container = document.getElementById('categoryContainer');
 
-    categories.forEach(key => {
-      const box = createCategoryBox(key);
-      container.appendChild(box);
+  categories.forEach(key => {
+    const box = createCategoryBox(key);
+    container.appendChild(box);
+  });
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const selectedCategory = urlParams.get("category") || "appliance";
+  toggleSub(selectedCategory);
+
+  function toggleSub(key) {
+    document.querySelectorAll('.subcategory-list').forEach(el => {
+      el.style.display = 'none';
     });
 
-    // 카테고리 표시
-    const urlParams = new URLSearchParams(window.location.search);
-    const selectedCategory = urlParams.get("category") || "appliance"; // 기본값은 'appliance'
-    toggleSub(selectedCategory);
-
-    function toggleSub(key) {
-      document.querySelectorAll('.subcategory-list').forEach(el => {
-        el.style.display = 'none'; // 전부 숨기고
-    });
-
-      const target = document.getElementById('sub-' + key);
-      if (target) {
-        target.style.display = 'block'; // 해당 키만 보이게
-      }
-
-      categories.forEach(catKey => {
-        const img = document.getElementById('img-' + catKey);
-        if (img) {
-          img.style.opacity = (catKey === key) ? '1' : '0.2';
-        }
-      });
+    const target = document.getElementById('sub-' + key);
+    if (target) {
+      target.style.display = 'block';
     }
+
+    categories.forEach(catKey => {
+      const img = document.getElementById('img-' + catKey);
+      if (img) {
+        img.style.opacity = (catKey === key) ? '1' : '0.2';
+      }
+    });
+  }
   </script>
 
   <script src="{% static 'components/navbar.js' %}"></script>
